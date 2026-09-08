@@ -1,0 +1,1246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>ANOMALY — Different By Design</title>
+
+  <meta
+    name="description"
+    content="ANOMALY — Streetwear for those who were never meant to fit the standard."
+  >
+
+  <style>
+
+    /* =========================
+       ANOMALY — CORE
+    ========================== */
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --black: #080808;
+      --dark: #101010;
+      --grey: #181818;
+      --light-grey: #9a9a9a;
+      --white: #f5f5f5;
+      --border: #292929;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: Arial, Helvetica, sans-serif;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+
+    /* =========================
+       NAVIGATION
+    ========================== */
+
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      height: 80px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      padding: 0 6%;
+
+      background: rgba(8, 8, 8, 0.95);
+
+      border-bottom: 1px solid var(--border);
+
+      z-index: 1000;
+
+      backdrop-filter: blur(12px);
+    }
+
+    .logo {
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: 6px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 30px;
+    }
+
+    .nav-links a {
+      font-size: 11px;
+      letter-spacing: 2px;
+      color: var(--light-grey);
+      transition: 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: var(--white);
+    }
+
+
+    /* =========================
+       HERO
+    ========================== */
+
+    .hero {
+
+      min-height: 100vh;
+
+      padding: 140px 6% 80px;
+
+      display: flex;
+      align-items: center;
+
+    }
+
+    .hero-grid {
+
+      width: 100%;
+      max-width: 1400px;
+
+      margin: auto;
+
+      display: grid;
+
+      grid-template-columns: 1fr 1fr;
+
+      gap: 70px;
+
+      align-items: center;
+
+    }
+
+    .hero-tag {
+
+      font-size: 10px;
+
+      letter-spacing: 3px;
+
+      color: var(--light-grey);
+
+      margin-bottom: 25px;
+
+    }
+
+    .hero h1 {
+
+      font-size: clamp(65px, 10vw, 160px);
+
+      line-height: 0.82;
+
+      letter-spacing: -7px;
+
+      font-weight: 900;
+
+    }
+
+    .hero h1 span {
+
+      display: block;
+
+      color: transparent;
+
+      -webkit-text-stroke: 1px var(--white);
+
+    }
+
+    .hero-description {
+
+      max-width: 450px;
+
+      margin-top: 35px;
+
+      color: var(--light-grey);
+
+      line-height: 1.7;
+
+      font-size: 15px;
+
+    }
+
+
+    /* =========================
+       BUTTONS
+    ========================== */
+
+    .hero-buttons {
+
+      display: flex;
+
+      gap: 15px;
+
+      margin-top: 35px;
+
+    }
+
+    .button {
+
+      padding: 15px 25px;
+
+      border: 1px solid var(--white);
+
+      font-size: 10px;
+
+      letter-spacing: 2px;
+
+      font-weight: bold;
+
+      transition: 0.3s;
+
+    }
+
+    .button.primary {
+
+      background: var(--white);
+
+      color: var(--black);
+
+    }
+
+    .button.primary:hover {
+
+      background: transparent;
+
+      color: var(--white);
+
+    }
+
+    .button.secondary {
+
+      border-color: var(--border);
+
+      color: var(--white);
+
+    }
+
+    .button.secondary:hover {
+
+      border-color: var(--white);
+
+    }
+
+
+    /* =========================
+       HERO VISUAL
+    ========================== */
+
+    .hero-visual {
+
+      height: 600px;
+
+      border: 1px solid var(--border);
+
+      position: relative;
+
+      display: flex;
+
+      justify-content: center;
+
+      align-items: center;
+
+      overflow: hidden;
+
+      background:
+
+        linear-gradient(
+          135deg,
+          #111,
+          #080808
+        );
+
+    }
+
+    .symbol-container {
+
+      width: 240px;
+
+      height: 240px;
+
+      border: 1px solid var(--white);
+
+      border-radius: 50%;
+
+      display: flex;
+
+      justify-content: center;
+
+      align-items: center;
+
+      font-size: 110px;
+
+      font-weight: 900;
+
+      transform: rotate(-10deg);
+
+    }
+
+    .hero-code {
+
+      position: absolute;
+
+      top: 20px;
+
+      right: 20px;
+
+      font-size: 9px;
+
+      letter-spacing: 2px;
+
+      color: var(--light-grey);
+
+    }
+
+    .hero-classification {
+
+      position: absolute;
+
+      bottom: 20px;
+
+      left: 20px;
+
+      font-size: 9px;
+
+      letter-spacing: 2px;
+
+      color: var(--light-grey);
+
+    }
+
+
+    /* =========================
+       MARQUEE
+    ========================== */
+
+    .marquee {
+
+      border-top: 1px solid var(--border);
+
+      border-bottom: 1px solid var(--border);
+
+      overflow: hidden;
+
+      white-space: nowrap;
+
+      padding: 20px 0;
+
+    }
+
+    .marquee-content {
+
+      display: inline-block;
+
+      animation: marqueeMove 20s linear infinite;
+
+      font-size: 11px;
+
+      letter-spacing: 4px;
+
+      color: var(--light-grey);
+
+    }
+
+    @keyframes marqueeMove {
+
+      from {
+        transform: translateX(0);
+      }
+
+      to {
+        transform: translateX(-50%);
+      }
+
+    }
+
+
+    /* =========================
+       SECTIONS
+    ========================== */
+
+    .section {
+
+      padding: 120px 6%;
+
+    }
+
+    .section-header {
+
+      display: flex;
+
+      justify-content: space-between;
+
+      align-items: end;
+
+      border-bottom: 1px solid var(--border);
+
+      padding-bottom: 20px;
+
+      margin-bottom: 50px;
+
+    }
+
+    .section-tag {
+
+      font-size: 10px;
+
+      letter-spacing: 3px;
+
+      color: var(--light-grey);
+
+      margin-bottom: 15px;
+
+    }
+
+    .section-title {
+
+      font-size: clamp(35px, 5vw, 70px);
+
+      font-weight: 900;
+
+      letter-spacing: -3px;
+
+    }
+
+    .view-all {
+
+      font-size: 10px;
+
+      letter-spacing: 2px;
+
+      color: var(--light-grey);
+
+    }
+
+
+    /* =========================
+       PRODUCTS
+    ========================== */
+
+    .products {
+
+      display: grid;
+
+      grid-template-columns: repeat(3, 1fr);
+
+      gap: 25px;
+
+    }
+
+    .product {
+
+      cursor: pointer;
+
+    }
+
+    .product-image {
+
+      height: 450px;
+
+      background: var(--dark);
+
+      border: 1px solid var(--border);
+
+      position: relative;
+
+      display: flex;
+
+      justify-content: center;
+
+      align-items: center;
+
+      transition: 0.3s;
+
+    }
+
+    .product:hover .product-image {
+
+      border-color: var(--white);
+
+      transform: translateY(-5px);
+
+    }
+
+    .product-code {
+
+      position: absolute;
+
+      top: 15px;
+
+      left: 15px;
+
+      font-size: 9px;
+
+      letter-spacing: 2px;
+
+      color: var(--light-grey);
+
+    }
+
+    .product-placeholder {
+
+      font-size: 12px;
+
+      letter-spacing: 3px;
+
+      color: #444;
+
+    }
+
+    .product-info {
+
+      padding-top: 18px;
+
+    }
+
+    .product-name {
+
+      font-size: 12px;
+
+      font-weight: bold;
+
+      letter-spacing: 1px;
+
+    }
+
+    .product-price {
+
+      margin-top: 7px;
+
+      font-size: 11px;
+
+      color: var(--light-grey);
+
+    }
+
+
+    /* =========================
+       BRAND STATEMENT
+    ========================== */
+
+    .statement {
+
+      padding: 140px 6%;
+
+      border-top: 1px solid var(--border);
+
+      border-bottom: 1px solid var(--border);
+
+    }
+
+    .statement p {
+
+      max-width: 1200px;
+
+      font-size: clamp(35px, 6vw, 90px);
+
+      line-height: 1.05;
+
+      letter-spacing: -4px;
+
+      font-weight: 800;
+
+    }
+
+    .statement span {
+
+      color: var(--light-grey);
+
+    }
+
+
+    /* =========================
+       ABOUT
+    ========================== */
+
+    .about-grid {
+
+      display: grid;
+
+      grid-template-columns: 1fr 1fr;
+
+      gap: 100px;
+
+      max-width: 1300px;
+
+    }
+
+    .about-title {
+
+      font-size: clamp(40px, 5vw, 70px);
+
+      font-weight: 900;
+
+      letter-spacing: -3px;
+
+    }
+
+    .about-text {
+
+      font-size: 15px;
+
+      line-height: 1.8;
+
+      color: var(--light-grey);
+
+    }
+
+    .about-text p + p {
+
+      margin-top: 20px;
+
+    }
+
+
+    /* =========================
+       NEWSLETTER
+    ========================== */
+
+    .newsletter {
+
+      background: var(--white);
+
+      color: var(--black);
+
+      padding: 110px 6%;
+
+      text-align: center;
+
+    }
+
+    .newsletter h2 {
+
+      font-size: clamp(40px, 6vw, 80px);
+
+      letter-spacing: -4px;
+
+      margin-bottom: 20px;
+
+    }
+
+    .newsletter p {
+
+      color: #555;
+
+      margin-bottom: 35px;
+
+    }
+
+    .newsletter-form {
+
+      max-width: 600px;
+
+      margin: auto;
+
+      display: flex;
+
+    }
+
+    .newsletter input {
+
+      flex: 1;
+
+      padding: 17px;
+
+      border: 1px solid #ccc;
+
+      font-size: 12px;
+
+    }
+
+    .newsletter button {
+
+      background: var(--black);
+
+      color: var(--white);
+
+      border: none;
+
+      padding: 0 30px;
+
+      font-size: 10px;
+
+      letter-spacing: 2px;
+
+      cursor: pointer;
+
+    }
+
+
+    /* =========================
+       FOOTER
+    ========================== */
+
+    footer {
+
+      padding: 60px 6%;
+
+    }
+
+    .footer-top {
+
+      display: flex;
+
+      justify-content: space-between;
+
+      margin-bottom: 70px;
+
+    }
+
+    .footer-logo {
+
+      font-size: 28px;
+
+      font-weight: 900;
+
+      letter-spacing: 8px;
+
+    }
+
+    .footer-links {
+
+      display: flex;
+
+      gap: 25px;
+
+      font-size: 10px;
+
+      letter-spacing: 1px;
+
+      color: var(--light-grey);
+
+    }
+
+    .footer-bottom {
+
+      border-top: 1px solid var(--border);
+
+      padding-top: 20px;
+
+      display: flex;
+
+      justify-content: space-between;
+
+      color: #555;
+
+      font-size: 9px;
+
+      letter-spacing: 1px;
+
+    }
+
+
+    /* =========================
+       MOBILE
+    ========================== */
+
+    @media (max-width: 800px) {
+
+      .nav-links {
+        display: none;
+      }
+
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-visual {
+        height: 420px;
+      }
+
+      .products {
+        grid-template-columns: 1fr;
+      }
+
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .section-header {
+        flex-direction: column;
+        align-items: start;
+        gap: 20px;
+      }
+
+      .newsletter-form {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .newsletter button {
+        padding: 17px;
+      }
+
+      .footer-top,
+      .footer-bottom {
+        flex-direction: column;
+        gap: 25px;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+  <!-- NAVIGATION -->
+
+  <nav>
+
+    <a href="#" class="logo">
+      ANOMALY
+    </a>
+
+    <div class="nav-links">
+      <a href="#shop">SHOP</a>
+      <a href="#about">ABOUT</a>
+      <a href="#contact">CONTACT</a>
+    </div>
+
+  </nav>
+
+
+
+  <!-- HERO -->
+
+  <section class="hero">
+
+    <div class="hero-grid">
+
+      <div>
+
+        <div class="hero-tag">
+          EST. 2026 / DIFFERENT BY DESIGN
+        </div>
+
+        <h1>
+          STAY
+          <span>DIFFERENT.</span>
+        </h1>
+
+        <p class="hero-description">
+
+          ANOMALY creates clothing for those who were
+          never meant to blend into the standard.
+
+        </p>
+
+        <div class="hero-buttons">
+
+          <a
+            href="#shop"
+            class="button primary"
+          >
+            SHOP DROP
+          </a>
+
+          <a
+            href="#about"
+            class="button secondary"
+          >
+            OUR STORY
+          </a>
+
+        </div>
+
+      </div>
+
+
+      <div class="hero-visual">
+
+        <!-- Temporary symbol placeholder -->
+
+        <div class="symbol-container">
+          A
+        </div>
+
+        <div class="hero-code">
+          ANM-001
+        </div>
+
+        <div class="hero-classification">
+          CLASSIFICATION: ANOMALY
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- MARQUEE -->
+
+  <section class="marquee">
+
+    <div class="marquee-content">
+
+      DIFFERENT BY DESIGN ✦
+      BUILT TO STAND APART ✦
+      ANOMALY ✦
+      DIFFERENT BY DESIGN ✦
+      BUILT TO STAND APART ✦
+      ANOMALY ✦
+      DIFFERENT BY DESIGN ✦
+      BUILT TO STAND APART ✦
+
+    </div>
+
+  </section>
+
+
+
+  <!-- SHOP -->
+
+  <section
+    class="section"
+    id="shop"
+  >
+
+    <div class="section-header">
+
+      <div>
+
+        <div class="section-tag">
+          001 / THE FIRST DROP
+        </div>
+
+        <h2 class="section-title">
+          THE ANOMALY COLLECTION
+        </h2>
+
+      </div>
+
+      <a
+        href="#"
+        class="view-all"
+      >
+        VIEW ALL →
+      </a>
+
+    </div>
+
+
+    <div class="products">
+
+
+      <!-- PRODUCT 1 -->
+
+      <div class="product">
+
+        <div class="product-image">
+
+          <div class="product-code">
+            ANM-001
+          </div>
+
+          <div class="product-placeholder">
+            PRODUCT IMAGE
+          </div>
+
+        </div>
+
+        <div class="product-info">
+
+          <div class="product-name">
+            ANOMALY / CORE TEE
+          </div>
+
+          <div class="product-price">
+            COMING SOON
+          </div>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- PRODUCT 2 -->
+
+      <div class="product">
+
+        <div class="product-image">
+
+          <div class="product-code">
+            ANM-002
+          </div>
+
+          <div class="product-placeholder">
+            PRODUCT IMAGE
+          </div>
+
+        </div>
+
+        <div class="product-info">
+
+          <div class="product-name">
+            ANOMALY / CLASSIFIED
+          </div>
+
+          <div class="product-price">
+            COMING SOON
+          </div>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- PRODUCT 3 -->
+
+      <div class="product">
+
+        <div class="product-image">
+
+          <div class="product-code">
+            ANM-003
+          </div>
+
+          <div class="product-placeholder">
+            PRODUCT IMAGE
+          </div>
+
+        </div>
+
+        <div class="product-info">
+
+          <div class="product-name">
+            ANOMALY / UNKNOWN
+          </div>
+
+          <div class="product-price">
+            COMING SOON
+          </div>
+
+        </div>
+
+      </div>
+
+
+    </div>
+
+  </section>
+
+
+
+  <!-- STATEMENT -->
+
+  <section class="statement">
+
+    <p>
+
+      You weren't made to fit
+      <span>every system.</span>
+
+      Some things aren't errors.
+
+      <span>They're anomalies.</span>
+
+    </p>
+
+  </section>
+
+
+
+  <!-- ABOUT -->
+
+  <section
+    class="section"
+    id="about"
+  >
+
+    <div class="about-grid">
+
+      <div>
+
+        <div class="section-tag">
+          ABOUT THE BRAND
+        </div>
+
+        <h2 class="about-title">
+
+          DIFFERENCE
+          <br>
+          IS THE POINT.
+
+        </h2>
+
+      </div>
+
+
+      <div class="about-text">
+
+        <p>
+
+          ANOMALY is built around one idea:
+          not everything is meant to fit
+          the expected pattern.
+
+        </p>
+
+        <p>
+
+          We create streetwear for people
+          who think differently,
+          move differently
+          and refuse to become a copy
+          of everyone around them.
+
+        </p>
+
+        <p>
+
+          This isn't about following
+          the next trend.
+
+          It's about building an identity
+          that stands apart from it.
+
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- NEWSLETTER -->
+
+  <section
+    class="newsletter"
+    id="contact"
+  >
+
+    <h2>
+      ENTER THE UNKNOWN.
+    </h2>
+
+    <p>
+      Get notified before the next ANOMALY drop.
+    </p>
+
+    <form
+      class="newsletter-form"
+      id="newsletterForm"
+    >
+
+      <input
+        type="email"
+        placeholder="YOUR EMAIL ADDRESS"
+        required
+      >
+
+      <button type="submit">
+        JOIN
+      </button>
+
+    </form>
+
+  </section>
+
+
+
+  <!-- FOOTER -->
+
+  <footer>
+
+    <div class="footer-top">
+
+      <div class="footer-logo">
+        ANOMALY
+      </div>
+
+      <div class="footer-links">
+
+        <a href="#">
+          INSTAGRAM
+        </a>
+
+        <a href="#">
+          TIKTOK
+        </a>
+
+        <a href="#contact">
+          CONTACT
+        </a>
+
+      </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+      <div>
+        © 2026 ANOMALY.
+        ALL RIGHTS RESERVED.
+      </div>
+
+      <div>
+        DIFFERENT BY DESIGN.
+      </div>
+
+    </div>
+
+  </footer>
+
+
+
+  <!-- JAVASCRIPT -->
+
+  <script>
+
+    document
+      .getElementById("newsletterForm")
+      .addEventListener(
+        "submit",
+        function(event) {
+
+          event.preventDefault();
+
+          alert(
+            "WELCOME TO ANOMALY."
+          );
+
+          this.reset();
+
+        }
+      );
+
+  </script>
+
+
+</body>
+
+</html>
