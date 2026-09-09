@@ -79,15 +79,15 @@
     }
 
     .logo {
-      font-size: 20px;
-      font-weight: 900;
-      letter-spacing: 6px;
-    }
+  display: flex;
+  align-items: center;
+}
 
-    .nav-links {
-      display: flex;
-      gap: 30px;
-    }
+.wordmark {
+  width: 150px;
+  height: auto;
+  display: block;
+}
 
     .nav-links a {
       font-size: 11px;
@@ -816,8 +816,12 @@
   <nav>
 
     <a href="#" class="logo">
-      ANOMALY
-    </a>
+  <img
+    src="text.png"
+    alt="ANOMALY"
+    class="wordmark"
+  >
+</a>
 
     <div class="nav-links">
       <a href="#shop">SHOP</a>
