@@ -275,27 +275,29 @@
 
     .symbol-container {
 
-      width: 240px;
+  width: 340px;
 
-      height: 240px;
+  height: 340px;
 
-      border: 1px solid var(--white);
+  display: flex;
 
-      border-radius: 50%;
+  justify-content: center;
 
-      display: flex;
+  align-items: center;
 
-      justify-content: center;
+}
 
-      align-items: center;
+.anomaly-symbol {
 
-      font-size: 110px;
+  width: 100%;
 
-      font-weight: 900;
+  height: 100%;
 
-      transform: rotate(-10deg);
+  object-fit: contain;
 
-    }
+  mix-blend-mode: screen;
+
+}
 
     .hero-code {
 
@@ -876,10 +878,13 @@
 
         <!-- Temporary symbol placeholder -->
 
-        <div class="symbol-container">
-          A
-        </div>
-
+       <div class="symbol-container">
+  <img
+    src="symbol.png"
+    alt="ANOMALY Symbol"
+    class="anomaly-symbol"
+  >
+</div>
         <div class="hero-code">
           ANM-001
         </div>
