@@ -455,9 +455,13 @@
 
     .product {
 
-      cursor: pointer;
-
+     cursor: pointer;
+      transition: transform 0.35s ease;
     }
+
+    .product:hover {
+        transform: translateY(-8px);
+}
 
     .product-image {
 
@@ -477,8 +481,25 @@
 
       transition: 0.3s;
 
+      overflow: hidden;
+      transition: border-color 0.35s ease;
+
     }
 
+    .product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease, filter 0.5s ease;
+}
+
+    .product:hover .product-image img {
+  transform: scale(1.025);
+  filter: brightness(1.08);
+}
+
+    
     .product:hover .product-image {
 
       border-color: var(--white);
@@ -512,6 +533,33 @@
       color: #444;
 
     }
+
+    .product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease, filter 0.5s ease;
+}
+
+.product:hover .product-image img {
+  transform: scale(1.025);
+  filter: brightness(1.08);
+}
+
+    .product:not(:first-child) {
+  cursor: not-allowed;
+}
+
+.product:not(:first-child):hover {
+  transform: translateY(-4px);
+}
+
+.product:not(:first-child):hover .product-image img {
+  transform: scale(1.01);
+  filter: brightness(0.85);
+}
+    
 
     .product-photo {
   width: 100%;
