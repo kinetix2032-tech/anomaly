@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>ANM-001 — ANOMALY</title>
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: #08090B;
+      color: #F1F1ED;
+      font-family: Arial, Helvetica, sans-serif;
+      overflow-x: hidden;
+    }
+
+
+    /* NAVIGATION */
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      padding: 24px 6%;
+      border-bottom: 1px solid #1E2025;
+    }
+
+    .nav-logo {
+      font-size: 14px;
+      letter-spacing: 4px;
+      font-weight: bold;
+    }
+
+    .back-link {
+      color: #888;
+      text-decoration: none;
+      font-size: 11px;
+      letter-spacing: 2px;
+      transition: color 0.3s ease;
+    }
+
+    .back-link:hover {
+      color: #F1F1ED;
+    }
+
+
+    /* PRODUCT HERO */
+
+    .product-hero {
+      min-height: 82vh;
+
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 7vw;
+
+      padding: 7vw 8%;
+      align-items: center;
+    }
+
+
+    /* PRODUCT IMAGE */
+
+    .product-visual {
+      background: #111318;
+
+      border: 1px solid #262A31;
+
+      min-height: 650px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      overflow: hidden;
+    }
+
+    .product-visual img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+
+      display: block;
+
+      transition: transform 0.6s ease;
+    }
+
+    .product-visual:hover img {
+      transform: scale(1.025);
+    }
+
+
+    /* PRODUCT INFORMATION */
+
+    .product-type {
+      font-size: 11px;
+      letter-spacing: 4px;
+      color: #777;
+      margin-bottom: 22px;
+    }
+
+    h1 {
+      font-size: clamp(55px, 8vw, 120px);
+      line-height: 0.9;
+      letter-spacing: -4px;
+      margin-bottom: 28px;
+    }
+
+    .product-name {
+      font-size: 16px;
+      letter-spacing: 4px;
+      margin-bottom: 35px;
+    }
+
+    .product-description {
+      max-width: 450px;
+
+      color: #999;
+      font-size: 14px;
+      line-height: 1.8;
+
+      margin-bottom: 45px;
+    }
+
+    .status {
+      display: inline-block;
+
+      border: 1px solid #333;
+      padding: 13px 18px;
+
+      font-size: 10px;
+      letter-spacing: 3px;
+
+      margin-bottom: 35px;
+    }
+
+    .product-button {
+      display: inline-block;
+
+      border: 1px solid #F1F1ED;
+
+      padding: 16px 30px;
+
+      color: #F1F1ED;
+      text-decoration: none;
+
+      font-size: 11px;
+      letter-spacing: 3px;
+
+      transition:
+        background 0.3s ease,
+        color 0.3s ease;
+    }
+
+    .product-button:hover {
+      background: #F1F1ED;
+      color: #08090B;
+    }
+
+
+    /* CLASSIFICATION SECTION */
+
+    .classification {
+
+      border-top: 1px solid #1E2025;
+
+      padding: 120px 8%;
+
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+
+      gap: 8vw;
+    }
+
+    .classification-title {
+      font-size: 12px;
+      letter-spacing: 4px;
+      color: #777;
+    }
+
+    .classification-data {
+      display: flex;
+      flex-direction: column;
+      gap: 45px;
+    }
+
+    .data-label {
+      display: block;
+
+      font-size: 10px;
+      letter-spacing: 3px;
+
+      color: #666;
+
+      margin-bottom: 12px;
+    }
+
+    .data-value {
+      font-size: 18px;
+      letter-spacing: 2px;
+    }
+
+    .coordinate-link {
+      color: #F1F1ED;
+      text-decoration: none;
+
+      border-bottom: 1px solid #333;
+
+      padding-bottom: 8px;
+
+      transition: border-color 0.3s ease;
+    }
+
+    .coordinate-link:hover {
+      border-color: #F1F1ED;
+    }
+
+
+    /* FOOTER */
+
+    footer {
+
+      border-top: 1px solid #1E2025;
+
+      padding: 35px 8%;
+
+      display: flex;
+      justify-content: space-between;
+
+      font-size: 10px;
+      letter-spacing: 2px;
+
+      color: #555;
+    }
+
+
+    /* MOBILE */
+
+    @media (max-width: 800px) {
+
+      nav {
+        padding: 20px 7%;
+      }
+
+      .product-hero {
+
+        grid-template-columns: 1fr;
+
+        padding: 14vw 7%;
+
+        gap: 60px;
+      }
+
+      .product-visual {
+        min-height: 500px;
+      }
+
+      h1 {
+        font-size: clamp(55px, 16vw, 90px);
+      }
+
+      .classification {
+
+        grid-template-columns: 1fr;
+
+        padding: 90px 7%;
+
+        gap: 50px;
+      }
+
+      footer {
+        padding: 30px 7%;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+  <!-- NAVIGATION -->
+
+  <nav>
+
+    <div class="nav-logo">
+      ANOMALY
+    </div>
+
+    <a href="index.html#shop" class="back-link">
+      ← BACK TO COLLECTION
+    </a>
+
+  </nav>
+
+
+  <!-- PRODUCT HERO -->
+
+  <section class="product-hero">
+
+
+    <!-- PRODUCT IMAGE -->
+
+    <div class="product-visual">
+
+      <img
+        src="use.png"
+        alt="ANOMALY ANM-001 Core Tee"
+      >
+
+    </div>
+
+
+    <!-- PRODUCT INFORMATION -->
+
+    <div class="product-information">
+
+      <div class="product-type">
+        ANOMALY / DROP 001
+      </div>
+
+      <h1>
+        ANM-001
+      </h1>
+
+      <div class="product-name">
+        CORE TEE
+      </div>
+
+      <p class="product-description">
+
+        OUTSIDE THE PATTERN.<br>
+        NOT A DEFECT. AN ANOMALY.
+
+      </p>
+
+      <div class="status">
+        STATUS: UNRESOLVED
+      </div>
+
+      <br>
+
+      <a href="#classification" class="product-button">
+        ACCESS CLASSIFICATION DATA
+      </a>
+
+    </div>
+
+
+  </section>
+
+
+  <!-- CLASSIFICATION -->
+
+  <section
+    class="classification"
+    id="classification"
+  >
+
+    <div class="classification-title">
+      CLASSIFICATION DATA
+    </div>
+
+
+    <div class="classification-data">
+
+
+      <div>
+
+        <span class="data-label">
+          IDENTIFIER
+        </span>
+
+        <div class="data-value">
+          A//001
+        </div>
+
+      </div>
+
+
+      <div>
+
+        <span class="data-label">
+          CLASSIFICATION
+        </span>
+
+        <div class="data-value">
+          ANOMALY
+        </div>
+
+      </div>
+
+
+      <div>
+
+        <span class="data-label">
+          COORDINATE
+        </span>
+
+        <div class="data-value">
+
+          <a
+            href="https://www.google.com/maps?q=0,0"
+            target="_blank"
+            class="coordinate-link"
+          >
+            00.0000° N / 00.0000° E
+          </a>
+
+        </div>
+
+      </div>
+
+
+      <div>
+
+        <span class="data-label">
+          STATUS
+        </span>
+
+        <div class="data-value">
+          UNRESOLVED
+        </div>
+
+      </div>
+
+
+    </div>
+
+  </section>
+
+
+  <!-- FOOTER -->
+
+  <footer>
+
+    <div>
+      ANOMALY / A//001
+    </div>
+
+    <div>
+      OUTSIDE THE PATTERN
+    </div>
+
+  </footer>
+
+
+</body>
+
+</html>
