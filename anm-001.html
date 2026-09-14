@@ -477,6 +477,65 @@
   }
 
 }
+
+    /* =========================
+   GARMENT SPECIFICATION
+========================= */
+
+.garment-specification {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 140px 40px;
+  border-top: 1px solid #222;
+}
+
+.specification-title {
+  font-size: 10px;
+  letter-spacing: 4px;
+  color: #777;
+  margin-bottom: 60px;
+}
+
+.specification-table {
+  border-top: 1px solid #333;
+}
+
+.specification-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  padding: 24px 0;
+
+  border-bottom: 1px solid #222;
+}
+
+.spec-label {
+  font-size: 9px;
+  letter-spacing: 3px;
+  color: #666;
+}
+
+.spec-value {
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: #e5e5e5;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 700px) {
+
+  .garment-specification {
+    padding: 90px 20px;
+  }
+
+  .specification-row {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+}
   </style>
   
 </head>
@@ -690,6 +749,50 @@
     <span class="status-active">
       ACTIVE
     </span>
+
+  </div>
+
+</section>
+
+  <!-- GARMENT SPECIFICATION -->
+
+<section class="garment-specification">
+
+  <div class="specification-title">
+    GARMENT SPECIFICATION
+  </div>
+
+  <div class="specification-table">
+
+    <div class="specification-row">
+      <span class="spec-label">TYPE</span>
+      <span class="spec-value">CORE TEE</span>
+    </div>
+
+    <div class="specification-row">
+      <span class="spec-label">IDENTIFIER</span>
+      <span class="spec-value">ANM-001</span>
+    </div>
+
+    <div class="specification-row">
+      <span class="spec-label">CLASSIFICATION</span>
+      <span class="spec-value">ANOMALY</span>
+    </div>
+
+    <div class="specification-row">
+      <span class="spec-label">DROP</span>
+      <span class="spec-value">001 / THE FIRST DROP</span>
+    </div>
+
+    <div class="specification-row">
+      <span class="spec-label">COLOR</span>
+      <span class="spec-value">BLACK</span>
+    </div>
+
+    <div class="specification-row">
+      <span class="spec-label">STATUS</span>
+      <span class="spec-value">UNRESOLVED</span>
+    </div>
 
   </div>
 
