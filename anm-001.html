@@ -379,6 +379,104 @@
   border-bottom-color: #ffffff;
 }
 
+
+    /* =========================
+   SIGNAL LOCATION
+========================= */
+
+.signal-location {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 140px 40px;
+  border-top: 1px solid #222;
+}
+
+.signal-header {
+  font-size: 10px;
+  letter-spacing: 4px;
+  color: #777;
+  margin-bottom: 70px;
+}
+
+.signal-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+}
+
+.signal-label {
+  font-size: 9px;
+  letter-spacing: 3px;
+  color: #666;
+  margin-bottom: 25px;
+}
+
+.signal-coordinate {
+  font-size: 28px;
+  letter-spacing: 2px;
+  color: #e5e5e5;
+  margin-bottom: 8px;
+}
+
+.signal-location-name {
+  font-size: 36px;
+  letter-spacing: 5px;
+  color: #e5e5e5;
+  margin-bottom: 30px;
+}
+
+.signal-description {
+  font-size: 11px;
+  line-height: 2;
+  letter-spacing: 2px;
+  color: #888;
+}
+
+.signal-status {
+  margin-top: 100px;
+  padding-top: 25px;
+  border-top: 1px solid #333;
+
+  display: flex;
+  justify-content: space-between;
+
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: #666;
+}
+
+.status-active {
+  color: #e5e5e5;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 700px) {
+
+  .signal-location {
+    padding: 90px 20px;
+  }
+
+  .signal-grid {
+    grid-template-columns: 1fr;
+    gap: 60px;
+  }
+
+  .signal-coordinate {
+    font-size: 22px;
+  }
+
+  .signal-location-name {
+    font-size: 28px;
+    letter-spacing: 4px;
+  }
+
+  .signal-status {
+    margin-top: 70px;
+  }
+
+}
   </style>
   
 </head>
@@ -537,6 +635,65 @@
     </div>
 
   </section>
+
+  <!-- SIGNAL LOCATION -->
+
+<section class="signal-location">
+
+  <div class="signal-header">
+    SIGNAL LOCATION
+  </div>
+
+  <div class="signal-grid">
+
+    <div class="signal-coordinates">
+
+      <div class="signal-label">
+        SOURCE COORDINATES
+      </div>
+
+      <div class="signal-coordinate">
+        00°00'00.0"N
+      </div>
+
+      <div class="signal-coordinate">
+        000°00'00.0"E
+      </div>
+
+    </div>
+
+
+    <div class="signal-data">
+
+      <div class="signal-label">
+        DETECTED LOCATION
+      </div>
+
+      <div class="signal-location-name">
+        NULL ISLAND
+      </div>
+
+      <div class="signal-description">
+        NO LANDMARK DETECTED.<br>
+        NO POINT OF ORIGIN CONFIRMED.
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="signal-status">
+
+    <span>SIGNAL STATUS</span>
+
+    <span class="status-active">
+      ACTIVE
+    </span>
+
+  </div>
+
+</section>
 
 
   <!-- FOOTER -->
