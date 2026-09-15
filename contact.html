@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>ANOMALY — Contact</title>
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: #08090B;
+      color: #E5E5E5;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    nav {
+      height: 70px;
+      border-bottom: 1px solid #222;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 6%;
+    }
+
+    .logo {
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 3px;
+    }
+
+    .back-link {
+      color: #777;
+      text-decoration: none;
+      font-size: 10px;
+      letter-spacing: 3px;
+      transition: 0.2s ease;
+    }
+
+    .back-link:hover {
+      color: #ffffff;
+    }
+
+    .contact-page {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 120px 40px 160px;
+    }
+
+    .page-label {
+      font-size: 10px;
+      letter-spacing: 4px;
+      color: #666;
+      margin-bottom: 35px;
+    }
+
+    .page-title {
+      font-size: clamp(48px, 8vw, 100px);
+      line-height: 0.9;
+      letter-spacing: -4px;
+      color: #ffffff;
+      margin-bottom: 100px;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 100px;
+    }
+
+    .section-label {
+      font-size: 9px;
+      letter-spacing: 3px;
+      color: #666;
+      margin-bottom: 25px;
+    }
+
+    .contact-description {
+      font-size: 13px;
+      line-height: 1.9;
+      letter-spacing: 1px;
+      color: #888;
+      max-width: 300px;
+    }
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 35px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .form-group label {
+      font-size: 9px;
+      letter-spacing: 3px;
+      color: #666;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid #333;
+      color: #ffffff;
+      padding: 12px 0;
+      font-family: inherit;
+      font-size: 13px;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-bottom-color: #ffffff;
+    }
+
+    .form-group textarea {
+      min-height: 130px;
+      resize: vertical;
+    }
+
+    .submit-button {
+      align-self: flex-start;
+      background: transparent;
+      border: 1px solid #444;
+      color: #ffffff;
+      padding: 15px 25px;
+      font-size: 9px;
+      letter-spacing: 3px;
+      cursor: pointer;
+      transition: 0.25s ease;
+    }
+
+    .submit-button:hover {
+      background: #ffffff;
+      color: #08090B;
+      border-color: #ffffff;
+    }
+
+    @media (max-width: 700px) {
+
+      nav {
+        padding: 0 20px;
+      }
+
+      .contact-page {
+        padding: 90px 20px 120px;
+      }
+
+      .page-title {
+        margin-bottom: 70px;
+      }
+
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 70px;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+  <nav>
+
+    <div class="logo">
+      ANOMALY
+    </div>
+
+    <a href="index.html" class="back-link">
+      ← BACK TO HOME
+    </a>
+
+  </nav>
+
+
+  <main class="contact-page">
+
+    <div class="page-label">
+      COMMUNICATION CHANNEL
+    </div>
+
+    <h1 class="page-title">
+      ESTABLISH<br>
+      CONNECTION.
+    </h1>
+
+
+    <div class="contact-grid">
+
+
+      <div class="contact-info">
+
+        <div class="section-label">
+          CONTACT ANOMALY
+        </div>
+
+        <p class="contact-description">
+          FOR GENERAL INQUIRIES, COLLABORATIONS,
+          PRESS, OR OTHER COMMUNICATIONS.
+        </p>
+
+      </div>
+
+
+      <form class="contact-form">
+
+        <div class="form-group">
+
+          <label for="name">
+            NAME
+          </label>
+
+          <input
+            type="text"
+            id="name"
+            name="name"
+            required
+          >
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label for="email">
+            EMAIL
+          </label>
+
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
+          >
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label for="subject">
+            SUBJECT
+          </label>
+
+          <input
+            type="text"
+            id="subject"
+            name="subject"
+            required
+          >
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label for="message">
+            MESSAGE
+          </label>
+
+          <textarea
+            id="message"
+            name="message"
+            required
+          ></textarea>
+
+        </div>
+
+
+        <button
+          type="submit"
+          class="submit-button"
+        >
+          TRANSMIT
+        </button>
+
+      </form>
+
+    </div>
+
+  </main>
+
+</body>
+
+</html>
