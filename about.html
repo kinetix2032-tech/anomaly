@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>ANOMALY — ABOUT</title>
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: #08090B;
+      color: #E5E5E5;
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.6;
+    }
+
+    /* =========================
+       NAVIGATION
+    ========================= */
+
+    nav {
+      height: 80px;
+      padding: 0 40px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      border-bottom: 1px solid #222;
+    }
+
+    .nav-logo {
+      font-size: 16px;
+      font-weight: bold;
+      letter-spacing: 5px;
+      color: #E5E5E5;
+      text-decoration: none;
+    }
+
+    .nav-back {
+      font-size: 10px;
+      letter-spacing: 3px;
+      color: #777;
+      text-decoration: none;
+
+      transition: color 0.25s ease;
+    }
+
+    .nav-back:hover {
+      color: #E5E5E5;
+    }
+
+
+    /* =========================
+       HERO
+    ========================= */
+
+    .about-hero {
+      max-width: 1200px;
+      margin: 0 auto;
+
+      padding: 150px 40px 130px;
+    }
+
+    .about-label {
+      font-size: 10px;
+      letter-spacing: 4px;
+      color: #666;
+
+      margin-bottom: 35px;
+    }
+
+    .about-title {
+      font-size: clamp(48px, 8vw, 110px);
+      line-height: 0.95;
+      letter-spacing: -4px;
+      font-weight: 600;
+
+      max-width: 950px;
+    }
+
+    .about-title span {
+      color: #666;
+    }
+
+
+    /* =========================
+       STORY
+    ========================= */
+
+    .about-story {
+      max-width: 1100px;
+      margin: 0 auto;
+
+      padding: 100px 40px 140px;
+
+      border-top: 1px solid #222;
+    }
+
+    .story-grid {
+      display: grid;
+      grid-template-columns: 0.7fr 1.3fr;
+      gap: 100px;
+    }
+
+    .story-label {
+      font-size: 10px;
+      letter-spacing: 4px;
+      color: #666;
+    }
+
+    .story-content {
+      max-width: 700px;
+    }
+
+    .story-content p {
+      font-size: 16px;
+      line-height: 2;
+
+      color: #BDBDBD;
+
+      margin-bottom: 32px;
+    }
+
+    .story-content p:first-child {
+      color: #E5E5E5;
+    }
+
+
+    /* =========================
+       CORE STATEMENT
+    ========================= */
+
+    .core-statement {
+      max-width: 1100px;
+      margin: 0 auto;
+
+      padding: 120px 40px;
+
+      border-top: 1px solid #222;
+      border-bottom: 1px solid #222;
+    }
+
+    .statement-label {
+      font-size: 10px;
+      letter-spacing: 4px;
+      color: #666;
+
+      margin-bottom: 50px;
+    }
+
+    .statement {
+      font-size: clamp(32px, 5vw, 68px);
+      line-height: 1.08;
+      letter-spacing: -2px;
+
+      max-width: 900px;
+
+      color: #E5E5E5;
+    }
+
+    .statement span {
+      color: #777;
+    }
+
+
+    /* =========================
+       WHAT ANOMALY IS
+    ========================= */
+
+    .anomaly-values {
+      max-width: 1100px;
+      margin: 0 auto;
+
+      padding: 140px 40px;
+    }
+
+    .values-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+
+      margin-bottom: 70px;
+    }
+
+    .values-title {
+      font-size: 10px;
+      letter-spacing: 4px;
+      color: #777;
+    }
+
+    .values-index {
+      font-size: 9px;
+      letter-spacing: 3px;
+      color: #444;
+    }
+
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+
+      border-top: 1px solid #333;
+    }
+
+    .value {
+      padding: 40px 0;
+
+      border-bottom: 1px solid #222;
+    }
+
+    .value:nth-child(odd) {
+      padding-right: 60px;
+      border-right: 1px solid #222;
+    }
+
+    .value:nth-child(even) {
+      padding-left: 60px;
+    }
+
+    .value-number {
+      font-size: 9px;
+      letter-spacing: 3px;
+      color: #555;
+
+      margin-bottom: 25px;
+    }
+
+    .value-title {
+      font-size: 18px;
+      letter-spacing: 2px;
+
+      margin-bottom: 15px;
+
+      color: #E5E5E5;
+    }
+
+    .value-description {
+      font-size: 11px;
+      line-height: 1.9;
+      letter-spacing: 1px;
+
+      color: #777;
+
+      max-width: 400px;
+    }
+
+
+    /* =========================
+       ZAMBIA / ORIGIN
+    ========================= */
+
+    .origin {
+      max-width: 1100px;
+      margin: 0 auto;
+
+      padding: 140px 40px;
+
+      border-top: 1px solid #222;
+    }
+
+    .origin-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 100px;
+    }
+
+    .origin-label {
+      font-size: 10px;
+      letter-spacing: 4px;
+      color: #666;
+    }
+
+    .origin-title {
+      font-size: clamp(32px, 5vw, 60px);
+      line-height: 1;
+      letter-spacing: -2px;
+
+      margin-bottom: 35px;
+    }
+
+    .origin-text {
+      font-size: 13px;
+      line-height: 2;
+
+      color: #888;
+
+      max-width: 500px;
+    }
+
+
+    /* =========================
+       FUTURE
+    ========================= */
+
+    .future {
+      max-width: 1100px;
+      margin: 0 auto;
+
+      padding: 140px 40px;
+
+      border-top: 1px solid #222;
+    }
+
+    .future-label {
+      font-size: 10px;
+      letter-spacing: 4px;
+      color: #666;
+
+      margin-bottom: 55px;
+    }
+
+    .future-title {
+      font-size: clamp(36px, 6vw, 76px);
+      line-height: 1;
+      letter-spacing: -3px;
+
+      max-width: 850px;
+
+      margin-bottom: 50px;
+    }
+
+    .future-text {
+      font-size: 13px;
+      line-height: 2;
+
+      color: #888;
+
+      max-width: 650px;
+    }
+
+
+    /* =========================
+       FINAL STATEMENT
+    ========================= */
+
+    .final-statement {
+      padding: 180px 40px;
+
+      border-top: 1px solid #222;
+
+      text-align: center;
+    }
+
+    .final-statement p {
+      font-size: clamp(30px, 5vw, 64px);
+      line-height: 1.1;
+      letter-spacing: -2px;
+
+      max-width: 900px;
+
+      margin: 0 auto;
+    }
+
+    .final-statement span {
+      color: #666;
+    }
+
+
+    /* =========================
+       FOOTER
+    ========================= */
+
+    footer {
+      padding: 40px;
+
+      border-top: 1px solid #222;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-left,
+    .footer-right {
+      font-size: 9px;
+      letter-spacing: 3px;
+      color: #555;
+    }
+
+
+    /* =========================
+       MOBILE
+    ========================= */
+
+    @media (max-width: 700px) {
+
+      nav {
+        height: 70px;
+        padding: 0 20px;
+      }
+
+      .nav-logo {
+        font-size: 14px;
+        letter-spacing: 4px;
+      }
+
+      .nav-back {
+        font-size: 8px;
+        letter-spacing: 2px;
+      }
+
+
+      .about-hero {
+        padding: 100px 20px 90px;
+      }
+
+      .about-title {
+        letter-spacing: -2px;
+      }
+
+
+      .about-story {
+        padding: 80px 20px 100px;
+      }
+
+      .story-grid {
+        grid-template-columns: 1fr;
+        gap: 45px;
+      }
+
+      .story-content p {
+        font-size: 14px;
+        line-height: 1.9;
+      }
+
+
+      .core-statement {
+        padding: 90px 20px;
+      }
+
+      .statement {
+        letter-spacing: -1px;
+      }
+
+
+      .anomaly-values {
+        padding: 100px 20px;
+      }
+
+      .values-header {
+        margin-bottom: 50px;
+      }
+
+      .values-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .value:nth-child(odd) {
+        padding-right: 0;
+        border-right: none;
+      }
+
+      .value:nth-child(even) {
+        padding-left: 0;
+      }
+
+
+      .origin {
+        padding: 100px 20px;
+      }
+
+      .origin-grid {
+        grid-template-columns: 1fr;
+        gap: 50px;
+      }
+
+
+      .future {
+        padding: 100px 20px;
+      }
+
+
+      .final-statement {
+        padding: 130px 20px;
+      }
+
+
+      footer {
+        padding: 30px 20px;
+
+        flex-direction: column;
+        gap: 15px;
+
+        text-align: center;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+  <!-- =========================
+       NAVIGATION
+  ========================= -->
+
+  <nav>
+
+    <a href="index.html" class="nav-logo">
+      ANOMALY
+    </a>
+
+    <a href="index.html" class="nav-back">
+      ← BACK TO HOME
+    </a>
+
+  </nav>
+
+
+
+  <!-- =========================
+       HERO
+  ========================= -->
+
+  <section class="about-hero">
+
+    <div class="about-label">
+      ABOUT / ANOMALY
+    </div>
+
+    <h1 class="about-title">
+      DIFFERENT.<br>
+      <span>NOT DEFECTIVE.</span>
+    </h1>
+
+  </section>
+
+
+
+  <!-- =========================
+       STORY
+  ========================= -->
+
+  <section class="about-story">
+
+    <div class="story-grid">
+
+      <div class="story-label">
+        THE BEGINNING
+      </div>
+
+      <div class="story-content">
+
+        <p>
+          ANOMALY started with a simple idea:
+          make something I would actually wear.
+        </p>
+
+        <p>
+          I was inspired by a friend who had started
+          his own clothing brand, and I wanted to
+          follow through and create something of my
+          own — but on my terms.
+        </p>
+
+        <p>
+          Something that sounded right.
+          Something that meant something to me.
+          Something that reflected how I saw myself.
+        </p>
+
+        <p>
+          The name ANOMALY came from a combination
+          of the sound, what it meant, and how it
+          described who I am.
+        </p>
+
+        <p>
+          At some point, I had to understand that
+          I was different. Not in the conventional way.
+          I didn't fit every expected pattern, and
+          eventually I stopped seeing that as something
+          that needed to be fixed.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- =========================
+       CORE STATEMENT
+  ========================= -->
+
+  <section class="core-statement">
+
+    <div class="statement-label">
+      CORE PHILOSOPHY
+    </div>
+
+    <div class="statement">
+      DIFFERENT DOESN'T ALWAYS MAKE US
+      <span>DEFECTS.</span><br><br>
+      IT MAKES US
+      ANOMALIES.
+    </div>
+
+  </section>
+
+
+
+  <!-- =========================
+       VALUES
+  ========================= -->
+
+  <section class="anomaly-values">
+
+    <div class="values-header">
+
+      <div class="values-title">
+        WHAT WE STAND FOR
+      </div>
+
+      <div class="values-index">
+        001 — 004
+      </div>
+
+    </div>
+
+
+    <div class="values-grid">
+
+
+      <div class="value">
+
+        <div class="value-number">
+          001
+        </div>
+
+        <div class="value-title">
+          INDIVIDUALITY
+        </div>
+
+        <div class="value-description">
+          You don't have to look, think, or move
+          like everyone else. Your difference is
+          part of what makes you you.
+        </div>
+
+      </div>
+
+
+      <div class="value">
+
+        <div class="value-number">
+          002
+        </div>
+
+        <div class="value-title">
+          SELF-EXPRESSION
+        </div>
+
+        <div class="value-description">
+          Clothing is a language. ANOMALY exists
+          to give people another way to say
+          something without saying a word.
+        </div>
+
+      </div>
+
+
+      <div class="value">
+
+        <div class="value-number">
+          003
+        </div>
+
+        <div class="value-title">
+          EXPERIMENTATION
+        </div>
+
+        <div class="value-description">
+          There is no single formula. Graphic,
+          artistic, unusual, restrained or
+          unexpected — we want room to experiment.
+        </div>
+
+      </div>
+
+
+      <div class="value">
+
+        <div class="value-number">
+          004
+        </div>
+
+        <div class="value-title">
+          FREEDOM
+        </div>
+
+        <div class="value-description">
+          Be unapologetic. Be confident in your
+          own shell. Stand out without needing
+          permission to be different.
+        </div>
+
+      </div>
+
+
+    </div>
+
+  </section>
+
+
+
+  <!-- =========================
+       ORIGIN
+  ========================= -->
+
+  <section class="origin">
+
+    <div class="origin-grid">
+
+      <div class="origin-label">
+        POINT OF ORIGIN
+      </div>
+
+      <div>
+
+        <div class="origin-title">
+          ZAMBIA.
+        </div>
+
+        <div class="origin-text">
+
+          ANOMALY is rooted in Zambia.
+
+          <br><br>
+
+          Where we come from matters. But it
+          doesn't have to define how far we can go.
+
+          <br><br>
+
+          The goal is to carry that origin with us
+          while building something that can exist
+          anywhere in the world.
+
+          <br><br>
+
+          I can't forget where I came from.
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- =========================
+       FUTURE
+  ========================= -->
+
+  <section class="future">
+
+    <div class="future-label">
+      THE DIRECTION
+    </div>
+
+    <div class="future-title">
+      MORE THAN<br>
+      CLOTHING.
+    </div>
+
+    <div class="future-text">
+
+      ANOMALY is being built as an international
+      streetwear and creative lifestyle brand.
+
+      <br><br>
+
+      The clothing is only the beginning.
+
+      <br><br>
+
+      The vision is to create a recognizable world
+      around ANOMALY — one that can move through
+      fashion, art, creativity and whatever comes next.
+
+      <br><br>
+
+      The direction can change.
+      The experimentation can change.
+      The designs can change.
+
+      <br><br>
+
+      The idea doesn't have to.
+
+    </div>
+
+  </section>
+
+
+
+  <!-- =========================
+       FINAL STATEMENT
+  ========================= -->
+
+  <section class="final-statement">
+
+    <p>
+
+      THE GOAL ISN'T TO MAKE EVERYONE
+      <span>FIT THE PATTERN.</span>
+
+      <br><br>
+
+      IT'S TO GIVE PEOPLE THE FREEDOM
+      TO CREATE THEIR OWN.
+
+    </p>
+
+  </section>
+
+
+
+  <!-- =========================
+       FOOTER
+  ========================= -->
+
+  <footer>
+
+    <div class="footer-left">
+      ANOMALY © 2026
+    </div>
+
+    <div class="footer-right">
+      OUTSIDE THE PATTERN.
+    </div>
+
+  </footer>
+
+
+</body>
+
+</html>
