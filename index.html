@@ -863,6 +863,39 @@
 
     @media (max-width: 800px) {
 
+      /* MOBILE WIDTH FIX */
+
+html,
+body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.hero,
+.hero-content,
+.hero-text,
+.hero-title,
+.hero-description {
+  max-width: 100%;
+  min-width: 0;
+}
+
+.hero-title {
+  font-size: clamp(42px, 13vw, 72px);
+  letter-spacing: -2px;
+  overflow-wrap: break-word;
+}
+
+.hero-description {
+  max-width: 100%;
+}
+
       .nav-links {
   display: none !important;
 }
