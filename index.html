@@ -814,10 +814,99 @@
 
 
     /* =========================
+   HAMBURGER MENU
+========================= */
+
+.menu-toggle {
+  display: none;
+
+  background: none;
+  border: none;
+
+  width: 32px;
+  height: 24px;
+
+  padding: 0;
+
+  flex-direction: column;
+  justify-content: space-between;
+
+  cursor: pointer;
+}
+
+.menu-toggle span {
+  display: block;
+
+  width: 100%;
+  height: 1px;
+
+  background: #E5E5E5;
+
+  transition: 0.3s ease;
+}
+
+.mobile-menu {
+  display: none;
+}
+
+
+    /* =========================
        MOBILE
     ========================== */
 
     @media (max-width: 800px) {
+
+      /* MOBILE NAVIGATION */
+
+.nav-links {
+  display: none;
+}
+
+.menu-toggle {
+  display: flex;
+}
+
+.mobile-menu {
+  display: flex;
+
+  position: fixed;
+
+  top: 70px;
+  left: 0;
+
+  width: 100%;
+
+  background: #08090B;
+
+  border-bottom: 1px solid #222;
+
+  padding: 30px 20px;
+
+  flex-direction: column;
+  gap: 28px;
+
+  transform: translateY(-120%);
+  transition: transform 0.35s ease;
+
+  z-index: 999;
+}
+
+.mobile-menu.active {
+  transform: translateY(0);
+}
+
+.mobile-menu a {
+  color: #E5E5E5;
+
+  text-decoration: none;
+
+  font-size: 11px;
+  letter-spacing: 4px;
+
+  padding: 10px 0;
+
+  border-bottom: 1px solid #222;
+}
 
       .nav-links {
         display: none;
@@ -873,24 +962,35 @@
 
   <!-- NAVIGATION -->
 
-  <nav>
+ <nav>
 
-    <a href="#" class="logo">
-  <img
-    src="text.png"
-    alt="ANOMALY"
-    class="wordmark"
-  >
-</a>
+  <a href="index.html" class="nav-logo">
+    ANOMALY
+  </a>
 
-    <div class="nav-links">
-      <a href="#shop">SHOP</a>
-      <a href="about.html">ABOUT</a>
-       <a href="contact.html">CONTACT</a>
-    </div>
+  <div class="nav-links">
 
-  </nav>
+    <a href="#shop">SHOP</a>
+    <a href="about.html">ABOUT</a>
+    <a href="contact.html">CONTACT</a>
 
+  </div>
+
+  <button class="menu-toggle" aria-label="Open navigation">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+
+</nav>
+
+<div class="mobile-menu">
+
+  <a href="#shop">SHOP</a>
+  <a href="about.html">ABOUT</a>
+  <a href="contact.html">CONTACT</a>
+
+</div>
 
 
   <!-- HERO -->
@@ -1317,7 +1417,30 @@
 
   </script>
 
+<script>
 
+  const menuToggle = document.querySelector('.menu-toggle');
+  const mobileMenu = document.querySelector('.mobile-menu');
+
+  menuToggle.addEventListener('click', () => {
+
+    mobileMenu.classList.toggle('active');
+
+  });
+
+  const mobileLinks = document.querySelectorAll('.mobile-menu a');
+
+  mobileLinks.forEach(link => {
+
+    link.addEventListener('click', () => {
+
+      mobileMenu.classList.remove('active');
+
+    });
+
+  });
+
+</script>
 </body>
 
 </html>
