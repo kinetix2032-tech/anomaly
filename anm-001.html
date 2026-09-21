@@ -41,6 +41,78 @@
     }
 
     .nav-logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.nav-logo img {
+  display: block;
+  width: 105px;
+  height: auto;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.nav-links a {
+  color: #E5E5E5;
+  text-decoration: none;
+  font-size: 10px;
+  letter-spacing: 2px;
+  transition: 0.2s ease;
+}
+
+.nav-links a:hover {
+  color: #777;
+}
+
+.menu-toggle {
+  display: none;
+  background: transparent;
+  border: none;
+  width: 30px;
+  height: 24px;
+  padding: 0;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+.menu-toggle span {
+  display: block;
+  width: 30px;
+  height: 2px;
+  background: #E5E5E5;
+}
+
+.mobile-menu {
+  display: none;
+}
+
+.product-back {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 25px 40px 0;
+}
+
+.back-link {
+  color: #777;
+  text-decoration: none;
+  font-size: 9px;
+  letter-spacing: 3px;
+  transition: 0.2s ease;
+}
+
+.back-link:hover {
+  color: #E5E5E5;
+}
+
+    .nav-logo {
       font-size: 14px;
       letter-spacing: 4px;
       font-weight: bold;
@@ -344,6 +416,51 @@
 
 @media (max-width: 700px) {
 
+  .nav-logo img {
+  width: 82px;
+}
+
+.nav-links {
+  display: none !important;
+}
+
+.menu-toggle {
+  display: flex !important;
+}
+
+.mobile-menu {
+  display: flex;
+  position: fixed;
+  top: 70px;
+  left: 0;
+  width: 100%;
+  background: #08090B;
+  border-bottom: 1px solid #222;
+  padding: 30px 20px;
+  flex-direction: column;
+  gap: 28px;
+  transform: translateY(-120%);
+  transition: transform 0.35s ease;
+  z-index: 999;
+}
+
+.mobile-menu.active {
+  transform: translateY(0);
+}
+
+.mobile-menu a {
+  color: #E5E5E5;
+  text-decoration: none;
+  font-size: 11px;
+  letter-spacing: 4px;
+  padding: 10px 0;
+  border-bottom: 1px solid #222;
+}
+
+.product-back {
+  padding: 20px;
+}
+
   .classification {
     padding: 80px 20px;
   }
@@ -546,17 +663,37 @@
 
   <!-- NAVIGATION -->
 
-  <nav>
+<nav>
 
-    <div class="nav-logo">
-      ANOMALY
-    </div>
+  <a href="index.html" class="nav-logo">
+    <img src="text.png" alt="ANOMALY">
+  </a>
 
-    <a href="index.html#shop" class="back-link">
-      ← BACK TO COLLECTION
-    </a>
+  <div class="nav-links">
+    <a href="index.html#shop">SHOP</a>
+    <a href="about.html">ABOUT</a>
+    <a href="contact.html">CONTACT</a>
+  </div>
 
-  </nav>
+  <button class="menu-toggle" aria-label="Open navigation">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+
+</nav>
+
+<div class="mobile-menu">
+  <a href="index.html#shop">SHOP</a>
+  <a href="about.html">ABOUT</a>
+  <a href="contact.html">CONTACT</a>
+</div>
+
+<div class="product-back">
+  <a href="index.html#shop" class="back-link">
+    ← BACK TO COLLECTION
+  </a>
+</div>
 
 
   <!-- PRODUCT HERO -->
@@ -813,7 +950,23 @@
 
   </footer>
 
+  <script>
+  const menuToggle = document.querySelector('.menu-toggle');
+  const mobileMenu = document.querySelector('.mobile-menu');
 
+  menuToggle.addEventListener('click', () => {
+    mobileMenu.classList.toggle('active');
+  });
+
+  const mobileLinks = document.querySelectorAll('.mobile-menu a');
+
+  mobileLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu.classList.remove('active');
+    });
+  });
+</script>
+  
 </body>
 
 </html>
