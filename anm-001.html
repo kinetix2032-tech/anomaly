@@ -793,15 +793,56 @@
 
       </p>
 
-      <div class="status">
-        STATUS: UNRESOLVED
-      </div>
+   <div class="status">
+  STATUS: AVAILABLE
+</div>
 
-      <br>
+<div class="purchase-panel">
 
-      <a href="#classification" class="product-button">
-        ACCESS CLASSIFICATION DATA
-      </a>
+  <div class="purchase-price" id="product-price">
+    $35.00 USD
+  </div>
+
+  <div class="purchase-label">
+    SELECT SIZE
+  </div>
+
+  <div class="size-grid" id="size-grid">
+
+    <button type="button" class="size-option" data-size="S" data-variant-id="5526097392" data-price="35.00">S</button>
+    <button type="button" class="size-option" data-size="M" data-variant-id="5526097393" data-price="35.00">M</button>
+    <button type="button" class="size-option" data-size="L" data-variant-id="5526097394" data-price="35.00">L</button>
+    <button type="button" class="size-option" data-size="XL" data-variant-id="5526097395" data-price="35.00">XL</button>
+    <button type="button" class="size-option" data-size="2XL" data-variant-id="5526097396" data-price="35.00">2XL</button>
+    <button type="button" class="size-option" data-size="3XL" data-variant-id="5526097397" data-price="40.50">3XL</button>
+    <button type="button" class="size-option" data-size="4XL" data-variant-id="5526097398" data-price="43.00">4XL</button>
+    <button type="button" class="size-option" data-size="5XL" data-variant-id="5526097399" data-price="45.50">5XL</button>
+
+  </div>
+
+  <div class="purchase-row">
+
+    <div class="quantity-control">
+      <button type="button" id="quantity-minus" aria-label="Decrease quantity">−</button>
+      <span id="quantity">1</span>
+      <button type="button" id="quantity-plus" aria-label="Increase quantity">+</button>
+    </div>
+
+    <button type="button" class="add-to-cart" id="add-to-cart">
+      ADD TO CART
+    </button>
+
+  </div>
+
+  <div class="purchase-message" id="purchase-message" aria-live="polite"></div>
+
+</div>
+
+<br>
+
+<a href="#classification" class="product-button">
+  ACCESS CLASSIFICATION DATA
+</a>
 
     </div>
 
@@ -1041,6 +1082,85 @@
 
   window.matchMedia('(min-width: 701px)').addEventListener('change', (event) => {
     if (event.matches) closeMenu();
+  });
+
+      /* =========================
+     PRODUCT / CART
+  ========================= */
+
+  const sizeOptions = document.querySelectorAll('.size-option');
+  const priceDisplay = document.getElementById('product-price');
+  const quantityDisplay = document.getElementById('quantity');
+  const quantityMinus = document.getElementById('quantity-minus');
+  const quantityPlus = document.getElementById('quantity-plus');
+  const addToCartButton = document.getElementById('add-to-cart');
+  const purchaseMessage = document.getElementById('purchase-message');
+
+  let selectedVariant = null;
+  let quantity = 1;
+
+  sizeOptions.forEach((option) => {
+    option.addEventListener('click', () => {
+
+      sizeOptions.forEach((item) => {
+        item.classList.remove('selected');
+      });
+
+      option.classList.add('selected');
+
+      selectedVariant = {
+        id: option.dataset.variantId,
+        size: option.dataset.size,
+        price: parseFloat(option.dataset.price)
+      };
+
+      priceDisplay.textContent = `$${selectedVariant.price.toFixed(2)} USD`;
+
+      purchaseMessage.textContent = '';
+    });
+  });
+
+  quantityMinus.addEventListener('click', () => {
+    quantity = Math.max(1, quantity - 1);
+    quantityDisplay.textContent = quantity;
+  });
+
+  quantityPlus.addEventListener('click', () => {
+    quantity = Math.min(10, quantity + 1);
+    quantityDisplay.textContent = quantity;
+  });
+
+  addToCartButton.addEventListener('click', () => {
+
+    if (!selectedVariant) {
+      purchaseMessage.textContent = 'SELECT A SIZE TO CONTINUE.';
+      return;
+    }
+
+    const cart = JSON.parse(localStorage.getItem('anomalyCart') || '[]');
+
+    const existingItem = cart.find(
+      (item) => item.variantId === selectedVariant.id
+    );
+
+    if (existingItem) {
+      existingItem.quantity += quantity;
+    } else {
+      cart.push({
+        productId: 476463917,
+        variantId: selectedVariant.id,
+        productName: 'ANOMALY / CORE TEE',
+        size: selectedVariant.size,
+        price: selectedVariant.price,
+        quantity: quantity
+      });
+    }
+
+    localStorage.setItem('anomalyCart', JSON.stringify(cart));
+
+    purchaseMessage.textContent =
+      `ANM-001 / SIZE ${selectedVariant.size} ADDED TO CART.`;
+
   });
 </script>
   
