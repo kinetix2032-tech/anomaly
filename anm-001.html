@@ -258,6 +258,145 @@
       background: #F1F1ED;
       color: #08090B;
     }
+    /* =========================
+   PURCHASE PANEL
+========================= */
+
+.purchase-panel {
+  margin-top: 35px;
+  width: 100%;
+  max-width: 440px;
+}
+
+.purchase-price {
+  font-size: 22px;
+  letter-spacing: 2px;
+  color: #E5E5E5;
+  margin-bottom: 32px;
+}
+
+.purchase-label {
+  font-size: 9px;
+  letter-spacing: 3px;
+  color: #666;
+  margin-bottom: 14px;
+}
+
+.size-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.size-option {
+  height: 46px;
+  border: 1px solid #333;
+  background: transparent;
+  color: #888;
+  cursor: pointer;
+  font-size: 10px;
+  letter-spacing: 2px;
+  transition: 0.2s ease;
+}
+
+.size-option:hover {
+  border-color: #777;
+  color: #E5E5E5;
+}
+
+.size-option.selected {
+  border-color: #E5E5E5;
+  background: #E5E5E5;
+  color: #08090B;
+}
+
+.purchase-row {
+  display: flex;
+  align-items: stretch;
+  gap: 10px;
+}
+
+.quantity-control {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 130px;
+  height: 52px;
+  border: 1px solid #333;
+}
+
+.quantity-control button {
+  width: 40px;
+  height: 100%;
+  border: none;
+  background: transparent;
+  color: #888;
+  cursor: pointer;
+  font-size: 18px;
+  transition: 0.2s ease;
+}
+
+.quantity-control button:hover {
+  color: #E5E5E5;
+}
+
+#quantity {
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: #E5E5E5;
+}
+
+.add-to-cart {
+  flex: 1;
+  height: 52px;
+  border: 1px solid #E5E5E5;
+  background: #E5E5E5;
+  color: #08090B;
+  cursor: pointer;
+  font-size: 10px;
+  letter-spacing: 3px;
+  font-weight: 600;
+  transition: 0.25s ease;
+}
+
+.add-to-cart:hover {
+  background: transparent;
+  color: #E5E5E5;
+}
+
+.purchase-message {
+  min-height: 18px;
+  margin-top: 14px;
+  font-size: 9px;
+  line-height: 1.6;
+  letter-spacing: 2px;
+  color: #777;
+}
+
+@media (max-width: 700px) {
+
+  .purchase-panel {
+    max-width: 100%;
+  }
+
+  .size-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .purchase-row {
+    flex-direction: column;
+  }
+
+  .quantity-control {
+    width: 100%;
+  }
+
+  .add-to-cart {
+    width: 100%;
+  }
+
+}
 
 
     /* CLASSIFICATION SECTION */
