@@ -844,7 +844,24 @@
       }
     }
 
-  </style>
+  
+    .cart-count {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 18px;
+      height: 18px;
+      margin-left: 6px;
+      padding: 0 4px;
+      border: 1px solid #444;
+      color: #E5E5E5;
+      font-size: 8px;
+      line-height: 1;
+      letter-spacing: 0;
+      vertical-align: middle;
+    }
+
+</style>
   
 </head>
 
@@ -864,7 +881,7 @@
     <a href="index.html#shop">SHOP</a>
     <a href="about.html">ABOUT</a>
     <a href="contact.html">CONTACT</a>
-    <a href="cart.html">CART</a>
+    <a href="cart.html">CART <span class="cart-count" data-cart-count>0</span></a>
   </div>
 
   <button class="menu-toggle" type="button" aria-label="Open navigation" aria-controls="mobile-menu" aria-expanded="false">
@@ -879,7 +896,7 @@
   <a href="index.html#shop">SHOP</a>
   <a href="about.html">ABOUT</a>
   <a href="contact.html">CONTACT</a>
-  <a href="cart.html">CART</a>
+  <a href="cart.html">CART <span class="cart-count" data-cart-count>0</span></a>
 </nav>
 
 <main>
@@ -1193,6 +1210,35 @@
   </footer>
 
   <script>
+  /* CART COUNT */
+  function updateCartCount() {
+    let cart = [];
+
+    try {
+      const saved = JSON.parse(localStorage.getItem('anomalyCart') || '[]');
+      if (Array.isArray(saved)) cart = saved;
+    } catch (error) {
+      cart = [];
+    }
+
+    const count = cart.reduce((total, item) => {
+      const quantity = Number(item && item.quantity);
+      return total + (Number.isFinite(quantity) && quantity > 0 ? Math.floor(quantity) : 0);
+    }, 0);
+
+    document.querySelectorAll('[data-cart-count]').forEach((counter) => {
+      counter.textContent = count > 99 ? '99+' : String(count);
+      counter.setAttribute('aria-label', `${count} ${count === 1 ? 'item' : 'items'} in cart`);
+    });
+  }
+
+  updateCartCount();
+
+  window.addEventListener('storage', (event) => {
+    if (event.key === 'anomalyCart') updateCartCount();
+  });
+
+
   const menuToggle = document.querySelector('.menu-toggle');
   const mobileMenu = document.querySelector('.mobile-menu');
 
@@ -1285,7 +1331,7 @@
     );
 
     if (existingItem) {
-      existingItem.quantity += quantity;
+      existingItem.quantity = Math.min(10, existingItem.quantity + quantity);
     } else {
       cart.push({
         productId: 476463917,
@@ -1298,6 +1344,7 @@
     }
 
     localStorage.setItem('anomalyCart', JSON.stringify(cart));
+    updateCartCount();
 
     purchaseMessage.textContent =
       `ANM-001 / SIZE ${selectedVariant.size} ADDED TO CART.`;
