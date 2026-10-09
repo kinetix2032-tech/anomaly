@@ -343,6 +343,8 @@
       vertical-align: middle;
     }
 
+    .cart-count[hidden] { display: none; }
+
 </style>
 
 </head>
@@ -359,7 +361,7 @@
     <a href="index.html#shop">SHOP</a>
     <a href="about.html">ABOUT</a>
     <a href="contact.html" aria-current="page">CONTACT</a>
-    <a href="cart.html">CART <span class="cart-count" data-cart-count>0</span></a>
+    <a href="cart.html">CART <span class="cart-count" data-cart-count hidden>0</span></a>
   </div>
 
   <button class="menu-toggle" type="button" aria-label="Open navigation" aria-controls="mobile-menu" aria-expanded="false">
@@ -373,7 +375,7 @@
   <a href="index.html#shop">SHOP</a>
   <a href="about.html">ABOUT</a>
   <a href="contact.html" aria-current="page">CONTACT</a>
-  <a href="cart.html">CART <span class="cart-count" data-cart-count>0</span></a>
+  <a href="cart.html">CART <span class="cart-count" data-cart-count hidden>0</span></a>
 </nav>
 
 
@@ -512,6 +514,7 @@
     document.querySelectorAll('[data-cart-count]').forEach((counter) => {
       counter.textContent = count > 99 ? '99+' : String(count);
       counter.setAttribute('aria-label', `${count} ${count === 1 ? 'item' : 'items'} in cart`);
+      counter.hidden = count === 0;
     });
   }
 
