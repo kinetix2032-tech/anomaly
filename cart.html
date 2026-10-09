@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Your Cart — ANOMALY</title>
+  <meta name="description" content="Review your ANOMALY collection selections.">
+  <meta name="theme-color" content="#08090B">
+  <meta name="color-scheme" content="dark">
+  <meta name="robots" content="noindex, nofollow">
+
+  <link rel="icon" type="image/png" href="symbol.png">
+  <link rel="apple-touch-icon" href="symbol.png">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+
+    body {
+      min-width: 320px;
+      background: #08090B;
+      color: #E5E5E5;
+      font-family: Arial, Helvetica, sans-serif;
+      overflow-x: hidden;
+    }
+
+    button,
+    a {
+      font: inherit;
+    }
+
+    a:focus-visible,
+    button:focus-visible {
+      outline: 2px solid #F1F1ED;
+      outline-offset: 4px;
+    }
+
+    /* NAVIGATION */
+
+    .site-nav {
+      height: 76px;
+      padding: 0 7%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #222;
+      position: relative;
+      z-index: 1001;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-logo img {
+      display: block;
+      width: 105px;
+      height: auto;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .nav-links a,
+    .mobile-menu a {
+      color: #E5E5E5;
+      text-decoration: none;
+      font-size: 10px;
+      letter-spacing: 2px;
+      transition: color 0.2s ease;
+    }
+
+    .nav-links a:hover,
+    .mobile-menu a:hover {
+      color: #888;
+    }
+
+    .cart-nav-link {
+      border-bottom: 1px solid #E5E5E5;
+      padding-bottom: 5px;
+    }
+
+    .menu-toggle {
+      display: none;
+      width: 30px;
+      height: 24px;
+      padding: 0;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .menu-toggle span {
+      display: block;
+      height: 2px;
+      width: 30px;
+      background: #E5E5E5;
+    }
+
+    .mobile-menu {
+      display: none;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    /* CART PAGE */
+
+    .cart-page {
+      width: 100%;
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 100px 40px 140px;
+    }
+
+    .page-kicker {
+      margin-bottom: 22px;
+      color: #777;
+      font-size: 10px;
+      letter-spacing: 4px;
+    }
+
+    .page-title {
+      font-size: clamp(48px, 8vw, 96px);
+      line-height: 0.95;
+      letter-spacing: -3px;
+      font-weight: 700;
+    }
+
+    .page-description {
+      margin-top: 25px;
+      color: #888;
+      font-size: 11px;
+      line-height: 2;
+      letter-spacing: 1.5px;
+    }
+
+    .cart-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(260px, 0.7fr);
+      gap: 65px;
+      margin-top: 75px;
+      align-items: start;
+    }
+
+    .cart-section-title {
+      padding-bottom: 20px;
+      border-bottom: 1px solid #333;
+      color: #888;
+      font-size: 10px;
+      letter-spacing: 3px;
+    }
+
+    /* CART ITEMS */
+
+    .cart-item {
+      display: grid;
+      grid-template-columns: 110px minmax(0, 1fr);
+      gap: 24px;
+      padding: 25px 0;
+      border-bottom: 1px solid #252525;
+    }
+
+    .cart-item-image {
+      display: block;
+      width: 100%;
+      aspect-ratio: 1;
+      object-fit: cover;
+      background: #111216;
+    }
+
+    .item-code {
+      margin-bottom: 13px;
+      color: #666;
+      font-size: 9px;
+      letter-spacing: 2px;
+    }
+
+    .item-name {
+      color: #E5E5E5;
+      font-size: 13px;
+      letter-spacing: 1.5px;
+      line-height: 1.6;
+    }
+
+    .item-size {
+      margin-top: 10px;
+      color: #888;
+      font-size: 10px;
+      letter-spacing: 2px;
+    }
+
+    .item-unit-price {
+      margin-top: 12px;
+      color: #AAA;
+      font-size: 11px;
+      letter-spacing: 1px;
+    }
+
+    .item-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 22px;
+    }
+
+    .item-quantity {
+      height: 38px;
+      display: flex;
+      align-items: center;
+      border: 1px solid #333;
+    }
+
+    .item-quantity button {
+      width: 34px;
+      height: 36px;
+      border: none;
+      background: transparent;
+      color: #AAA;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .item-quantity button:hover {
+      color: #FFF;
+    }
+
+    .item-quantity span {
+      min-width: 25px;
+      text-align: center;
+      font-size: 11px;
+    }
+
+    .remove-item {
+      border: none;
+      background: transparent;
+      color: #777;
+      font-size: 9px;
+      letter-spacing: 2px;
+      cursor: pointer;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+
+    .remove-item:hover {
+      color: #E5E5E5;
+    }
+
+    .item-line-total {
+      margin-top: 20px;
+      text-align: right;
+      font-size: 13px;
+      letter-spacing: 1px;
+    }
+
+    /* ORDER SUMMARY */
+
+    .order-summary {
+      border: 1px solid #292929;
+      padding: 28px;
+    }
+
+    .summary-title {
+      margin-bottom: 30px;
+      font-size: 11px;
+      letter-spacing: 3px;
+    }
+
+    .summary-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      padding: 15px 0;
+      border-bottom: 1px solid #252525;
+      color: #999;
+      font-size: 10px;
+      letter-spacing: 1.5px;
+    }
+
+    .summary-row span:last-child {
+      color: #E5E5E5;
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .summary-total {
+      margin-top: 14px;
+      padding-top: 18px;
+      border-top: 1px solid #444;
+      border-bottom: none;
+      color: #E5E5E5;
+      font-size: 11px;
+      letter-spacing: 2px;
+    }
+
+    .summary-note {
+      margin-top: 25px;
+      color: #777;
+      font-size: 9px;
+      letter-spacing: 1.3px;
+      line-height: 2;
+    }
+
+    .checkout-button {
+      width: 100%;
+      min-height: 52px;
+      margin-top: 26px;
+      border: 1px solid #333;
+      background: #222;
+      color: #777;
+      font-size: 9px;
+      letter-spacing: 2.5px;
+      cursor: not-allowed;
+    }
+
+    .checkout-status {
+      margin-top: 15px;
+      color: #888;
+      font-size: 9px;
+      line-height: 1.9;
+      letter-spacing: 1.5px;
+    }
+
+    .continue-shopping {
+      display: inline-block;
+      margin-top: 28px;
+      color: #AAA;
+      text-decoration: none;
+      font-size: 9px;
+      letter-spacing: 2px;
+    }
+
+    .continue-shopping:hover {
+      color: #FFF;
+    }
+
+    /* EMPTY CART */
+
+    .empty-cart {
+      padding: 45px 0;
+    }
+
+    .empty-cart h2 {
+      font-size: 18px;
+      font-weight: 400;
+      letter-spacing: 2px;
+    }
+
+    .empty-cart p {
+      margin-top: 16px;
+      color: #888;
+      font-size: 10px;
+      line-height: 2;
+      letter-spacing: 1.5px;
+    }
+
+    .empty-cart a {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 16px 22px;
+      border: 1px solid #E5E5E5;
+      color: #E5E5E5;
+      text-decoration: none;
+      font-size: 9px;
+      letter-spacing: 2px;
+    }
+
+    .empty-cart a:hover {
+      background: #E5E5E5;
+      color: #08090B;
+    }
+
+    /* FOOTER */
+
+    footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 30px 7%;
+      border-top: 1px solid #222;
+      color: #555;
+      font-size: 9px;
+      letter-spacing: 2px;
+    }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 850px) {
+      .cart-page {
+        padding: 80px 25px 100px;
+      }
+
+      .cart-layout {
+        grid-template-columns: 1fr;
+        gap: 50px;
+        margin-top: 55px;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .site-nav {
+        height: 70px;
+        padding: 0 20px;
+      }
+
+      .nav-logo img {
+        width: 82px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .menu-toggle {
+        display: flex;
+      }
+
+      .mobile-menu {
+        display: flex;
+        position: fixed;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        padding: 30px 20px;
+        flex-direction: column;
+        gap: 27px;
+        background: #08090B;
+        border-bottom: 1px solid #222;
+        transform: translateY(-120%);
+        transition: transform 0.3s ease;
+        z-index: 1000;
+      }
+
+      .mobile-menu.active {
+        transform: translateY(0);
+        visibility: visible;
+        pointer-events: auto;
+      }
+
+      .mobile-menu:not(.active) {
+        visibility: hidden;
+        pointer-events: none;
+      }
+
+      .cart-page {
+        padding: 70px 20px 90px;
+      }
+
+      .page-title {
+        letter-spacing: -1.5px;
+      }
+
+      .cart-item {
+        grid-template-columns: 84px minmax(0, 1fr);
+        gap: 16px;
+      }
+
+      .order-summary {
+        padding: 23px;
+      }
+
+      footer {
+        flex-direction: column;
+        text-align: center;
+        line-height: 1.8;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav class="site-nav" aria-label="Primary navigation">
+
+    <a href="index.html" class="nav-logo">
+      <img src="text.png" alt="ANOMALY" width="516" height="78">
+    </a>
+
+    <div class="nav-links">
+      <a href="index.html#shop">SHOP</a>
+      <a href="about.html">ABOUT</a>
+      <a href="contact.html">CONTACT</a>
+      <a href="cart.html" class="cart-nav-link">CART</a>
+    </div>
+
+    <button
+      class="menu-toggle"
+      type="button"
+      aria-label="Open navigation"
+      aria-controls="mobile-menu"
+      aria-expanded="false"
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+  </nav>
+
+  <nav
+    class="mobile-menu"
+    id="mobile-menu"
+    aria-label="Mobile navigation"
+  >
+    <a href="index.html#shop">SHOP</a>
+    <a href="about.html">ABOUT</a>
+    <a href="contact.html">CONTACT</a>
+    <a href="cart.html">CART</a>
+  </nav>
+
+  <main class="cart-page">
+
+    <div class="page-kicker">ANOMALY / ORDER SYSTEM</div>
+
+    <h1 class="page-title">YOUR CART.</h1>
+
+    <p class="page-description">
+      REVIEW YOUR SELECTIONS.<br>
+      NOTHING IS FINAL UNTIL CHECKOUT.
+    </p>
+
+    <div class="cart-layout">
+
+      <section aria-labelledby="cart-items-heading">
+
+        <h2 class="cart-section-title" id="cart-items-heading">
+          YOUR SELECTIONS
+        </h2>
+
+        <div id="cart-items" aria-live="polite"></div>
+
+        <a href="index.html#shop" class="continue-shopping">
+          ← CONTINUE SHOPPING
+        </a>
+
+      </section>
+
+      <aside class="order-summary" aria-labelledby="summary-heading">
+
+        <h2 class="summary-title" id="summary-heading">
+          ORDER SUMMARY
+        </h2>
+
+        <div class="summary-row">
+          <span id="item-count">0 ITEMS</span>
+          <span id="subtotal">$0.00</span>
+        </div>
+
+        <div class="summary-row">
+          <span>SHIPPING</span>
+          <span>CALCULATED LATER</span>
+        </div>
+
+        <div class="summary-row">
+          <span>TAXES</span>
+          <span>CALCULATED LATER</span>
+        </div>
+
+        <div class="summary-row summary-total">
+          <span>SUBTOTAL</span>
+          <span id="summary-total">$0.00 USD</span>
+        </div>
+
+        <p class="summary-note">
+          SUBTOTAL EXCLUDES SHIPPING AND TAXES.
+          FINAL COSTS HAVE NOT BEEN CALCULATED.
+        </p>
+
+        <button
+          class="checkout-button"
+          type="button"
+          disabled
+        >
+          CHECKOUT NOT CONNECTED
+        </button>
+
+        <p class="checkout-status">
+          PAYMENT AND ORDER SUBMISSION ARE NOT YET ACTIVE.
+          NO ORDER WILL BE SENT TO PRINTFUL FROM THIS PAGE.
+        </p>
+
+      </aside>
+
+    </div>
+
+  </main>
+
+  <footer>
+    <div>ANOMALY / A//001</div>
+    <div>OUTSIDE THE PATTERN</div>
+  </footer>
+
+  <script>
+    const CART_KEY = 'anomalyCart';
+
+    const cartItemsContainer = document.getElementById('cart-items');
+    const itemCountDisplay = document.getElementById('item-count');
+    const subtotalDisplay = document.getElementById('subtotal');
+    const totalDisplay = document.getElementById('summary-total');
+
+    function loadCart() {
+      try {
+        const data = JSON.parse(localStorage.getItem(CART_KEY) || '[]');
+
+        if (!Array.isArray(data)) {
+          return [];
+        }
+
+        return data
+          .filter((item) =>
+            item &&
+            item.variantId != null &&
+            Number.isFinite(Number(item.price)) &&
+            Number(item.price) >= 0
+          )
+          .map((item) => ({
+            productId: item.productId,
+            variantId: String(item.variantId),
+            productName: String(item.productName || 'ANOMALY / CORE TEE'),
+            size: String(item.size || '—'),
+            price: Number(item.price),
+            quantity: Math.max(
+              1,
+              Math.min(10, Math.floor(Number(item.quantity) || 1))
+            )
+          }));
+      } catch (error) {
+        return [];
+      }
+    }
+
+    function saveCart(cart) {
+      localStorage.setItem(CART_KEY, JSON.stringify(cart));
+    }
+
+    function formatUSD(amount) {
+      return new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD'
+      }).format(amount);
+    }
+
+    function makeElement(tag, className, text) {
+      const element = document.createElement(tag);
+
+      if (className) {
+        element.className = className;
+      }
+
+      if (text !== undefined) {
+        element.textContent = text;
+      }
+
+      return element;
+    }
+
+    function updateQuantity(index, change) {
+      const cart = loadCart();
+
+      if (!cart[index]) {
+        return;
+      }
+
+      cart[index].quantity = Math.max(
+        1,
+        Math.min(10, cart[index].quantity + change)
+      );
+
+      saveCart(cart);
+      renderCart();
+    }
+
+    function removeItem(index) {
+      const cart = loadCart();
+
+      cart.splice(index, 1);
+
+      saveCart(cart);
+      renderCart();
+    }
+
+    function renderCart() {
+      const cart = loadCart();
+
+      cartItemsContainer.replaceChildren();
+
+      if (cart.length === 0) {
+        const empty = makeElement('div', 'empty-cart');
+        const heading = makeElement('h2', '', 'YOUR CART IS EMPTY.');
+        const message = makeElement(
+          'p',
+          '',
+          'NO ITEMS HAVE BEEN ADDED TO YOUR SELECTIONS YET.'
+        );
+        const link = makeElement(
+          'a',
+          '',
+          'EXPLORE THE COLLECTION'
+        );
+
+        link.href = 'index.html#shop';
+
+        empty.append(heading, message, link);
+        cartItemsContainer.append(empty);
+      } else {
+        cart.forEach((item, index) => {
+          const article = makeElement('article', 'cart-item');
+
+          const image = makeElement('img', 'cart-item-image');
+          image.src = 'use.png';
+          image.alt = 'ANOMALY ANM-001 Core Tee';
+
+          const details = makeElement('div', 'cart-item-details');
+
+          const code = makeElement(
+            'div',
+            'item-code',
+            'ANM-001 / DROP 001'
+          );
+
+          const name = makeElement(
+            'h3',
+            'item-name',
+            item.productName
+          );
+
+          const size = makeElement(
+            'div',
+            'item-size',
+            `SIZE: ${item.size}`
+          );
+
+          const unitPrice = makeElement(
+            'div',
+            'item-unit-price',
+            `${formatUSD(item.price)} USD EACH`
+          );
+
+          const bottom = makeElement('div', 'item-bottom');
+          const quantityControl = makeElement('div', 'item-quantity');
+
+          const decrease = makeElement('button', '', '−');
+          decrease.type = 'button';
+          decrease.setAttribute(
+            'aria-label',
+            `Decrease quantity for size ${item.size}`
+          );
+          decrease.addEventListener('click', () => updateQuantity(index, -1));
+
+          const quantity = makeElement('span', '', String(item.quantity));
+
+          const increase = makeElement('button', '', '+');
+          increase.type = 'button';
+          increase.setAttribute(
+            'aria-label',
+            `Increase quantity for size ${item.size}`
+          );
+          increase.addEventListener('click', () => updateQuantity(index, 1));
+
+          quantityControl.append(decrease, quantity, increase);
+
+          const remove = makeElement(
+            'button',
+            'remove-item',
+            'REMOVE'
+          );
+          remove.type = 'button';
+          remove.addEventListener('click', () => removeItem(index));
+
+          bottom.append(quantityControl, remove);
+
+          const lineTotal = makeElement(
+            'div',
+            'item-line-total',
+            formatUSD(item.price * item.quantity)
+          );
+
+          details.append(code, name, size, unitPrice, bottom, lineTotal);
+          article.append(image, details);
+          cartItemsContainer.append(article);
+        });
+      }
+
+      const units = cart.reduce(
+        (sum, item) => sum + item.quantity,
+        0
+      );
+
+      const subtotal = cart.reduce(
+        (sum, item) => sum + item.price * item.quantity,
+        0
+      );
+
+      itemCountDisplay.textContent =
+        `${units} ${units === 1 ? 'ITEM' : 'ITEMS'}`;
+
+      subtotalDisplay.textContent = formatUSD(subtotal);
+      totalDisplay.textContent = `${formatUSD(subtotal)} USD`;
+    }
+
+    /* MOBILE NAVIGATION */
+
+    const menuToggle = document.querySelector('.menu-toggle');
+    const mobileMenu = document.querySelector('.mobile-menu');
+
+    function closeMenu() {
+      mobileMenu.classList.remove('active');
+      menuToggle.setAttribute('aria-expanded', 'false');
+      menuToggle.setAttribute('aria-label', 'Open navigation');
+      document.body.classList.remove('menu-open');
+    }
+
+    menuToggle.addEventListener('click', () => {
+      const isOpen = mobileMenu.classList.toggle('active');
+
+      menuToggle.setAttribute('aria-expanded', String(isOpen));
+      menuToggle.setAttribute(
+        'aria-label',
+        isOpen ? 'Close navigation' : 'Open navigation'
+      );
+
+      document.body.classList.toggle('menu-open', isOpen);
+    });
+
+    mobileMenu.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', closeMenu);
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && mobileMenu.classList.contains('active')) {
+        closeMenu();
+        menuToggle.focus();
+      }
+    });
+
+    window.matchMedia('(min-width: 701px)').addEventListener(
+      'change',
+      (event) => {
+        if (event.matches) {
+          closeMenu();
+        }
+      }
+    );
+
+    renderCart();
+  </script>
+
+</body>
+</html>
