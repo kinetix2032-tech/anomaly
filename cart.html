@@ -513,27 +513,7 @@
 
 
     
-    /* LIVE CART COUNT */
-    .cart-count {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-width: 18px;
-      height: 18px;
-      margin-left: 6px;
-      padding: 0 4px;
-      border: 1px solid #444;
-      color: inherit;
-      font-size: 9px;
-      letter-spacing: 0;
-      line-height: 1;
-      vertical-align: middle;
-    }
-
-    .cart-count[hidden] {
-      display: none !important;
-    }
-</style>
+    </style>
 </head>
 
 <body>
@@ -694,6 +674,8 @@
     window.addEventListener('storage', (event) => {
       if (event.key === CART_KEY) renderCart();
     });
+
+  window.addEventListener('anomaly-cart-updated', updateCartCount);
 
     function loadCart() {
       try {
@@ -943,53 +925,5 @@
 
     renderCart();
   </script>
-
-
-  <script>
-    (() => {
-      const CART_KEY = 'anomalyCart';
-
-      function getCartCount() {
-        try {
-          const items = JSON.parse(localStorage.getItem(CART_KEY) || '[]');
-          if (!Array.isArray(items)) return 0;
-
-          return items.reduce((count, item) => {
-            const quantity = Math.floor(Number(item && item.quantity) || 0);
-            return count + Math.max(0, quantity);
-          }, 0);
-        } catch (error) {
-          return 0;
-        }
-      }
-
-      function updateCartCount() {
-        const count = getCartCount();
-
-        document.querySelectorAll('[data-cart-count]').forEach((badge) => {
-          badge.textContent = String(count);
-          badge.setAttribute(
-            'aria-label',
-            `${count} ${count === 1 ? 'item' : 'items'} in cart`
-          );
-
-          if (count > 0) {
-            badge.removeAttribute('hidden');
-          } else {
-            badge.setAttribute('hidden', '');
-          }
-        });
-      }
-
-      window.anomalyUpdateCartCount = updateCartCount;
-      window.addEventListener('storage', (event) => {
-        if (event.key === CART_KEY) updateCartCount();
-      });
-      window.addEventListener('anomaly-cart-updated', updateCartCount);
-
-      updateCartCount();
-    })();
-  </script>
-
 </body>
 </html>
