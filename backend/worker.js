@@ -7,7 +7,7 @@ const VARIANTS = Object.freeze({
   "5526097393": { size: "M", catalogVariantId: 11547, retailPrice: 35.00 },
   "5526097394": { size: "L", catalogVariantId: 11548, retailPrice: 35.00 },
   "5526097395": { size: "XL", catalogVariantId: 11549, retailPrice: 35.00 },
-  "5526097396": { size: "2XL", catalogVariantId: 11550, retailPrice: 35.00 },
+  "5526097396": { size: "2XL", catalogVariantId: 11550, retailPrice: 37.50 },
   "5526097397": { size: "3XL", catalogVariantId: 12644, retailPrice: 40.50 },
   "5526097398": { size: "4XL", catalogVariantId: 12645, retailPrice: 43.00 },
   "5526097399": { size: "5XL", catalogVariantId: 12646, retailPrice: 45.50 }
