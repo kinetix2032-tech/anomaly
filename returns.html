@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Returns — ANOMALY</title>
+
+  <meta name="description" content="ANOMALY returns, refunds and what to do if something is wrong with your order.">
+  <meta name="theme-color" content="#08090B">
+  <meta name="color-scheme" content="dark">
+  <link rel="icon" type="image/png" href="symbol.png">
+  <link rel="apple-touch-icon" href="symbol.png">
+  <meta property="og:site_name" content="ANOMALY">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Returns — ANOMALY">
+  <meta property="og:description" content="ANOMALY returns, refunds and what to do if something is wrong with your order.">
+  <meta property="og:image" content="https://kinetix2032-tech.github.io/anomaly/symbol.png">
+  <meta property="og:image:alt" content="ANOMALY symbol">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Returns — ANOMALY">
+  <meta name="twitter:description" content="ANOMALY returns, refunds and what to do if something is wrong with your order.">
+  <meta name="twitter:image" content="https://kinetix2032-tech.github.io/anomaly/symbol.png">
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: #08090B;
+      color: #E5E5E5;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    nav {
+      height: 70px;
+      border-bottom: 1px solid #222;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 6%;
+    }
+
+
+    .nav-logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.nav-logo img {
+  display: block;
+  width: 105px;
+  height: auto;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.nav-links a {
+  color: #E5E5E5;
+  text-decoration: none;
+  font-size: 10px;
+  letter-spacing: 2px;
+  transition: 0.2s ease;
+}
+
+.nav-links a:hover {
+  color: #777;
+}
+
+.menu-toggle {
+  display: none;
+  background: transparent;
+  border: none;
+  width: 30px;
+  height: 24px;
+  padding: 0;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+.menu-toggle span {
+  display: block;
+  width: 30px;
+  height: 2px;
+  background: #E5E5E5;
+}
+
+.mobile-menu {
+  display: none;
+}
+    .logo {
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 3px;
+    }
+
+    .back-link {
+      color: #777;
+      text-decoration: none;
+      font-size: 10px;
+      letter-spacing: 3px;
+      transition: 0.2s ease;
+    }
+
+    .back-link:hover {
+      color: #ffffff;
+    }
+
+    .contact-page {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 120px 40px 160px;
+    }
+
+    .page-label {
+      font-size: 10px;
+      letter-spacing: 4px;
+      color: #666;
+      margin-bottom: 35px;
+    }
+
+    .page-title {
+      font-size: clamp(48px, 8vw, 100px);
+      line-height: 0.9;
+      letter-spacing: -4px;
+      color: #ffffff;
+      margin-bottom: 100px;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 100px;
+    }
+
+    .section-label {
+      font-size: 9px;
+      letter-spacing: 3px;
+      color: #666;
+      margin-bottom: 25px;
+    }
+
+    .contact-description {
+      font-size: 13px;
+      line-height: 1.9;
+      letter-spacing: 1px;
+      color: #888;
+      max-width: 300px;
+    }
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 35px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .form-group label {
+      font-size: 9px;
+      letter-spacing: 3px;
+      color: #666;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid #333;
+      color: #ffffff;
+      padding: 12px 0;
+      font-family: inherit;
+      font-size: 13px;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-bottom-color: #ffffff;
+    }
+
+    .form-group textarea {
+      min-height: 130px;
+      resize: vertical;
+    }
+
+    .submit-button {
+      align-self: flex-start;
+      background: transparent;
+      border: 1px solid #444;
+      color: #ffffff;
+      padding: 15px 25px;
+      font-size: 9px;
+      letter-spacing: 3px;
+      cursor: pointer;
+      transition: 0.25s ease;
+    }
+
+    .submit-button:hover {
+      background: #ffffff;
+      color: #08090B;
+      border-color: #ffffff;
+    }
+
+    @media (max-width: 700px) {
+
+    .nav-logo img {
+  width: 82px;
+}
+
+.nav-links {
+  display: none !important;
+}
+
+.menu-toggle {
+  display: flex !important;
+}
+
+.mobile-menu {
+  display: flex;
+  position: fixed;
+  top: 70px;
+  left: 0;
+  width: 100%;
+  background: #08090B;
+  border-bottom: 1px solid #222;
+  padding: 30px 20px;
+  flex-direction: column;
+  gap: 28px;
+  transform: translateY(-120%);
+  transition: transform 0.35s ease;
+  z-index: 999;
+}
+
+.mobile-menu.active {
+  transform: translateY(0);
+}
+
+.mobile-menu a {
+  color: #E5E5E5;
+  text-decoration: none;
+  font-size: 11px;
+  letter-spacing: 4px;
+  padding: 10px 0;
+  border-bottom: 1px solid #222;
+}
+
+      nav {
+        padding: 0 20px;
+      }
+
+      .contact-page {
+        padding: 90px 20px 120px;
+      }
+
+      .page-title {
+        margin-bottom: 70px;
+      }
+
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 70px;
+      }
+
+    }
+
+
+    /* =========================
+       SITE-WIDE POLISH
+    ========================= */
+    html { overflow-x: hidden; }
+
+    body { min-width: 320px; }
+
+    img { max-width: 100%; }
+
+    button,
+    input,
+    textarea { font: inherit; }
+
+    a:focus-visible,
+    button:focus-visible,
+    input:focus-visible,
+    textarea:focus-visible {
+      outline: 2px solid #F1F1ED;
+      outline-offset: 4px;
+    }
+
+    .mobile-menu { visibility: hidden; pointer-events: none; }
+    .mobile-menu.active { visibility: visible; pointer-events: auto; }
+
+    body.menu-open { overflow: hidden; }
+
+    .contact-form input,
+    .contact-form textarea { min-height: 44px; }
+
+    .contact-form input::placeholder,
+    .contact-form textarea::placeholder { color: #777; opacity: 1; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+  
+    .cart-count {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 18px;
+      height: 18px;
+      margin-left: 6px;
+      padding: 0 4px;
+      border: 1px solid #444;
+      color: #E5E5E5;
+      font-size: 8px;
+      line-height: 1;
+      letter-spacing: 0;
+      vertical-align: middle;
+    }
+
+    .cart-count[hidden] { display: none; }
+
+
+    
+    
+    .policy-page .page-title {
+      font-size: clamp(40px, 7vw, 84px);
+      margin-bottom: 70px;
+    }
+    .policy-body { max-width: 720px; }
+    .policy-body .updated {
+      font-size: 11px; letter-spacing: 2px; color: #666; margin-bottom: 50px;
+    }
+    .policy-body h2 {
+      font-size: 11px; letter-spacing: 3px; font-weight: 600;
+      color: #ffffff; margin: 48px 0 14px;
+    }
+    .policy-body p, .policy-body li {
+      font-size: 14px; line-height: 1.9; letter-spacing: 0.4px; color: #9a9a9a;
+    }
+    .policy-body p { margin: 0 0 14px; }
+    .policy-body ul { margin: 0 0 14px; padding-left: 20px; }
+    .policy-body a { color: #ffffff; }
+    @media (max-width: 700px) {
+      .policy-page { padding: 100px 24px 120px; }
+    }
+
+    </style>
+
+</head>
+
+
+<body>
+
+ <nav aria-label="Primary navigation">
+  <a href="index.html" class="nav-logo">
+    <img src="text.png" alt="ANOMALY" width="516" height="78" decoding="async">
+  </a>
+
+  <div class="nav-links">
+    <a href="index.html#shop">SHOP</a>
+    <a href="about.html">ABOUT</a>
+    <a href="contact.html">CONTACT</a>
+    <a href="cart.html">CART <span class="cart-count" data-cart-count hidden>0</span></a>
+  </div>
+
+  <button class="menu-toggle" type="button" aria-label="Open navigation" aria-controls="mobile-menu" aria-expanded="false">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+</nav>
+
+<nav class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation">
+  <a href="index.html#shop">SHOP</a>
+  <a href="about.html">ABOUT</a>
+  <a href="contact.html">CONTACT</a>
+  <a href="cart.html">CART <span class="cart-count" data-cart-count hidden>0</span></a>
+</nav>
+
+
+  <main class="contact-page policy-page">
+
+    <div class="page-label">RETURNS</div>
+
+    <h1 class="page-title">RETURNS<br>POLICY.</h1>
+
+    <div class="policy-body">
+      <div class="updated">LAST UPDATED: OCTOBER 15, 2026</div>
+
+      <h2>MADE TO ORDER</h2>
+      <p>Because each item is printed for you after you order, we cannot accept returns or exchanges for change of mind, wrong size or wrong colour. Please check the size chart on the product page before you buy.</p>
+
+      <h2>DAMAGED, DEFECTIVE OR MISPRINTED ITEMS</h2>
+      <p>If your order arrives damaged, defective or misprinted, email us within 30 days of delivery with:</p>
+      <ul>
+        <li>your order number</li>
+        <li>a clear photo of the problem</li>
+      </ul>
+      <p>You do not need to send the item back. If your claim is approved, we will send a free replacement or refund you.</p>
+
+      <h2>PACKAGES LOST IN TRANSIT</h2>
+      <p>If your package has not arrived, email us within 30 days after the estimated delivery date shown at checkout.</p>
+
+      <h2>WRONG ADDRESS</h2>
+      <p>You are responsible for entering a correct address. If a package is returned because the address was wrong or incomplete, sending it again may cost extra.</p>
+
+      <h2>REFUNDS</h2>
+      <p>Approved refunds go back to your original payment method.</p>
+
+      <h2>YOUR LEGAL RIGHTS</h2>
+      <p>Nothing in this policy limits any rights you have under the consumer law where you live that cannot be waived.</p>
+
+      <p>Questions? Email <a href="mailto:CONTACT-EMAIL-HERE">CONTACT-EMAIL-HERE</a>.</p>
+    </div>
+
+  </main>
+
+  <script>
+  /* CART COUNT */
+  function updateCartCount() {
+    let cart = [];
+
+    try {
+      const saved = JSON.parse(localStorage.getItem('anomalyCart') || '[]');
+      if (Array.isArray(saved)) cart = saved;
+    } catch (error) {
+      cart = [];
+    }
+
+    const count = cart.reduce((total, item) => {
+      const quantity = Number(item && item.quantity);
+      return total + (Number.isFinite(quantity) && quantity > 0 ? Math.floor(quantity) : 0);
+    }, 0);
+
+    document.querySelectorAll('[data-cart-count]').forEach((counter) => {
+      counter.textContent = count > 99 ? '99+' : String(count);
+      counter.setAttribute('aria-label', `${count} ${count === 1 ? 'item' : 'items'} in cart`);
+      counter.hidden = count === 0;
+    });
+  }
+
+  updateCartCount();
+
+  window.addEventListener('storage', (event) => {
+    if (event.key === 'anomalyCart') updateCartCount();
+  });
+
+  window.addEventListener('anomaly-cart-updated', updateCartCount);
+
+
+  const menuToggle = document.querySelector('.menu-toggle');
+  const mobileMenu = document.querySelector('.mobile-menu');
+
+  const closeMenu = () => {
+    mobileMenu.classList.remove('active');
+    menuToggle.setAttribute('aria-expanded', 'false');
+    menuToggle.setAttribute('aria-label', 'Open navigation');
+    document.body.classList.remove('menu-open');
+  };
+
+  menuToggle.addEventListener('click', () => {
+    const isOpen = mobileMenu.classList.toggle('active');
+    menuToggle.setAttribute('aria-expanded', String(isOpen));
+    menuToggle.setAttribute('aria-label', isOpen ? 'Close navigation' : 'Open navigation');
+    document.body.classList.toggle('menu-open', isOpen);
+  });
+
+  document.querySelectorAll('.mobile-menu a').forEach((link) => {
+    link.addEventListener('click', closeMenu);
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && mobileMenu.classList.contains('active')) {
+      closeMenu();
+      menuToggle.focus();
+    }
+  });
+
+  window.matchMedia('(min-width: 701px)').addEventListener('change', (event) => {
+    if (event.matches) closeMenu();
+  });
+</script>
+</body>
+
+</html>
