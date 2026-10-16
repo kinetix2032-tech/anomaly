@@ -410,7 +410,9 @@
       </div>
 
 
-      <form class="contact-form">
+      <p class="contact-form-status" id="contact-form-status" role="status" aria-live="polite">CONTACT SYSTEM NOT CONNECTED. This form is disabled and does not send or store messages.</p>
+
+      <form class="contact-form" method="post">
 
         <div class="form-group">
 
@@ -425,7 +427,7 @@
             autocomplete="name"
             placeholder="YOUR NAME"
             required
-          >
+           disabled>
 
         </div>
 
@@ -444,7 +446,7 @@
             inputmode="email"
             placeholder="YOUR EMAIL"
             required
-          >
+           disabled>
 
         </div>
 
@@ -462,7 +464,7 @@
             autocomplete="off"
             placeholder="SUBJECT"
             required
-          >
+           disabled>
 
         </div>
 
@@ -478,14 +480,15 @@
             name="message"
             placeholder="YOUR MESSAGE"
             required
-          ></textarea>
+           disabled></textarea>
 
         </div>
 
 
         <button
-          type="submit"
+          type="button"
           class="submit-button"
+          disabled
         >
           TRANSMIT
         </button>
@@ -497,6 +500,16 @@
   </main>
 
   <script>
+  // The contact system is not connected. Never transmit personal fields.
+  const contactForm = document.querySelector('.contact-form');
+  if (contactForm) {
+    contactForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const status = document.getElementById('contact-form-status');
+      if (status) status.textContent = 'NOT SENT. THE CONTACT SYSTEM IS NOT CONNECTED.';
+    });
+  }
+
   /* CART COUNT */
   function updateCartCount() {
     let cart = [];
