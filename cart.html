@@ -338,6 +338,175 @@
       letter-spacing: 1.5px;
     }
 
+
+    /* SHIPPING ESTIMATOR */
+    .shipping-estimator {
+      margin: 24px 0 20px;
+      padding: 20px 0;
+      border-top: 1px solid #252525;
+      border-bottom: 1px solid #252525;
+    }
+
+    .shipping-estimator h3 {
+      margin-bottom: 10px;
+      color: #E5E5E5;
+      font-size: 10px;
+      letter-spacing: 2.5px;
+    }
+
+    .shipping-estimator-intro {
+      margin-bottom: 18px;
+      color: #888;
+      font-size: 9px;
+      line-height: 1.8;
+      letter-spacing: 1px;
+    }
+
+    .shipping-fields {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px 10px;
+    }
+
+    .shipping-field {
+      display: flex;
+      min-width: 0;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .shipping-field[hidden] { display: none; }
+
+    .shipping-field label {
+      color: #888;
+      font-size: 8px;
+      line-height: 1.5;
+      letter-spacing: 1.5px;
+    }
+
+    .shipping-field input,
+    .shipping-field select {
+      width: 100%;
+      min-width: 0;
+      min-height: 42px;
+      padding: 10px;
+      border: 1px solid #333;
+      border-radius: 0;
+      background: #0D0F12;
+      color: #E5E5E5;
+      font-size: 11px;
+      letter-spacing: 0.3px;
+    }
+
+    .shipping-field select { color-scheme: dark; }
+
+    .turnstile-container {
+      display: flex;
+      min-height: 70px;
+      align-items: center;
+      margin-top: 14px;
+      overflow: hidden;
+    }
+
+    .estimate-shipping-button {
+      width: 100%;
+      min-height: 46px;
+      margin-top: 12px;
+      padding: 12px;
+      border: 1px solid #E5E5E5;
+      background: #E5E5E5;
+      color: #08090B;
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .estimate-shipping-button:hover:not(:disabled) {
+      background: transparent;
+      color: #E5E5E5;
+    }
+
+    .estimate-shipping-button:disabled {
+      border-color: #333;
+      background: #222;
+      color: #777;
+      cursor: not-allowed;
+    }
+
+    .shipping-status {
+      margin-top: 12px;
+      color: #888;
+      font-size: 9px;
+      line-height: 1.8;
+      letter-spacing: 1px;
+      overflow-wrap: anywhere;
+    }
+
+    .shipping-status[data-state="error"] { color: #E6A3A3; }
+    .shipping-status[data-state="success"] { color: #B8D5B8; }
+
+    .shipping-rates {
+      display: grid;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .shipping-rate-option {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 12px;
+      border: 1px solid #333;
+      cursor: pointer;
+    }
+
+    .shipping-rate-option:has(input:checked) { border-color: #E5E5E5; }
+
+    .shipping-rate-option input {
+      flex: 0 0 auto;
+      margin-top: 2px;
+      accent-color: #E5E5E5;
+    }
+
+    .shipping-rate-details { flex: 1; min-width: 0; }
+
+    .shipping-rate-name {
+      display: block;
+      color: #E5E5E5;
+      font-size: 9px;
+      line-height: 1.6;
+      letter-spacing: 1px;
+    }
+
+    .shipping-rate-delivery {
+      display: block;
+      margin-top: 4px;
+      color: #888;
+      font-size: 8px;
+      line-height: 1.6;
+      letter-spacing: 0.5px;
+    }
+
+    .shipping-rate-price {
+      flex: 0 0 auto;
+      color: #E5E5E5;
+      font-size: 10px;
+      white-space: nowrap;
+    }
+
+    .summary-estimated-total {
+      border-bottom: none;
+      color: #E5E5E5;
+      font-size: 10px;
+      font-weight: 600;
+    }
+
+    @media (max-width: 700px) {
+      .shipping-fields { grid-template-columns: 1fr; }
+    }
+
     .continue-shopping {
       display: inline-block;
       margin-top: 28px;
@@ -514,6 +683,8 @@
 
     
     </style>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=onTurnstileLoad" defer></script>
+
 </head>
 
 <body>
@@ -594,14 +765,63 @@
           <span id="subtotal">$0.00</span>
         </div>
 
+        <section class="shipping-estimator" aria-labelledby="shipping-estimator-heading">
+          <h3 id="shipping-estimator-heading">ESTIMATE SHIPPING</h3>
+          <p class="shipping-estimator-intro">
+            ENTER A DESTINATION TO REQUEST LIVE PRINTFUL SHIPPING OPTIONS.
+            ESTIMATES ONLY — NO PAYMENT OR ORDER WILL BE CREATED.
+          </p>
+
+          <div class="shipping-fields">
+            <div class="shipping-field">
+              <label for="shipping-country">DESTINATION COUNTRY</label>
+              <select id="shipping-country" autocomplete="country" required>
+                <option value="" selected disabled>SELECT COUNTRY</option>
+              </select>
+            </div>
+
+            <div class="shipping-field" id="shipping-state-field" hidden>
+              <label for="shipping-state">STATE / PROVINCE CODE</label>
+              <input id="shipping-state" type="text" autocomplete="address-level1"
+                maxlength="10" placeholder="e.g. CA">
+            </div>
+
+            <div class="shipping-field">
+              <label for="shipping-city">CITY</label>
+              <input id="shipping-city" type="text" autocomplete="address-level2"
+                maxlength="100" placeholder="CITY" required>
+            </div>
+
+            <div class="shipping-field">
+              <label for="shipping-postal">POSTAL / ZIP CODE (IF APPLICABLE)</label>
+              <input id="shipping-postal" type="text" autocomplete="postal-code"
+                maxlength="30" placeholder="POSTAL CODE">
+            </div>
+          </div>
+
+          <div id="turnstile-container" class="turnstile-container"
+            aria-label="Cloudflare security verification"></div>
+
+          <button id="estimate-shipping-button" class="estimate-shipping-button" type="button">
+            CALCULATE SHIPPING
+          </button>
+
+          <p id="shipping-status" class="shipping-status" role="status" aria-live="polite">
+            COMPLETE THE SECURITY CHECK AND ENTER YOUR DESTINATION TO ESTIMATE SHIPPING.
+          </p>
+
+          <div id="shipping-rates" class="shipping-rates" role="radiogroup"
+            aria-label="Available shipping methods"></div>
+        </section>
+
         <div class="summary-row">
           <span>SHIPPING</span>
-          <span>CALCULATED LATER</span>
+          <span id="shipping-display">CALCULATED LATER</span>
         </div>
 
         <div class="summary-row">
           <span>TAXES</span>
-          <span>CALCULATED LATER</span>
+          <span>NOT INCLUDED</span>
         </div>
 
         <div class="summary-row summary-total">
@@ -609,9 +829,13 @@
           <span id="summary-total">$0.00 USD</span>
         </div>
 
+        <div class="summary-row summary-estimated-total">
+          <span>EST. TOTAL BEFORE TAX</span>
+          <span id="estimated-total">CALCULATE SHIPPING</span>
+        </div>
+
         <p class="summary-note">
-          SUBTOTAL EXCLUDES SHIPPING AND TAXES.
-          FINAL COSTS HAVE NOT BEEN CALCULATED.
+          ESTIMATE ONLY. TAXES ARE NOT INCLUDED. PAYMENT AND ORDER SUBMISSION ARE DISABLED.
         </p>
 
         <button
@@ -641,6 +865,293 @@
 
   <script>
     const CART_KEY = 'anomalyCart';
+
+    const shippingCountry = document.getElementById('shipping-country');
+    const shippingState = document.getElementById('shipping-state');
+    const shippingStateField = document.getElementById('shipping-state-field');
+    const shippingCity = document.getElementById('shipping-city');
+    const shippingPostal = document.getElementById('shipping-postal');
+    const shippingStatus = document.getElementById('shipping-status');
+    const shippingRatesContainer = document.getElementById('shipping-rates');
+    const shippingDisplay = document.getElementById('shipping-display');
+    const estimatedTotalDisplay = document.getElementById('estimated-total');
+    const estimateShippingButton = document.getElementById('estimate-shipping-button');
+    const turnstileContainer = document.getElementById('turnstile-container');
+    const SHIPPING_API_URL = 'https://anomaly.kinetix2032.workers.dev/api/shipping-rates';
+    const TURNSTILE_SITEKEY = '0x4AAAAAAFZGgmBrpn3kncB6';
+
+    let currentTurnstileToken = '';
+    let turnstileWidgetId = null;
+    let selectedShippingRate = null;
+
+    const COUNTRY_CODES = (
+      'AD AE AF AG AI AL AM AO AQ AR AS AT AU AW AX AZ BA BB BD BE BF BG BH BI BJ BL BM BN BO BQ BR BS BT BV BW BY BZ CA CC CD CF CG CH CI CK CL CM CN CO CR CU CV CW CX CY CZ DE DJ DK DM DO DZ EC EE EG EH ER ES ET FI FJ FK FM FO FR GA GB GD GE GF GG GH GI GL GM GN GP GQ GR GS GT GU GW GY HK HM HN HR HT HU ID IE IL IM IN IO IQ IR IS IT JE JM JO JP KE KG KH KI KM KN KP KR KW KY KZ LA LB LC LI LK LR LS LT LU LV LY MA MC MD ME MF MG MH MK ML MM MN MO MP MQ MR MS MT MU MV MW MX MY MZ NA NC NE NF NG NI NL NO NP NR NU NZ OM PA PE PF PG PH PK PL PM PN PR PS PT PW PY QA RE RO RS RU RW SA SB SC SD SE SG SH SI SJ SK SL SM SN SO SR SS ST SV SX SY SZ TC TD TF TG TH TJ TK TL TM TN TO TR TT TV TW TZ UA UG UM US UY UZ VA VC VE VG VI VN VU WF WS YE YT ZA ZM ZW'
+    ).split(/\s+/);
+
+    function setShippingStatus(message, state = 'info') {
+      shippingStatus.textContent = message;
+      shippingStatus.dataset.state = state;
+    }
+
+    function populateCountries() {
+      const names = typeof Intl.DisplayNames === 'function'
+        ? new Intl.DisplayNames(['en'], { type: 'region' })
+        : null;
+      const options = COUNTRY_CODES.map((code) => {
+        let name = code;
+        try {
+          if (names) name = names.of(code) || code;
+        } catch (error) {
+          name = code;
+        }
+        return { code, name };
+      }).sort((a, b) => a.name.localeCompare(b.name));
+
+      options.forEach(({ code, name }) => {
+        const option = document.createElement('option');
+        option.value = code;
+        option.textContent = name;
+        shippingCountry.append(option);
+      });
+      shippingCountry.value = 'US';
+      updateShippingStateField();
+    }
+
+    function updateShippingStateField() {
+      const stateRequired = ['US', 'CA', 'AU'].includes(shippingCountry.value);
+      shippingStateField.hidden = !stateRequired;
+      shippingState.required = stateRequired;
+      if (!stateRequired) shippingState.value = '';
+    }
+
+    function currentCartSubtotal(cart = loadCart()) {
+      return cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    }
+
+    function clearShippingEstimate(message = 'Enter your destination and calculate shipping again.') {
+      selectedShippingRate = null;
+      shippingRatesContainer.replaceChildren();
+      shippingDisplay.textContent = 'CALCULATED LATER';
+      estimatedTotalDisplay.textContent = 'CALCULATE SHIPPING';
+      setShippingStatus(message, 'info');
+    }
+
+    function formatMoney(amount, currency = 'USD') {
+      try {
+        return new Intl.NumberFormat('en-US', {
+          style: 'currency',
+          currency
+        }).format(amount);
+      } catch (error) {
+        return currency + ' ' + Number(amount).toFixed(2);
+      }
+    }
+
+    function selectShippingRate(rate) {
+      selectedShippingRate = rate;
+      const shippingAmount = Number(rate.rate);
+      shippingDisplay.textContent = formatMoney(shippingAmount, 'USD');
+      estimatedTotalDisplay.textContent = formatMoney(
+        currentCartSubtotal() + shippingAmount,
+        'USD'
+      );
+      setShippingStatus(
+        'ESTIMATE UPDATED. TAXES, PAYMENT AND ORDER SUBMISSION ARE NOT INCLUDED.',
+        'success'
+      );
+    }
+
+    function renderShippingRates(rates) {
+      shippingRatesContainer.replaceChildren();
+      const usableRates = rates
+        .filter((rate) =>
+          rate &&
+          Number.isFinite(Number(rate.rate)) &&
+          Number(rate.rate) >= 0 &&
+          String(rate.currency || 'USD').toUpperCase() === 'USD'
+        )
+        .sort((a, b) => Number(a.rate) - Number(b.rate));
+
+      if (!usableRates.length) {
+        setShippingStatus(
+          'NO USD SHIPPING OPTIONS WERE RETURNED. CHECK THE DESTINATION AND TRY AGAIN.',
+          'error'
+        );
+        return;
+      }
+
+      usableRates.forEach((rate, index) => {
+        const label = makeElement('label', 'shipping-rate-option');
+        const radio = document.createElement('input');
+        radio.type = 'radio';
+        radio.name = 'anomaly-shipping-rate';
+        radio.value = String(index);
+        radio.setAttribute('aria-label', String(rate.name || 'Shipping option'));
+
+        const details = makeElement('span', 'shipping-rate-details');
+        const name = makeElement('span', 'shipping-rate-name', String(rate.name || 'Shipping'));
+        details.append(name);
+
+        const minDays = Number(rate.minDeliveryDays);
+        const maxDays = Number(rate.maxDeliveryDays);
+        if (Number.isFinite(minDays) && minDays > 0 && Number.isFinite(maxDays) && maxDays >= minDays) {
+          details.append(makeElement(
+            'span',
+            'shipping-rate-delivery',
+            'ESTIMATED DELIVERY: ' + minDays + '–' + maxDays + ' DAYS'
+          ));
+        } else {
+          details.append(makeElement('span', 'shipping-rate-delivery', 'DELIVERY ESTIMATE MAY VARY'));
+        }
+
+        const price = makeElement('span', 'shipping-rate-price', formatMoney(Number(rate.rate), 'USD'));
+        label.append(radio, details, price);
+        radio.addEventListener('change', () => selectShippingRate(rate));
+        shippingRatesContainer.append(label);
+      });
+
+      setShippingStatus('CHOOSE A SHIPPING METHOD TO UPDATE THE ESTIMATED TOTAL. TAXES ARE NOT INCLUDED.');
+    }
+
+    window.onTurnstileLoad = function () {
+      if (!window.turnstile || !turnstileContainer) {
+        setShippingStatus('SECURITY VERIFICATION DID NOT LOAD. REFRESH THE PAGE AND TRY AGAIN.', 'error');
+        return;
+      }
+
+      try {
+        turnstileWidgetId = window.turnstile.render(turnstileContainer, {
+          sitekey: TURNSTILE_SITEKEY,
+          theme: 'dark',
+          callback: (token) => {
+            currentTurnstileToken = token;
+            setShippingStatus('SECURITY CHECK COMPLETE. ENTER YOUR DESTINATION AND CALCULATE SHIPPING.');
+          },
+          'expired-callback': () => {
+            currentTurnstileToken = '';
+            setShippingStatus('SECURITY CHECK EXPIRED. COMPLETE IT AGAIN BEFORE CALCULATING SHIPPING.', 'error');
+          },
+          'error-callback': () => {
+            currentTurnstileToken = '';
+            setShippingStatus('SECURITY VERIFICATION FAILED TO LOAD. REFRESH THE PAGE AND TRY AGAIN.', 'error');
+          }
+        });
+      } catch (error) {
+        currentTurnstileToken = '';
+        setShippingStatus('SECURITY VERIFICATION COULD NOT START. REFRESH THE PAGE AND TRY AGAIN.', 'error');
+      }
+    };
+
+    function invalidateShippingForAddressChange() {
+      clearShippingEstimate('Destination changed. Calculate shipping again when ready.');
+    }
+
+    shippingCountry.addEventListener('change', () => {
+      updateShippingStateField();
+      invalidateShippingForAddressChange();
+    });
+    [shippingState, shippingCity, shippingPostal].forEach((field) => {
+      field.addEventListener('input', invalidateShippingForAddressChange);
+      field.addEventListener('change', invalidateShippingForAddressChange);
+    });
+
+    estimateShippingButton.addEventListener('click', async () => {
+      const cart = loadCart();
+
+      if (!cart.length) {
+        setShippingStatus('YOUR CART IS EMPTY. ADD AN ITEM BEFORE ESTIMATING SHIPPING.', 'error');
+        return;
+      }
+      if (cart.length > 8) {
+        setShippingStatus('THIS CART HAS TOO MANY DISTINCT ITEMS TO ESTIMATE. REDUCE THE NUMBER OF SIZES.', 'error');
+        return;
+      }
+      if (!shippingCountry.value) {
+        setShippingStatus('SELECT A DESTINATION COUNTRY.', 'error');
+        shippingCountry.focus();
+        return;
+      }
+      if (!shippingCity.value.trim()) {
+        setShippingStatus('ENTER THE DESTINATION CITY.', 'error');
+        shippingCity.focus();
+        return;
+      }
+      if (shippingState.required && !shippingState.value.trim()) {
+        setShippingStatus('ENTER THE STATE OR PROVINCE CODE.', 'error');
+        shippingState.focus();
+        return;
+      }
+      if (!currentTurnstileToken) {
+        setShippingStatus('COMPLETE THE CLOUDFLARE SECURITY CHECK BEFORE CALCULATING SHIPPING.', 'error');
+        turnstileContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+
+      shippingRatesContainer.replaceChildren();
+      selectedShippingRate = null;
+      shippingDisplay.textContent = 'CALCULATING...';
+      estimatedTotalDisplay.textContent = 'CALCULATING...';
+      estimateShippingButton.disabled = true;
+      estimateShippingButton.textContent = 'CALCULATING...';
+      setShippingStatus('REQUESTING CURRENT SHIPPING OPTIONS...', 'info');
+
+      const recipient = {
+        country_code: shippingCountry.value,
+        city: shippingCity.value.trim()
+      };
+      if (shippingState.required && shippingState.value.trim()) {
+        recipient.state_code = shippingState.value.trim().toUpperCase();
+      }
+      if (shippingPostal.value.trim()) recipient.zip = shippingPostal.value.trim();
+
+      try {
+        const response = await fetch(SHIPPING_API_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            recipient,
+            items: cart.map((item) => ({
+              variantId: String(item.variantId),
+              quantity: item.quantity
+            })),
+            turnstileToken: currentTurnstileToken
+          })
+        });
+
+        const payload = await response.json().catch(() => null);
+        if (!response.ok) {
+          throw new Error(
+            typeof payload?.error === 'string'
+              ? payload.error
+              : 'SHIPPING ESTIMATES ARE NOT AVAILABLE RIGHT NOW.'
+          );
+        }
+        if (!Array.isArray(payload?.rates)) {
+          throw new Error('THE SHIPPING SERVICE RETURNED AN UNEXPECTED RESPONSE.');
+        }
+
+        renderShippingRates(payload.rates);
+      } catch (error) {
+        shippingDisplay.textContent = 'NOT CALCULATED';
+        estimatedTotalDisplay.textContent = 'NOT CALCULATED';
+        setShippingStatus(
+          error && error.message
+            ? error.message
+            : 'SHIPPING ESTIMATES ARE TEMPORARILY UNAVAILABLE. TRY AGAIN LATER.',
+          'error'
+        );
+      } finally {
+        currentTurnstileToken = '';
+        if (window.turnstile && turnstileWidgetId !== null) {
+          try { window.turnstile.reset(turnstileWidgetId); } catch (error) {}
+        }
+        estimateShippingButton.disabled = false;
+        estimateShippingButton.textContent = 'CALCULATE SHIPPING';
+      }
+    });
+
+    populateCountries();
+
 
     const cartItemsContainer = document.getElementById('cart-items');
     const itemCountDisplay = document.getElementById('item-count');
@@ -878,6 +1389,9 @@
       subtotalDisplay.textContent = formatUSD(subtotal);
       totalDisplay.textContent = `${formatUSD(subtotal)} USD`;
       updateCartCount();
+      clearShippingEstimate(cart.length
+        ? 'Cart updated. Enter the destination and calculate shipping again.'
+        : 'Add an item to your cart before estimating shipping.');
     }
 
     /* MOBILE NAVIGATION */
