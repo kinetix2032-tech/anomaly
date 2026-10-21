@@ -230,6 +230,22 @@ export default {
         const payload = await printfulResponse.json().catch(() => null);
 
         if (!printfulResponse.ok || !Array.isArray(payload?.result)) {
+          // Log only sanitised upstream diagnostics. Never log tokens or recipient data.
+          const rawCode = payload?.code;
+          const errorCode = typeof rawCode === "number" || (typeof rawCode === "string" && /^[A-Z0-9_-]{1,40}$/i.test(rawCode))
+            ? rawCode
+            : undefined;
+          const rawMessage = payload?.error?.message ?? payload?.result?.message ?? payload?.message;
+          const errorMessage = typeof rawMessage === "string"
+            ? rawMessage.replace(/https?:\/\/\S+/gi, "[URL]").replace(/[\r\n\t]+/g, " ").slice(0, 240)
+            : undefined;
+
+          console.error("Printful shipping-rate request failed", {
+            status: printfulResponse.status,
+            ...(errorCode !== undefined ? { code: errorCode } : {}),
+            ...(errorMessage ? { message: errorMessage } : {})
+          });
+
           return jsonResponse(origin, {
             error: "Printful could not calculate shipping for this selection. Check the destination and try again."
           }, 502);
