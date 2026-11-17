@@ -1368,7 +1368,7 @@
   let quantity = 1;
 
   function applyProductMarket() {
-    activeMarket = localStorage.getItem('anomalyMarket') === 'zambia' ? 'zambia' : activeMarket;
+    activeMarket = localStorage.getItem('anomalyMarket') === 'zambia' ? 'zambia' : 'international';
     marketButtons.forEach((button) => {
       button.setAttribute('aria-pressed', String(button.dataset.market === activeMarket));
     });
