@@ -1393,6 +1393,9 @@
     });
   });
 
+  // Restore the saved market on page load.
+  applyProductMarket();
+
   sizeOptions.forEach((option) => {
     option.addEventListener('click', () => {
 
@@ -1408,8 +1411,7 @@
         price: parseFloat(option.dataset.price)
       };
 
-      priceDisplay.textContent = `$${selectedVariant.price.toFixed(2)} USD`;
-
+      applyProductMarket();
       purchaseMessage.textContent = '';
     });
   });
@@ -1431,26 +1433,38 @@
       return;
     }
 
-    const cart = JSON.parse(localStorage.getItem('anomalyCart') || '[]');
+    let cart = [];
+    const cartKey = activeCartKey();
+
+    try {
+      const savedCart = JSON.parse(localStorage.getItem(cartKey) || '[]');
+      if (Array.isArray(savedCart)) cart = savedCart;
+    } catch (error) {
+      cart = [];
+    }
 
     const existingItem = cart.find(
       (item) => item.variantId === selectedVariant.id
     );
 
+    // Zambia prices are intentionally zero until local pricing is approved.
+    const itemPrice = activeMarket === 'zambia' ? 0 : selectedVariant.price;
+
     if (existingItem) {
       existingItem.quantity = Math.min(10, existingItem.quantity + quantity);
+      existingItem.price = itemPrice;
     } else {
       cart.push({
         productId: 476463917,
         variantId: selectedVariant.id,
         productName: 'ANOMALY / CORE TEE',
         size: selectedVariant.size,
-        price: selectedVariant.price,
+        price: itemPrice,
         quantity: quantity
       });
     }
 
-    localStorage.setItem('anomalyCart', JSON.stringify(cart));
+    localStorage.setItem(cartKey, JSON.stringify(cart));
     window.dispatchEvent(new Event('anomaly-cart-updated'));
     updateCartCount();
 
