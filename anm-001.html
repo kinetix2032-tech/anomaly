@@ -1559,7 +1559,17 @@
       zambiaSizeNote.hidden = false;
       purchaseTransparency.textContent = 'Adding to your Zambia cart is an order enquiry only. Local price, stock and delivery details are confirmed before payment.';
     } else {
-      priceDisplay.textContent = selectedVariant ? '
+      priceDisplay.textContent = selectedVariant ? '$' + selectedVariant.price.toFixed(2) + ' USD' : '$35.00 USD';
+      marketNote.textContent = 'This item will be added to your international cart.';
+      fulfilmentNote.textContent = 'SHIPPING CALCULATED AT CHECKOUT';
+      garmentFact.textContent = 'GILDAN 5000';
+      fitFact.textContent = 'CLASSIC';
+      fabricFact.textContent = '5.3 OZ / COTTON';
+      sizeGuide.hidden = false;
+      zambiaSizeNote.hidden = true;
+      purchaseTransparency.textContent = 'Adding to cart does not place an order. International checkout is not yet connected.';
+    }
+    updateCartCount();
   }
 
   marketButtons.forEach((button) => {
