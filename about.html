@@ -1032,12 +1032,15 @@
 
   </footer>
 <script>
-  /* CART COUNT */
+  /* MARKET-AWARE CART COUNT */
   function updateCartCount() {
     let cart = [];
+    const cartKey = localStorage.getItem('anomalyMarket') === 'zambia'
+      ? 'anomalyCartZambia'
+      : 'anomalyCart';
 
     try {
-      const saved = JSON.parse(localStorage.getItem('anomalyCart') || '[]');
+      const saved = JSON.parse(localStorage.getItem(cartKey) || '[]');
       if (Array.isArray(saved)) cart = saved;
     } catch (error) {
       cart = [];
@@ -1058,7 +1061,9 @@
   updateCartCount();
 
   window.addEventListener('storage', (event) => {
-    if (event.key === 'anomalyCart') updateCartCount();
+    if (['anomalyCart', 'anomalyCartZambia', 'anomalyMarket'].includes(event.key)) {
+      updateCartCount();
+    }
   });
 
   window.addEventListener('anomaly-cart-updated', updateCartCount);
