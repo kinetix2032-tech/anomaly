@@ -224,6 +224,120 @@
       margin-bottom: 45px;
     }
 
+    /* PRODUCT DETAILS + SIZE GUIDE */
+    .product-facts {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      max-width: 520px;
+      margin: -18px 0 28px;
+    }
+
+    .product-fact {
+      border-top: 1px solid #333;
+      padding-top: 12px;
+    }
+
+    .product-fact-label {
+      display: block;
+      margin-bottom: 8px;
+      color: #666;
+      font-size: 8px;
+      letter-spacing: 2px;
+    }
+
+    .product-fact-value {
+      color: #ddd;
+      font-size: 10px;
+      line-height: 1.6;
+      letter-spacing: 1px;
+    }
+
+    .size-guide-wrap {
+      max-width: 520px;
+      margin: 0 0 28px;
+    }
+
+    .size-guide {
+      border: 1px solid #292929;
+      background: #0d0f12;
+    }
+
+    .size-guide summary {
+      min-height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px;
+      color: #ddd;
+      cursor: pointer;
+      list-style: none;
+      font-size: 9px;
+      letter-spacing: 2px;
+    }
+
+    .size-guide summary::-webkit-details-marker { display: none; }
+    .size-guide summary::after { content: "+"; font-size: 16px; color: #888; }
+    .size-guide[open] summary::after { content: "−"; }
+
+    .size-guide-content {
+      padding: 0 16px 18px;
+      color: #999;
+      font-size: 11px;
+      line-height: 1.7;
+    }
+
+    .size-table-wrap {
+      overflow-x: auto;
+      margin: 14px 0;
+    }
+
+    .size-table {
+      width: 100%;
+      min-width: 410px;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 10px;
+      letter-spacing: .5px;
+    }
+
+    .size-table th,
+    .size-table td {
+      padding: 9px 8px;
+      border-bottom: 1px solid #292929;
+      white-space: nowrap;
+    }
+
+    .size-table th {
+      color: #ddd;
+      font-weight: 600;
+    }
+
+    .size-table td { color: #999; }
+
+    .size-guide-note {
+      margin-top: 12px;
+      color: #777;
+      font-size: 10px;
+    }
+
+    .market-size-note {
+      padding: 14px 16px;
+      border: 1px solid #292929;
+      color: #999;
+      font-size: 10px;
+      line-height: 1.7;
+      letter-spacing: 1px;
+    }
+
+    .purchase-transparency {
+      margin-top: 12px;
+      color: #777;
+      font-size: 9px;
+      line-height: 1.7;
+      letter-spacing: 1px;
+    }
+
     .status {
       display: inline-block;
 
@@ -413,6 +527,16 @@
 }
 
 @media (max-width: 700px) {
+
+  .product-facts {
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: -30px;
+  }
+
+  .size-guide-wrap {
+    max-width: 100%;
+  }
 
   .purchase-panel {
     max-width: 100%;
@@ -987,11 +1111,56 @@
       </div>
 
       <p class="product-description">
-
         OUTSIDE THE PATTERN.<br>
         NOT A DEFECT. AN ANOMALY.
-
       </p>
+
+      <div class="product-facts" aria-label="Product details">
+        <div class="product-fact">
+          <span class="product-fact-label">GARMENT</span>
+          <span class="product-fact-value" id="fact-garment">GILDAN 5000</span>
+        </div>
+        <div class="product-fact">
+          <span class="product-fact-label">FIT</span>
+          <span class="product-fact-value" id="fact-fit">CLASSIC</span>
+        </div>
+        <div class="product-fact">
+          <span class="product-fact-label">FABRIC</span>
+          <span class="product-fact-value" id="fact-fabric">5.3 OZ / 100% COTTON</span>
+        </div>
+      </div>
+
+      <div class="size-guide-wrap">
+        <details class="size-guide" id="size-guide">
+          <summary>VIEW SIZE GUIDE — GILDAN 5000</summary>
+          <div class="size-guide-content">
+            <p>These are garment measurements, not body measurements. Lay a similar T-shirt flat and compare its width and length with the chart.</p>
+            <div class="size-table-wrap">
+              <table class="size-table">
+                <thead>
+                  <tr>
+                    <th scope="col">SIZE</th>
+                    <th scope="col">CHEST WIDTH</th>
+                    <th scope="col">BODY LENGTH</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><th scope="row">S</th><td>18 in / 45.7 cm</td><td>28 in / 71.1 cm</td></tr>
+                  <tr><th scope="row">M</th><td>20 in / 50.8 cm</td><td>29 in / 73.7 cm</td></tr>
+                  <tr><th scope="row">L</th><td>22 in / 55.9 cm</td><td>30 in / 76.2 cm</td></tr>
+                  <tr><th scope="row">XL</th><td>24 in / 61.0 cm</td><td>31 in / 78.7 cm</td></tr>
+                  <tr><th scope="row">2XL</th><td>26 in / 66.0 cm</td><td>32 in / 81.3 cm</td></tr>
+                  <tr><th scope="row">3XL</th><td>28 in / 71.1 cm</td><td>33 in / 83.8 cm</td></tr>
+                  <tr><th scope="row">4XL</th><td>30 in / 76.2 cm</td><td>34 in / 86.4 cm</td></tr>
+                  <tr><th scope="row">5XL</th><td>32 in / 81.3 cm</td><td>35 in / 88.9 cm</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="size-guide-note">Chest width is measured across the garment laid flat, one inch below the armholes. Body length is measured from the high point of the shoulder to the bottom hem. Measurements are nominal and may vary slightly.</p>
+          </div>
+        </details>
+        <p class="market-size-note" id="zambia-size-note" hidden>LOCAL SIZE GUIDE PENDING — Zambia garment measurements will be published once the local production blank is confirmed.</p>
+      </div>
 
    <div class="status">
   STATUS: PENDING
@@ -1048,6 +1217,7 @@
   </div>
 
   <div class="purchase-message" id="purchase-message" aria-live="polite"></div>
+  <p class="purchase-transparency" id="purchase-transparency">Adding to cart does not place an order. International checkout is not yet connected.</p>
 
 </div>
 
@@ -1281,6 +1451,12 @@
   const marketButtons = document.querySelectorAll('[data-market]');
   const marketNote = document.getElementById('product-market-note');
   const fulfilmentNote = document.getElementById('fulfilment-note');
+  const garmentFact = document.getElementById('fact-garment');
+  const fitFact = document.getElementById('fact-fit');
+  const fabricFact = document.getElementById('fact-fabric');
+  const sizeGuide = document.getElementById('size-guide');
+  const zambiaSizeNote = document.getElementById('zambia-size-note');
+  const purchaseTransparency = document.getElementById('purchase-transparency');
 
   function activeCartKey() {
     return activeMarket === 'zambia' ? 'anomalyCartZambia' : 'anomalyCart';
@@ -1376,10 +1552,127 @@
       priceDisplay.textContent = 'LOCAL PRICE PENDING';
       marketNote.textContent = 'This item will be added to your Zambia cart. Local pricing and availability will be confirmed before payment.';
       fulfilmentNote.textContent = 'LUSAKA DELIVERY OR COLLECTION / CONFIRMED AFTER REVIEW';
+      garmentFact.textContent = 'LOCAL BLANK PENDING';
+      fitFact.textContent = 'TO BE CONFIRMED';
+      fabricFact.textContent = 'TO BE CONFIRMED';
+      sizeGuide.hidden = true;
+      zambiaSizeNote.hidden = false;
+      purchaseTransparency.textContent = 'Adding to your Zambia cart is an order enquiry only. Local price, stock and delivery details are confirmed before payment.';
     } else {
       priceDisplay.textContent = selectedVariant ? '$' + selectedVariant.price.toFixed(2) + ' USD' : '$35.00 USD';
       marketNote.textContent = 'This item will be added to your international cart.';
       fulfilmentNote.textContent = 'SHIPPING CALCULATED AT CHECKOUT';
+      garmentFact.textContent = 'GILDAN 5000';
+      fitFact.textContent = 'CLASSIC';
+      fabricFact.textContent = '5.3 OZ / 100% COTTON';
+      sizeGuide.hidden = false;
+      zambiaSizeNote.hidden = true;
+      purchaseTransparency.textContent = 'Adding to cart does not place an order. International checkout is not yet connected.';
+    }
+    updateCartCount();
+  }
+
+  marketButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      activeMarket = button.dataset.market;
+      localStorage.setItem('anomalyMarket', activeMarket);
+      applyProductMarket();
+      purchaseMessage.textContent = '';
+    });
+  });
+
+  // Restore the saved market on page load.
+  applyProductMarket();
+
+  sizeOptions.forEach((option) => {
+    option.addEventListener('click', () => {
+
+      sizeOptions.forEach((item) => {
+        item.classList.remove('selected');
+      });
+
+      option.classList.add('selected');
+
+      selectedVariant = {
+        id: option.dataset.variantId,
+        size: option.dataset.size,
+        price: parseFloat(option.dataset.price)
+      };
+
+      applyProductMarket();
+      purchaseMessage.textContent = '';
+    });
+  });
+
+  quantityMinus.addEventListener('click', () => {
+    quantity = Math.max(1, quantity - 1);
+    quantityDisplay.textContent = quantity;
+  });
+
+  quantityPlus.addEventListener('click', () => {
+    quantity = Math.min(10, quantity + 1);
+    quantityDisplay.textContent = quantity;
+  });
+
+  addToCartButton.addEventListener('click', () => {
+
+    if (!selectedVariant) {
+      purchaseMessage.textContent = 'SELECT A SIZE TO CONTINUE.';
+      return;
+    }
+
+    let cart = [];
+    const cartKey = activeCartKey();
+
+    try {
+      const savedCart = JSON.parse(localStorage.getItem(cartKey) || '[]');
+      if (Array.isArray(savedCart)) cart = savedCart;
+    } catch (error) {
+      cart = [];
+    }
+
+    const existingItem = cart.find(
+      (item) => item.variantId === selectedVariant.id
+    );
+
+    // Zambia prices are intentionally zero until local pricing is approved.
+    const itemPrice = activeMarket === 'zambia' ? 0 : selectedVariant.price;
+
+    if (existingItem) {
+      existingItem.quantity = Math.min(10, existingItem.quantity + quantity);
+      existingItem.price = itemPrice;
+    } else {
+      cart.push({
+        productId: 476463917,
+        variantId: selectedVariant.id,
+        productName: 'ANOMALY / CORE TEE',
+        size: selectedVariant.size,
+        price: itemPrice,
+        quantity: quantity
+      });
+    }
+
+    localStorage.setItem(cartKey, JSON.stringify(cart));
+    window.dispatchEvent(new Event('anomaly-cart-updated'));
+    updateCartCount();
+
+    purchaseMessage.textContent =
+      `ANM-001 / SIZE ${selectedVariant.size} ADDED TO CART.`;
+
+  });
+</script>
+</body>
+
+</html>
+ + selectedVariant.price.toFixed(2) + ' USD' : '$35.00 USD';
+      marketNote.textContent = 'This item will be added to your international cart.';
+      fulfilmentNote.textContent = 'SHIPPING CALCULATED AT CHECKOUT';
+      garmentFact.textContent = 'GILDAN 5000';
+      fitFact.textContent = 'CLASSIC';
+      fabricFact.textContent = '5.3 OZ / 100% COTTON';
+      sizeGuide.hidden = false;
+      zambiaSizeNote.hidden = true;
+      purchaseTransparency.textContent = 'Adding to cart does not place an order. International checkout is not yet connected.';
     }
     updateCartCount();
   }
