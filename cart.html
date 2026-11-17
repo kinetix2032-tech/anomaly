@@ -1584,10 +1584,11 @@
             'SIZE: ' + item.size + (item.colour ? ' / ' + item.colour : '')
           );
 
+          const pricePending = activeMarket === 'zambia' && item.price <= 0;
           const unitPrice = makeElement(
             'div',
             'item-unit-price',
-            `${formatCartMoney(item.price)} USD EACH`
+            pricePending ? 'LOCAL PRICE TO BE CONFIRMED' : `${formatCartMoney(item.price)} EACH`
           );
 
           const bottom = makeElement('div', 'item-bottom');
@@ -1626,7 +1627,7 @@
           const lineTotal = makeElement(
             'div',
             'item-line-total',
-            formatCartMoney(item.price * item.quantity)
+            pricePending ? 'TOTAL PENDING' : formatCartMoney(item.price * item.quantity)
           );
 
           details.append(code, name, size, unitPrice, bottom, lineTotal);
@@ -1648,8 +1649,9 @@
       itemCountDisplay.textContent =
         `${units} ${units === 1 ? 'ITEM' : 'ITEMS'}`;
 
-      subtotalDisplay.textContent = formatCartMoney(subtotal);
-      totalDisplay.textContent = formatCartMoney(subtotal) + (activeMarket === 'zambia' ? ' ZMW' : ' USD');
+      const hasUnpricedLocalItems = activeMarket === 'zambia' && cart.some((item) => item.price <= 0);
+      subtotalDisplay.textContent = hasUnpricedLocalItems ? 'PRICE PENDING' : formatCartMoney(subtotal);
+      totalDisplay.textContent = hasUnpricedLocalItems ? 'PRICE PENDING' : formatCartMoney(subtotal);
       updateCartCount();
 
       if (activeMarket === 'international') {

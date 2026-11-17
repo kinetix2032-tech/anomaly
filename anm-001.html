@@ -268,6 +268,44 @@
   max-width: 440px;
 }
 
+.product-market-picker {
+  margin: 0 0 24px;
+  padding: 16px;
+  border: 1px solid #292929;
+}
+.product-market-label {
+  margin-bottom: 12px;
+  color: #777;
+  font-size: 9px;
+  letter-spacing: 2.5px;
+}
+.product-market-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.product-market-option {
+  min-height: 42px;
+  border: 1px solid #333;
+  background: transparent;
+  color: #888;
+  cursor: pointer;
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  transition: .2s ease;
+}
+.product-market-option[aria-pressed="true"] {
+  border-color: #E5E5E5;
+  background: #E5E5E5;
+  color: #08090B;
+}
+.product-market-note {
+  margin-top: 12px;
+  color: #777;
+  font-size: 9px;
+  line-height: 1.7;
+  letter-spacing: 1px;
+}
 .purchase-price {
   font-size: 22px;
   letter-spacing: 2px;
@@ -961,11 +999,22 @@
 
 <div class="purchase-panel">
 
+  <div class="purchase-market-picker" aria-label="Choose shopping market">
+    <div class="product-market-picker">
+      <div class="product-market-label">ADD TO WHICH CART?</div>
+      <div class="product-market-options" role="group" aria-label="Shopping market">
+        <button type="button" class="product-market-option" data-market="international" aria-pressed="true">INTERNATIONAL / USD</button>
+        <button type="button" class="product-market-option" data-market="zambia" aria-pressed="false">ZAMBIA / ZMW</button>
+      </div>
+      <p class="product-market-note" id="product-market-note">This item will be added to your international cart.</p>
+    </div>
+  </div>
+
   <div class="purchase-price" id="product-price">
     $35.00 USD
   </div>
 
-    <div class="purchase-label">SHIPPING CALCULATED AT CHECKOUT</div>
+    <div class="purchase-label" id="fulfilment-note">SHIPPING CALCULATED AT CHECKOUT</div>
   
   <div class="purchase-label">
     SELECT SIZE
@@ -1227,12 +1276,21 @@
   </footer>
 
   <script>
-  /* CART COUNT */
+  /* MARKET-SPECIFIC CART */
+  let activeMarket = localStorage.getItem('anomalyMarket') === 'zambia' ? 'zambia' : 'international';
+  const marketButtons = document.querySelectorAll('[data-market]');
+  const marketNote = document.getElementById('product-market-note');
+  const fulfilmentNote = document.getElementById('fulfilment-note');
+
+  function activeCartKey() {
+    return activeMarket === 'zambia' ? 'anomalyCartZambia' : 'anomalyCart';
+  }
+
   function updateCartCount() {
     let cart = [];
 
     try {
-      const saved = JSON.parse(localStorage.getItem('anomalyCart') || '[]');
+      const saved = JSON.parse(localStorage.getItem(activeCartKey()) || '[]');
       if (Array.isArray(saved)) cart = saved;
     } catch (error) {
       cart = [];
@@ -1253,7 +1311,10 @@
   updateCartCount();
 
   window.addEventListener('storage', (event) => {
-    if (event.key === 'anomalyCart') updateCartCount();
+    if (event.key === 'anomalyCart' || event.key === 'anomalyCartZambia' || event.key === 'anomalyMarket') {
+      activeMarket = localStorage.getItem('anomalyMarket') === 'zambia' ? 'zambia' : 'international';
+      applyProductMarket();
+    }
   });
 
   window.addEventListener('anomaly-cart-updated', updateCartCount);
@@ -1305,6 +1366,32 @@
 
   let selectedVariant = null;
   let quantity = 1;
+
+  function applyProductMarket() {
+    activeMarket = localStorage.getItem('anomalyMarket') === 'zambia' ? 'zambia' : 'international';
+    marketButtons.forEach((button) => {
+      button.setAttribute('aria-pressed', String(button.dataset.market === activeMarket));
+    });
+    if (activeMarket === 'zambia') {
+      priceDisplay.textContent = 'LOCAL PRICE PENDING';
+      marketNote.textContent = 'This item will be added to your Zambia cart. Local pricing and availability will be confirmed before payment.';
+      fulfilmentNote.textContent = 'LUSAKA DELIVERY OR COLLECTION / CONFIRMED AFTER REVIEW';
+    } else {
+      priceDisplay.textContent = selectedVariant ? '$' + selectedVariant.price.toFixed(2) + ' USD' : '$35.00 USD';
+      marketNote.textContent = 'This item will be added to your international cart.';
+      fulfilmentNote.textContent = 'SHIPPING CALCULATED AT CHECKOUT';
+    }
+    updateCartCount();
+  }
+
+  marketButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      activeMarket = button.dataset.market;
+      localStorage.setItem('anomalyMarket', activeMarket);
+      applyProductMarket();
+      purchaseMessage.textContent = '';
+    });
+  });
 
   sizeOptions.forEach((option) => {
     option.addEventListener('click', () => {
