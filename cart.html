@@ -507,6 +507,25 @@
       .shipping-fields { grid-template-columns: 1fr; }
     }
 
+    .market-selector {
+      display:grid; grid-template-columns:minmax(0,1fr) minmax(220px,.55fr);
+      gap:24px; align-items:end; margin-top:42px; padding:22px 0;
+      border-top:1px solid #252525; border-bottom:1px solid #252525;
+    }
+    .market-selector label {display:block;margin-bottom:10px;color:#888;font-size:9px;letter-spacing:2px}
+    .market-selector p {color:#777;font-size:9px;line-height:1.8;letter-spacing:1px}
+    .market-selector select {
+      width:100%;min-height:44px;padding:10px 12px;border:1px solid #444;border-radius:0;
+      background:#0D0F12;color:#E5E5E5;font-size:10px;letter-spacing:1.5px;color-scheme:dark;
+    }
+    .zambia-order-panel {margin-top:28px;padding:24px;border:1px solid #292929}
+    .zambia-order-panel[hidden] {display:none}
+    .zambia-order-panel h2 {margin-bottom:14px;font-size:11px;letter-spacing:2.5px}
+    .zambia-order-panel p {color:#888;font-size:10px;line-height:2;letter-spacing:1px}
+    .zambia-order-panel p+p {margin-top:10px}
+    .market-hidden {display:none!important}
+    @media(max-width:700px) {.market-selector{grid-template-columns:1fr;gap:14px}.zambia-order-panel{padding:20px}}
+
     .continue-shopping {
       display: inline-block;
       margin-top: 28px;
@@ -683,7 +702,6 @@
 
     
     </style>
-  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=onTurnstileLoad" defer></script>
 
 </head>
 
@@ -738,6 +756,24 @@
       NOTHING IS FINAL UNTIL CHECKOUT.
     </p>
 
+    <section class="market-selector" aria-label="Shopping market">
+      <div>
+        <label for="market-select">SHOPPING MARKET</label>
+        <p>SELECT THE MARKET THAT WILL FULFIL YOUR ORDER. YOUR TWO CARTS ARE KEPT SEPARATE.</p>
+      </div>
+      <select id="market-select">
+        <option value="international">INTERNATIONAL / USD</option>
+        <option value="zambia">ZAMBIA / ZMW</option>
+      </select>
+    </section>
+
+    <section class="zambia-order-panel" id="zambia-order-panel" hidden aria-live="polite">
+      <h2>ANOMALY ZAMBIA / LUSAKA</h2>
+      <p>LOCAL ORDERS WILL USE ZMW PRICING, LUSAKA DELIVERY OR COLLECTION, AND MANUAL PAYMENT CONFIRMATION.</p>
+      <p>THE LOCAL PRODUCT PRICES, AVAILABLE STOCK AND DEDICATED WHATSAPP CONTACT ARE STILL BEING FINALISED. ZAMBIA CHECKOUT WILL REMAIN DISABLED UNTIL THOSE DETAILS ARE READY.</p>
+      <p>YOUR INTERNATIONAL CART IS STORED SEPARATELY AND WILL NOT BE SENT THROUGH THE ZAMBIAN ORDER ROUTE.</p>
+    </section>
+
     <div class="cart-layout">
 
       <section aria-labelledby="cart-items-heading">
@@ -765,7 +801,7 @@
           <span id="subtotal">$0.00</span>
         </div>
 
-        <section class="shipping-estimator" aria-labelledby="shipping-estimator-heading">
+        <section class="shipping-estimator" id="shipping-estimator" aria-labelledby="shipping-estimator-heading">
           <h3 id="shipping-estimator-heading">ESTIMATE SHIPPING</h3>
           <p class="shipping-estimator-intro">
             ENTER A DESTINATION TO REQUEST LIVE PRINTFUL SHIPPING OPTIONS.
@@ -814,12 +850,12 @@
             aria-label="Available shipping methods"></div>
         </section>
 
-        <div class="summary-row">
+        <div class="summary-row" id="shipping-summary-row">
           <span>SHIPPING</span>
           <span id="shipping-display">CALCULATED LATER</span>
         </div>
 
-        <div class="summary-row">
+        <div class="summary-row" id="tax-summary-row">
           <span>TAXES</span>
           <span>NOT INCLUDED</span>
         </div>
@@ -829,7 +865,7 @@
           <span id="summary-total">$0.00 USD</span>
         </div>
 
-        <div class="summary-row summary-estimated-total">
+        <div class="summary-row summary-estimated-total" id="estimated-total-row">
           <span>EST. TOTAL BEFORE TAX</span>
           <span id="estimated-total">CALCULATE SHIPPING</span>
         </div>
@@ -840,6 +876,7 @@
 
         <button
           class="checkout-button"
+          id="checkout-button"
           type="button"
           disabled
         >
@@ -864,7 +901,16 @@
   </footer>
 
   <script>
-    const CART_KEY = 'anomalyCart';
+    let activeMarket = localStorage.getItem('anomalyMarket') === 'zambia' ? 'zambia' : 'international';
+    let CART_KEY = activeMarket === 'zambia' ? 'anomalyCartZambia' : 'anomalyCart';
+
+    const marketSelect = document.getElementById('market-select');
+    const zambiaOrderPanel = document.getElementById('zambia-order-panel');
+    const shippingEstimator = document.getElementById('shipping-estimator');
+    const shippingSummaryRow = document.getElementById('shipping-summary-row');
+    const taxSummaryRow = document.getElementById('tax-summary-row');
+    const estimatedTotalRow = document.getElementById('estimated-total-row');
+    const checkoutButton = document.getElementById('checkout-button');
 
     const shippingCountry = document.getElementById('shipping-country');
     const shippingState = document.getElementById('shipping-state');
@@ -1251,12 +1297,55 @@
       window.dispatchEvent(new Event('anomaly-cart-updated'));
     }
 
-    function formatUSD(amount) {
+    function formatCartMoney(amount) {
       return new Intl.NumberFormat('en-US', {
         style: 'currency',
-        currency: 'USD'
+        currency: activeMarket === 'zambia' ? 'ZMW' : 'USD',
+        maximumFractionDigits: 2
       }).format(amount);
     }
+
+    function ensureTurnstileScript() {
+      if (activeMarket !== 'international' || window.turnstile || document.getElementById('turnstile-api-script')) return;
+      const script = document.createElement('script');
+      script.id = 'turnstile-api-script';
+      script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=onTurnstileLoad';
+      script.defer = true;
+      script.onerror = () => setShippingStatus('SECURITY VERIFICATION COULD NOT LOAD. REFRESH THE PAGE AND TRY AGAIN.', 'error');
+      document.head.append(script);
+    }
+
+    function applyMarketMode() {
+      activeMarket = marketSelect.value;
+      CART_KEY = activeMarket === 'zambia' ? 'anomalyCartZambia' : 'anomalyCart';
+      localStorage.setItem('anomalyMarket', activeMarket);
+      const isZambia = activeMarket === 'zambia';
+
+      zambiaOrderPanel.hidden = !isZambia;
+      shippingEstimator.hidden = isZambia;
+      shippingSummaryRow.classList.toggle('market-hidden', isZambia);
+      taxSummaryRow.classList.toggle('market-hidden', isZambia);
+      estimatedTotalRow.classList.toggle('market-hidden', isZambia);
+      checkoutButton.textContent = isZambia ? 'ZAMBIA CHECKOUT NOT CONNECTED' : 'CHECKOUT NOT CONNECTED';
+
+      const summaryNote = document.querySelector('.summary-note');
+      const checkoutStatus = document.querySelector('.checkout-status');
+      if (isZambia) {
+        shippingDisplay.textContent = 'CONFIRMED AFTER REVIEW';
+        estimatedTotalDisplay.textContent = 'NOT AVAILABLE';
+        summaryNote.textContent = 'LOCAL PRICES AND STOCK MUST BE CONFIRMED BEFORE PAYMENT. NO PAYMENT IS TAKEN ON THIS WEBSITE.';
+        checkoutStatus.textContent = 'ZAMBIA ORDERS WILL BE CONFIRMED MANUALLY. CHECKOUT WILL OPEN WHEN LOCAL PRICES, STOCK AND THE WHATSAPP CONTACT ARE READY.';
+        setShippingStatus('PRINTFUL SHIPPING ESTIMATES ARE NOT USED FOR ZAMBIAN ORDERS.');
+      } else {
+        summaryNote.textContent = 'ESTIMATE ONLY. TAXES ARE NOT INCLUDED. PAYMENT AND ORDER SUBMISSION ARE DISABLED.';
+        checkoutStatus.textContent = 'PAYMENT AND ORDER SUBMISSION ARE NOT YET ACTIVE. NO ORDER WILL BE SENT TO PRINTFUL FROM THIS PAGE.';
+        ensureTurnstileScript();
+      }
+      renderCart();
+    }
+
+    marketSelect.value = activeMarket;
+    marketSelect.addEventListener('change', applyMarketMode);
 
     function makeElement(tag, className, text) {
       const element = document.createElement(tag);
@@ -1308,7 +1397,9 @@
         const message = makeElement(
           'p',
           '',
-          'NO ITEMS HAVE BEEN ADDED TO YOUR SELECTIONS YET.'
+          activeMarket === 'zambia'
+            ? 'YOUR ZAMBIAN CART IS EMPTY. LOCAL PRODUCTS WILL APPEAR HERE WHEN THEIR PRICES AND STOCK ARE PUBLISHED.'
+            : 'NO ITEMS HAVE BEEN ADDED TO YOUR SELECTIONS YET.'
         );
         const link = makeElement(
           'a',
@@ -1351,7 +1442,7 @@
           const unitPrice = makeElement(
             'div',
             'item-unit-price',
-            `${formatUSD(item.price)} USD EACH`
+            `${formatCartMoney(item.price)} USD EACH`
           );
 
           const bottom = makeElement('div', 'item-bottom');
@@ -1390,7 +1481,7 @@
           const lineTotal = makeElement(
             'div',
             'item-line-total',
-            formatUSD(item.price * item.quantity)
+            formatCartMoney(item.price * item.quantity)
           );
 
           details.append(code, name, size, unitPrice, bottom, lineTotal);
@@ -1412,12 +1503,20 @@
       itemCountDisplay.textContent =
         `${units} ${units === 1 ? 'ITEM' : 'ITEMS'}`;
 
-      subtotalDisplay.textContent = formatUSD(subtotal);
-      totalDisplay.textContent = `${formatUSD(subtotal)} USD`;
+      subtotalDisplay.textContent = formatCartMoney(subtotal);
+      totalDisplay.textContent = formatCartMoney(subtotal) + (activeMarket === 'zambia' ? ' ZMW' : ' USD');
       updateCartCount();
-      clearShippingEstimate(cart.length
-        ? 'Cart updated. Enter the destination and calculate shipping again.'
-        : 'Add an item to your cart before estimating shipping.');
+
+      if (activeMarket === 'international') {
+        clearShippingEstimate(cart.length
+          ? 'Cart updated. Enter the destination and calculate shipping again.'
+          : 'Add an item to your cart before estimating shipping.');
+      } else {
+        selectedShippingRate = null;
+        shippingRatesContainer.replaceChildren();
+        shippingDisplay.textContent = 'CONFIRMED AFTER REVIEW';
+        estimatedTotalDisplay.textContent = 'NOT AVAILABLE';
+      }
     }
 
     /* MOBILE NAVIGATION */
@@ -1464,7 +1563,7 @@
       }
     );
 
-    renderCart();
+    applyMarketMode();
   </script>
 </body>
 </html>
