@@ -524,6 +524,23 @@
     .zambia-order-panel p {color:#888;font-size:10px;line-height:2;letter-spacing:1px}
     .zambia-order-panel p+p {margin-top:10px}
     .market-hidden {display:none!important}
+    .zambia-checkout {margin-top:55px;padding-top:28px;border-top:1px solid #292929}
+    .zambia-checkout[hidden] {display:none}
+    .zambia-checkout h2 {margin-bottom:12px;font-size:11px;letter-spacing:3px}
+    .zambia-checkout-intro {margin-bottom:24px;color:#888;font-size:10px;line-height:2;letter-spacing:1px}
+    .zambia-checkout-grid {display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    .zambia-checkout .shipping-field {margin-bottom:0}
+    .zambia-checkout .shipping-field.full-width {grid-column:1/-1}
+    .zambia-checkout textarea {
+      width:100%;min-height:90px;padding:12px;border:1px solid #333;border-radius:0;
+      background:#0D0F12;color:#E5E5E5;font:inherit;font-size:11px;resize:vertical
+    }
+    .zambia-checkout button {
+      width:100%;min-height:50px;margin-top:22px;padding:14px;border:1px solid #333;
+      background:#222;color:#777;font-size:9px;letter-spacing:2px;cursor:not-allowed
+    }
+    .zambia-checkout-status {margin-top:13px;color:#888;font-size:9px;line-height:1.9;letter-spacing:1px}
+    @media(max-width:700px) {.zambia-checkout-grid{grid-template-columns:1fr}.zambia-checkout .shipping-field.full-width{grid-column:auto}}
     @media(max-width:700px) {.market-selector{grid-template-columns:1fr;gap:14px}.zambia-order-panel{padding:20px}}
 
     .continue-shopping {
@@ -892,6 +909,50 @@
 
     </div>
 
+    <section class="zambia-checkout" id="zambia-checkout" hidden aria-labelledby="zambia-checkout-heading">
+      <h2 id="zambia-checkout-heading">ZAMBIA / ORDER DETAILS</h2>
+      <p class="zambia-checkout-intro">SUBMIT YOUR ORDER REQUEST THROUGH WHATSAPP. ANOMALY WILL CONFIRM STOCK, DELIVERY COST AND THE FINAL TOTAL BEFORE SENDING PAYMENT INSTRUCTIONS.</p>
+
+      <form id="zambia-checkout-form">
+        <div class="zambia-checkout-grid">
+          <div class="shipping-field">
+            <label for="zm-customer-name">FULL NAME</label>
+            <input id="zm-customer-name" name="name" type="text" autocomplete="name" maxlength="100" required>
+          </div>
+          <div class="shipping-field">
+            <label for="zm-customer-phone">WHATSAPP NUMBER</label>
+            <input id="zm-customer-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="25" placeholder="+260..." required>
+          </div>
+          <div class="shipping-field">
+            <label for="zm-fulfilment">FULFILMENT METHOD</label>
+            <select id="zm-fulfilment" name="fulfilment" required>
+              <option value="delivery">LUSAKA DELIVERY</option>
+              <option value="collection">COLLECTION</option>
+            </select>
+          </div>
+          <div class="shipping-field">
+            <label for="zm-area">AREA / NEIGHBOURHOOD</label>
+            <input id="zm-area" name="area" type="text" maxlength="100" placeholder="e.g. Kabulonga" required>
+          </div>
+          <div class="shipping-field full-width" id="zm-address-field">
+            <label for="zm-address">DELIVERY ADDRESS / DIRECTIONS</label>
+            <textarea id="zm-address" name="address" maxlength="500" placeholder="Enter the delivery address and useful directions"></textarea>
+          </div>
+          <div class="shipping-field full-width" id="zm-collection-field" hidden>
+            <label for="zm-collection-time">PREFERRED COLLECTION TIME (OPTIONAL)</label>
+            <input id="zm-collection-time" name="collectionTime" type="text" maxlength="100" placeholder="Your preferred day or time">
+          </div>
+          <div class="shipping-field full-width">
+            <label for="zm-order-note">ADDITIONAL INSTRUCTIONS (OPTIONAL)</label>
+            <textarea id="zm-order-note" name="note" maxlength="500" placeholder="Anything else ANOMALY should know?"></textarea>
+          </div>
+        </div>
+
+        <button id="zambia-whatsapp-submit" type="submit" disabled>WHATSAPP ORDERING NOT YET ACTIVE</button>
+        <p class="zambia-checkout-status" id="zambia-checkout-status" role="status" aria-live="polite">WHATSAPP CONTACT PENDING. ORDER SUBMISSION WILL BE ENABLED WHEN THE DEDICATED BUSINESS NUMBER IS READY.</p>
+      </form>
+    </section>
+
   </main>
 
   <footer>
@@ -911,6 +972,16 @@
     const taxSummaryRow = document.getElementById('tax-summary-row');
     const estimatedTotalRow = document.getElementById('estimated-total-row');
     const checkoutButton = document.getElementById('checkout-button');
+    const zambiaCheckout = document.getElementById('zambia-checkout');
+    const zambiaCheckoutForm = document.getElementById('zambia-checkout-form');
+    const zambiaWhatsAppSubmit = document.getElementById('zambia-whatsapp-submit');
+    const zambiaCheckoutStatus = document.getElementById('zambia-checkout-status');
+    const fulfilmentSelect = document.getElementById('zm-fulfilment');
+    const deliveryAddressField = document.getElementById('zm-address-field');
+    const collectionTimeField = document.getElementById('zm-collection-field');
+
+    // Add the dedicated ANOMALY Zambia Business number here when it is ready.
+    const ZAMBIA_WHATSAPP_NUMBER = '';
 
     const shippingCountry = document.getElementById('shipping-country');
     const shippingState = document.getElementById('shipping-state');
@@ -1278,8 +1349,11 @@
           )
           .map((item) => ({
             productId: item.productId,
+            productCode: String(item.productCode || ''),
             variantId: String(item.variantId),
             productName: String(item.productName || 'ANOMALY / CORE TEE'),
+            colour: String(item.colour || ''),
+            image: String(item.image || ''),
             size: String(item.size || '—'),
             price: Number(item.price),
             quantity: Math.max(
@@ -1322,6 +1396,7 @@
       const isZambia = activeMarket === 'zambia';
 
       zambiaOrderPanel.hidden = !isZambia;
+      zambiaCheckout.hidden = !isZambia;
       shippingEstimator.hidden = isZambia;
       shippingSummaryRow.classList.toggle('market-hidden', isZambia);
       taxSummaryRow.classList.toggle('market-hidden', isZambia);
@@ -1346,6 +1421,76 @@
 
     marketSelect.value = activeMarket;
     marketSelect.addEventListener('change', applyMarketMode);
+
+    function updateZambiaFulfilmentFields() {
+      const isDelivery = fulfilmentSelect.value === 'delivery';
+      deliveryAddressField.hidden = !isDelivery;
+      document.getElementById('zm-address').required = isDelivery;
+      collectionTimeField.hidden = isDelivery;
+    }
+
+    fulfilmentSelect.addEventListener('change', updateZambiaFulfilmentFields);
+    updateZambiaFulfilmentFields();
+
+    if (ZAMBIA_WHATSAPP_NUMBER) {
+      zambiaWhatsAppSubmit.disabled = false;
+      zambiaWhatsAppSubmit.textContent = 'SEND ORDER REQUEST ON WHATSAPP';
+      zambiaCheckoutStatus.textContent = 'ANOMALY WILL CONFIRM STOCK AND THE FINAL TOTAL BEFORE PAYMENT.';
+    }
+
+    zambiaCheckoutForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const cart = loadCart();
+      if (activeMarket !== 'zambia' || !cart.length) {
+        zambiaCheckoutStatus.textContent = 'ADD A ZAMBIAN PRODUCT BEFORE SUBMITTING AN ORDER.';
+        return;
+      }
+      if (!ZAMBIA_WHATSAPP_NUMBER) {
+        zambiaCheckoutStatus.textContent = 'WHATSAPP CONTACT PENDING. ORDER SUBMISSION IS NOT ACTIVE.';
+        return;
+      }
+      if (cart.some((item) => !Number.isFinite(item.price) || item.price <= 0)) {
+        zambiaCheckoutStatus.textContent = 'ONE OR MORE ITEMS DO NOT HAVE A VALID ZMW PRICE. PLEASE CONTACT ANOMALY.';
+        return;
+      }
+
+      const formData = new FormData(zambiaCheckoutForm);
+      const fulfilment = formData.get('fulfilment');
+      const lines = cart.map((item) => {
+        const code = item.productCode || 'ANOMALY ITEM';
+        const colour = item.colour ? ' / ' + item.colour : '';
+        return '- ' + code + ' — ' + item.productName + colour +
+          ' / SIZE ' + item.size + ' / QTY ' + item.quantity +
+          ' / ' + formatCartMoney(item.price * item.quantity);
+      });
+
+      const message = [
+        'ANOMALY ZAMBIA — NEW ORDER REQUEST',
+        '',
+        'ITEMS',
+        ...lines,
+        '',
+        'SUBTOTAL: ' + formatCartMoney(currentCartSubtotal(cart)),
+        'DELIVERY: TO BE CONFIRMED',
+        '',
+        'CUSTOMER',
+        'Name: ' + formData.get('name'),
+        'WhatsApp: ' + formData.get('phone'),
+        'Area: ' + formData.get('area'),
+        'Fulfilment: ' + (fulfilment === 'delivery' ? 'Lusaka delivery' : 'Collection'),
+        fulfilment === 'delivery' ? 'Address: ' + formData.get('address') : 'Preferred collection time: ' + (formData.get('collectionTime') || 'To be agreed'),
+        'Additional instructions: ' + (formData.get('note') || 'None'),
+        '',
+        'Please confirm stock, delivery cost and the final amount before sending payment instructions.'
+      ].join('\n');
+
+      const phone = ZAMBIA_WHATSAPP_NUMBER.replace(/\D/g, '');
+      if (!phone) {
+        zambiaCheckoutStatus.textContent = 'THE BUSINESS WHATSAPP NUMBER IS NOT CONFIGURED YET.';
+        return;
+      }
+      window.location.href = 'https://wa.me/' + phone + '?text=' + encodeURIComponent(message);
+    });
 
     function makeElement(tag, className, text) {
       const element = document.createElement(tag);
@@ -1416,15 +1561,15 @@
           const article = makeElement('article', 'cart-item');
 
           const image = makeElement('img', 'cart-item-image');
-          image.src = 'use.png';
-          image.alt = 'ANOMALY ANM-001 Core Tee';
+          image.src = item.image || 'use.png';
+          image.alt = item.productName;
 
           const details = makeElement('div', 'cart-item-details');
 
           const code = makeElement(
             'div',
             'item-code',
-            'ANM-001 / DROP 001'
+            item.productCode || 'ANM-001 / DROP 001'
           );
 
           const name = makeElement(
@@ -1436,7 +1581,7 @@
           const size = makeElement(
             'div',
             'item-size',
-            `SIZE: ${item.size}`
+            'SIZE: ' + item.size + (item.colour ? ' / ' + item.colour : '')
           );
 
           const unitPrice = makeElement(
