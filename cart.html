@@ -537,7 +537,17 @@
     .zambia-order-panel p {color:#888;font-size:10px;line-height:2;letter-spacing:1px}
     .zambia-order-panel p+p {margin-top:10px}
     .market-hidden {display:none!important}
-    .zambia-checkout {margin-top:55px;padding-top:28px;border-top:1px solid #292929}
+    .zambia-checkout {margin-top:55px;padding:32px 0 0;border-top:1px solid #292929;scroll-margin-top:24px}
+    .zambia-checkout-form-note {margin:-10px 0 24px;color:#AAA;font-size:10px;line-height:1.9;letter-spacing:.7px}
+    .zambia-checkout .shipping-field label {display:block;min-height:16px}
+    .zambia-checkout .field-required {color:#E5E5E5;margin-left:4px}
+    .zambia-checkout .field-optional {color:#777;margin-left:6px;font-size:8px;letter-spacing:1px}
+    .zambia-checkout input:focus-visible,.zambia-checkout select:focus-visible,.zambia-checkout textarea:focus-visible {outline:2px solid #E5E5E5;outline-offset:3px}
+    .zambia-checkout .shipping-field input,.zambia-checkout .shipping-field select {min-height:48px}
+    .zambia-checkout .shipping-field textarea {min-height:110px;line-height:1.6}
+    .zambia-checkout .shipping-field input::placeholder,.zambia-checkout textarea::placeholder {color:#666}
+    .zambia-checkout .form-required-note {margin:-10px 0 20px;color:#777;font-size:9px;letter-spacing:1px}
+    .zambia-checkout .form-required-note span {color:#E5E5E5}
     .zambia-checkout[hidden] {display:none}
     .zambia-checkout h2 {margin-bottom:12px;font-size:11px;letter-spacing:3px}
     .zambia-checkout-intro {margin-bottom:24px;color:#888;font-size:10px;line-height:2;letter-spacing:1px}
@@ -553,7 +563,16 @@
       background:#222;color:#777;font-size:9px;letter-spacing:2px;cursor:not-allowed
     }
     .zambia-checkout-status {margin-top:13px;color:#888;font-size:9px;line-height:1.9;letter-spacing:1px}
-    @media(max-width:700px) {.zambia-checkout-grid{grid-template-columns:1fr}.zambia-checkout .shipping-field.full-width{grid-column:auto}}
+    @media(max-width:700px) {
+      .cart-page {padding:64px 20px 100px}
+      .cart-layout {grid-template-columns:minmax(0,1fr);gap:32px;margin-top:44px}
+      .order-summary {padding:22px}
+      .zambia-checkout {margin-top:42px;padding-top:26px;scroll-margin-top:16px}
+      .zambia-checkout-grid {grid-template-columns:minmax(0,1fr);gap:20px}
+      .zambia-checkout .shipping-field.full-width {grid-column:auto}
+      .zambia-checkout .shipping-field input,.zambia-checkout .shipping-field select,.zambia-checkout .shipping-field textarea {font-size:16px}
+      .zambia-checkout button {min-height:54px}
+    }
     @media(max-width:700px) {.market-selector{grid-template-columns:1fr;gap:14px}.zambia-order-panel{padding:20px}}
 
     .continue-shopping {
@@ -924,39 +943,41 @@
 
     <section class="zambia-checkout" id="zambia-checkout" hidden aria-labelledby="zambia-checkout-heading">
       <h2 id="zambia-checkout-heading">ZAMBIA / ORDER DETAILS</h2>
-      <p class="zambia-checkout-intro">SUBMIT YOUR ORDER REQUEST THROUGH WHATSAPP. ANOMALY WILL CONFIRM STOCK, DELIVERY COST AND THE FINAL TOTAL BEFORE SENDING PAYMENT INSTRUCTIONS. ONCE AVAILABILITY IS CONFIRMED AND PAYMENT INSTRUCTIONS ARE SENT, STOCK IS HELD FOR 24 HOURS. ONE PAYMENT REMINDER IS SENT BEFORE THE HOLD EXPIRES.</p>
+      <p class="zambia-checkout-intro">THIS FORM IS AN ORDER ENQUIRY, NOT AN INSTANT PURCHASE. ANOMALY WILL CHECK STOCK AND CONFIRM DELIVERY COST AND THE FINAL TOTAL BEFORE SENDING PAYMENT INSTRUCTIONS. NO PAYMENT IS TAKEN ON THIS WEBSITE.</p>
 
       <form id="zambia-checkout-form">
+        <p class="form-required-note"><span>*</span> REQUIRED FIELDS</p>
+        <p class="zambia-checkout-form-note">Once availability is confirmed and payment instructions are sent, stock is held for 24 hours. One payment reminder is sent before the hold expires.</p>
         <div class="zambia-checkout-grid">
           <div class="shipping-field">
-            <label for="zm-customer-name">FULL NAME</label>
+            <label for="zm-customer-name">FULL NAME <span class="field-required" aria-hidden="true">*</span></label>
             <input id="zm-customer-name" name="name" type="text" autocomplete="name" maxlength="100" required>
           </div>
           <div class="shipping-field">
-            <label for="zm-customer-phone">WHATSAPP NUMBER</label>
+            <label for="zm-customer-phone">WHATSAPP NUMBER <span class="field-required" aria-hidden="true">*</span></label>
             <input id="zm-customer-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="25" placeholder="+260..." required>
           </div>
           <div class="shipping-field">
-            <label for="zm-fulfilment">FULFILMENT METHOD</label>
+            <label for="zm-fulfilment">FULFILMENT METHOD <span class="field-required" aria-hidden="true">*</span></label>
             <select id="zm-fulfilment" name="fulfilment" required>
               <option value="delivery">LUSAKA DELIVERY</option>
               <option value="collection">COLLECTION</option>
             </select>
           </div>
           <div class="shipping-field">
-            <label for="zm-area">AREA / NEIGHBOURHOOD</label>
+            <label for="zm-area">AREA / NEIGHBOURHOOD <span class="field-required" aria-hidden="true">*</span></label>
             <input id="zm-area" name="area" type="text" maxlength="100" placeholder="e.g. Kabulonga" required>
           </div>
           <div class="shipping-field full-width" id="zm-address-field">
-            <label for="zm-address">DELIVERY ADDRESS / DIRECTIONS</label>
+            <label for="zm-address">DELIVERY ADDRESS / DIRECTIONS <span class="field-required" id="zm-address-required" aria-hidden="true">*</span></label>
             <textarea id="zm-address" name="address" maxlength="500" placeholder="Enter the delivery address and useful directions"></textarea>
           </div>
           <div class="shipping-field full-width" id="zm-collection-field" hidden>
-            <label for="zm-collection-time">PREFERRED COLLECTION TIME (OPTIONAL)</label>
+            <label for="zm-collection-time">PREFERRED COLLECTION TIME <span class="field-optional">OPTIONAL</span></label>
             <input id="zm-collection-time" name="collectionTime" type="text" maxlength="100" placeholder="Your preferred day or time">
           </div>
           <div class="shipping-field full-width">
-            <label for="zm-order-note">ADDITIONAL INSTRUCTIONS (OPTIONAL)</label>
+            <label for="zm-order-note">ADDITIONAL INSTRUCTIONS <span class="field-optional">OPTIONAL</span></label>
             <textarea id="zm-order-note" name="note" maxlength="500" placeholder="Anything else ANOMALY should know?"></textarea>
           </div>
         </div>
@@ -991,6 +1012,8 @@
     const zambiaCheckoutStatus = document.getElementById('zambia-checkout-status');
     const fulfilmentSelect = document.getElementById('zm-fulfilment');
     const deliveryAddressField = document.getElementById('zm-address-field');
+    const deliveryAddressInput = document.getElementById('zm-address');
+    const deliveryAddressRequiredMarker = document.getElementById('zm-address-required');
     const collectionTimeField = document.getElementById('zm-collection-field');
 
     // Add the dedicated ANOMALY Zambia Business number here when it is ready.
@@ -1449,7 +1472,8 @@
     function updateZambiaFulfilmentFields() {
       const isDelivery = fulfilmentSelect.value === 'delivery';
       deliveryAddressField.hidden = !isDelivery;
-      document.getElementById('zm-address').required = isDelivery;
+      deliveryAddressInput.required = isDelivery;
+      deliveryAddressRequiredMarker.hidden = !isDelivery;
       collectionTimeField.hidden = isDelivery;
     }
 
