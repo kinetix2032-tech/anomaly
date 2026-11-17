@@ -330,6 +330,19 @@
       cursor: not-allowed;
     }
 
+    .checkout-button.checkout-button-active {
+      border-color: #E5E5E5;
+      background: #E5E5E5;
+      color: #08090B;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .checkout-button.checkout-button-active:hover {
+      background: transparent;
+      color: #E5E5E5;
+    }
+
     .checkout-status {
       margin-top: 15px;
       color: #888;
@@ -1401,7 +1414,9 @@
       shippingSummaryRow.classList.toggle('market-hidden', isZambia);
       taxSummaryRow.classList.toggle('market-hidden', isZambia);
       estimatedTotalRow.classList.toggle('market-hidden', isZambia);
-      checkoutButton.textContent = isZambia ? 'ZAMBIA CHECKOUT NOT CONNECTED' : 'CHECKOUT NOT CONNECTED';
+      checkoutButton.textContent = isZambia ? 'CONTINUE TO ORDER DETAILS' : 'CHECKOUT NOT CONNECTED';
+      checkoutButton.disabled = !isZambia;
+      checkoutButton.classList.toggle('checkout-button-active', isZambia);
 
       const summaryNote = document.querySelector('.summary-note');
       const checkoutStatus = document.querySelector('.checkout-status');
@@ -1421,6 +1436,15 @@
 
     marketSelect.value = activeMarket;
     marketSelect.addEventListener('change', applyMarketMode);
+
+    checkoutButton.addEventListener('click', () => {
+      if (activeMarket !== 'zambia') return;
+      zambiaCheckout.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      const firstField = zambiaCheckoutForm.querySelector('input, select, textarea');
+      if (firstField) {
+        window.setTimeout(() => firstField.focus({ preventScroll: true }), 450);
+      }
+    });
 
     function updateZambiaFulfilmentFields() {
       const isDelivery = fulfilmentSelect.value === 'delivery';
