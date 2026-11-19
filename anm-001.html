@@ -1084,9 +1084,189 @@
 
     .cart-count[hidden] { display: none; }
 
+    /* ANM-001 LAYOUT ALIGNMENT — consolidated final overrides */
+    .product-back,
+    .product-hero,
+    .classification,
+    .signal-location,
+    .garment-specification {
+      width: 100%;
+      max-width: 1180px;
+      margin-left: auto;
+      margin-right: auto;
+    }
 
-    
-    </style>
+    .product-back {
+      padding: 24px 40px 0;
+    }
+
+    .product-hero {
+      min-height: 0;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      align-items: start;
+      gap: clamp(36px, 5vw, 72px);
+      padding: clamp(48px, 6vw, 84px) 40px;
+    }
+
+    .product-gallery,
+    .product-information {
+      min-width: 0;
+      width: 100%;
+    }
+
+    .product-visual {
+      width: 100%;
+      min-height: 0;
+      height: auto;
+      aspect-ratio: 4 / 5;
+      max-height: 720px;
+    }
+
+    .product-visual img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .product-facts {
+      margin: 0 0 28px;
+    }
+
+    .size-guide-wrap,
+    .purchase-panel {
+      width: 100%;
+      max-width: 100%;
+    }
+
+    .classification {
+      grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+      align-items: start;
+      gap: clamp(36px, 6vw, 80px);
+      padding: 100px 40px;
+    }
+
+    .classification-data {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 36px 48px;
+      min-width: 0;
+    }
+
+    .classification-data > div {
+      min-width: 0;
+    }
+
+    .signal-location,
+    .garment-specification {
+      padding: 110px 40px;
+    }
+
+    footer {
+      width: 100%;
+      max-width: 1180px;
+      margin: 0 auto;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 18px 32px;
+      line-height: 1.8;
+    }
+
+    footer > div {
+      min-width: 0;
+    }
+
+    footer a {
+      color: inherit;
+      text-decoration: none;
+      transition: color .2s ease;
+    }
+
+    footer a:hover {
+      color: #E5E5E5;
+    }
+
+    @media (max-width: 800px) {
+      .product-back {
+        padding: 20px 7% 0;
+      }
+
+      .product-hero {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 42px;
+        padding: 48px 7% 72px;
+      }
+
+      .product-visual {
+        aspect-ratio: 4 / 5;
+        max-height: 680px;
+      }
+
+      .product-information {
+        max-width: 640px;
+        margin: 0 auto;
+      }
+
+      .classification {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 36px;
+        padding: 76px 7%;
+      }
+
+      .classification-data {
+        gap: 28px 32px;
+      }
+
+      .signal-location,
+      .garment-specification {
+        padding: 76px 7%;
+      }
+
+      footer {
+        padding: 28px 7%;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .product-hero {
+        gap: 34px;
+      }
+
+      .product-visual {
+        aspect-ratio: 1 / 1.15;
+      }
+
+      .gallery-thumbnails {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .product-facts {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px 14px;
+      }
+
+      .classification-data {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 26px;
+      }
+
+      .signal-status {
+        gap: 18px;
+        flex-wrap: wrap;
+      }
+
+      .specification-row {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 10px;
+      }
+
+      footer {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 12px;
+      }
+    }
+
+  </style>
   
 </head>
 
