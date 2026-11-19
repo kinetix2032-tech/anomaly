@@ -191,6 +191,65 @@
       transform: scale(1.025);
     }
 
+    .product-gallery {
+      width: 100%;
+      min-width: 0;
+    }
+
+    .gallery-thumbnails {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .gallery-thumb {
+      min-height: 42px;
+      padding: 8px 5px;
+      border: 1px solid #333;
+      background: #0d0f12;
+      color: #888;
+      cursor: pointer;
+      font-size: 8px;
+      letter-spacing: 1px;
+      line-height: 1.4;
+      transition: border-color .2s ease, color .2s ease, background .2s ease;
+    }
+
+    .gallery-thumb:hover:not(:disabled),
+    .gallery-thumb.is-active {
+      border-color: #e5e5e5;
+      color: #f1f1ed;
+    }
+
+    .gallery-thumb.is-active {
+      background: #1a1c20;
+    }
+
+    .gallery-thumb:disabled {
+      opacity: .45;
+      cursor: not-allowed;
+    }
+
+    .gallery-caption {
+      margin-top: 10px;
+      color: #666;
+      font-size: 8px;
+      letter-spacing: 2px;
+    }
+
+    @media (max-width: 800px) {
+      .gallery-thumbnails {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 420px) {
+      .gallery-thumbnails {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
 
     /* PRODUCT INFORMATION */
 
@@ -1080,17 +1139,26 @@
 
     <!-- PRODUCT IMAGE -->
 
-    <div class="product-visual">
-
-      <img
-        src="use.png"
-        alt="ANOMALY ANM-001 Core Tee"
-        width="1000"
-        height="1000"
-        decoding="async"
-        fetchpriority="high"
-      >
-
+    <div class="product-gallery" aria-label="ANM-001 product image gallery">
+      <div class="product-visual">
+        <img
+          id="product-main-image"
+          src="front.png"
+          alt="ANOMALY ANM-001 Core Tee — front"
+          width="1000"
+          height="1000"
+          decoding="async"
+          fetchpriority="high"
+        >
+      </div>
+      <div class="gallery-thumbnails" role="group" aria-label="Choose product image">
+        <button type="button" class="gallery-thumb is-active" data-gallery-src="front.png" data-gallery-alt="ANM-001 Core Tee — front" aria-pressed="true">FRONT</button>
+        <button type="button" class="gallery-thumb" data-gallery-src="back.png" data-gallery-alt="ANM-001 Core Tee — back" aria-pressed="false">BACK</button>
+        <button type="button" class="gallery-thumb" data-gallery-src="look.png" data-gallery-alt="ANM-001 Core Tee — editorial view" aria-pressed="false">EDITORIAL</button>
+        <button type="button" class="gallery-thumb" data-gallery-src="6.png" data-gallery-alt="ANM-001 Core Tee — back studio view" aria-pressed="false">BACK DETAIL</button>
+        <button type="button" class="gallery-thumb" data-gallery-src="close.png" data-gallery-alt="ANM-001 Core Tee — chest emblem close-up" aria-pressed="false">CHEST DETAIL</button>
+      </div>
+      <p class="gallery-caption" id="gallery-caption" aria-live="polite">FRONT / ANM-001</p>
     </div>
 
 
@@ -1446,6 +1514,33 @@
   </footer>
 
   <script>
+  /* ANM-001 IMAGE GALLERY */
+  const mainProductImage = document.getElementById('product-main-image');
+  const galleryCaption = document.getElementById('gallery-caption');
+  const galleryButtons = document.querySelectorAll('[data-gallery-src]');
+
+  galleryButtons.forEach((button) => {
+    const imageSrc = button.dataset.gallerySrc || '';
+    const isConfigured = imageSrc && !imageSrc.startsWith('__');
+
+    if (!isConfigured) {
+      button.disabled = true;
+      return;
+    }
+
+    button.addEventListener('click', () => {
+      mainProductImage.src = imageSrc;
+      mainProductImage.alt = button.dataset.galleryAlt || 'ANM-001 Core Tee';
+      galleryCaption.textContent = button.textContent.trim() + ' / ANM-001';
+
+      galleryButtons.forEach((item) => {
+        const active = item === button;
+        item.classList.toggle('is-active', active);
+        item.setAttribute('aria-pressed', String(active));
+      });
+    });
+  });
+
   /* MARKET-SPECIFIC CART */
   let activeMarket = localStorage.getItem('anomalyMarket') === 'zambia' ? 'zambia' : 'international';
   const marketButtons = document.querySelectorAll('[data-market]');
