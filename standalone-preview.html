@@ -21676,7 +21676,7 @@ img {
     .cart-count[hidden] { display: none; }
 
     /* CHARCOAL-BLUE HOVER — consistent interactive accent */
-    a:not(.nav-logo):hover,
+    a:not(.nav-logo):not(.product):hover,
     .mobile-menu a:hover {
       background-color: var(--charcoal-blue);
       color: var(--white) !important;
@@ -21695,15 +21695,6 @@ img {
       background-color: var(--charcoal-blue) !important;
       border-color: var(--charcoal-blue) !important;
       color: var(--white) !important;
-    }
-
-    .product:hover .product-image {
-      border-color: var(--charcoal-blue);
-    }
-
-    .product:hover .product-name {
-      color: var(--charcoal-blue);
-      transition: color 0.25s ease;
     }
 
     .menu-toggle:hover span {
