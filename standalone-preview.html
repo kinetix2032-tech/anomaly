@@ -21683,7 +21683,12 @@ img {
       transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
     }
 
-    .nav-links a:hover,
+    .nav-links a,
+    .nav-links a:hover {
+      background-color: transparent !important;
+      color: var(--white) !important;
+    }
+
     .footer-links a:hover,
     .view-all:hover {
       background-color: var(--charcoal-blue);
