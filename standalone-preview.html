@@ -21675,6 +21675,41 @@ img {
 
     .cart-count[hidden] { display: none; }
 
+    /* CHARCOAL-BLUE HOVER — consistent interactive accent */
+    a:not(.nav-logo):hover,
+    .mobile-menu a:hover {
+      background-color: var(--charcoal-blue);
+      color: var(--white) !important;
+      transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+    }
+
+    .nav-links a:hover,
+    .footer-links a:hover,
+    .view-all:hover {
+      background-color: var(--charcoal-blue);
+      color: var(--white);
+    }
+
+    .button:hover,
+    .newsletter button:hover {
+      background-color: var(--charcoal-blue) !important;
+      border-color: var(--charcoal-blue) !important;
+      color: var(--white) !important;
+    }
+
+    .product:hover .product-image {
+      border-color: var(--charcoal-blue);
+    }
+
+    .product:hover .product-name {
+      color: var(--charcoal-blue);
+      transition: color 0.25s ease;
+    }
+
+    .menu-toggle:hover span {
+      background-color: var(--charcoal-blue);
+    }
+
 
     
     </style>
