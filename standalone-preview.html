@@ -20597,7 +20597,7 @@ AABJRU5ErkJggg==
       isolation: isolate;
     }
 
-    /* ANOMALY BACKGROUND — broken contours and controlled blue depth */
+    /* ANOMALY BACKGROUND — architectural structure, broken contours, one blue anomaly field */
     body::before,
     body::after {
       content: "";
@@ -20609,18 +20609,20 @@ AABJRU5ErkJggg==
 
     body::before {
       background:
-        radial-gradient(ellipse at 82% 16%, rgba(32, 44, 59, 0.58) 0%, rgba(32, 44, 59, 0.22) 25%, transparent 54%),
-        radial-gradient(ellipse at 12% 76%, rgba(32, 44, 59, 0.28) 0%, transparent 42%),
-        repeating-linear-gradient(132deg, transparent 0 150px, rgba(117, 139, 164, 0.055) 151px 152px, transparent 153px 300px);
-      opacity: 0.9;
+        radial-gradient(ellipse 44% 36% at 78% 18%, rgba(32, 44, 59, 0.58) 0%, rgba(32, 44, 59, 0.20) 48%, transparent 78%),
+        radial-gradient(ellipse 30% 26% at 9% 72%, rgba(32, 44, 59, 0.20) 0%, transparent 76%),
+        linear-gradient(118deg, transparent 0 61%, rgba(32, 44, 59, 0.10) 61.1% 61.35%, transparent 61.45%),
+        repeating-linear-gradient(132deg, transparent 0 188px, rgba(157, 174, 194, 0.045) 189px 190px, transparent 191px 376px);
+      opacity: 0.92;
     }
 
     body::after {
       background:
-        repeating-radial-gradient(ellipse at 88% 18%, transparent 0 76px, rgba(120, 143, 171, 0.10) 77px 78px, transparent 79px 116px);
-      -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.15) 35%, #000 100%);
-      mask-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.15) 35%, #000 100%);
-      opacity: 0.38;
+        repeating-radial-gradient(ellipse 66% 48% at 91% 17%, transparent 0 82px, rgba(139, 159, 184, 0.075) 83px 84px, transparent 85px 124px),
+        linear-gradient(90deg, #080808 0%, transparent 24%, transparent 100%);
+      -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.12) 28%, #000 100%);
+      mask-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.12) 28%, #000 100%);
+      opacity: 0.42;
     }
 
     a {
@@ -20712,12 +20714,15 @@ AABJRU5ErkJggg==
     .hero::before {
       content: "";
       position: absolute;
-      inset: 70px 0 0 38%;
+      inset: 70px 0 0 34%;
       z-index: -1;
       pointer-events: none;
       background:
-        linear-gradient(128deg, transparent 0 44%, rgba(32, 44, 59, 0.18) 44.1% 44.35%, transparent 44.45%),
-        linear-gradient(128deg, transparent 0 68%, rgba(117, 139, 164, 0.08) 68.1% 68.25%, transparent 68.35%);
+        linear-gradient(132deg, transparent 0 27%, rgba(32, 44, 59, 0.22) 27.1% 27.35%, transparent 27.45%),
+        linear-gradient(132deg, transparent 0 54%, rgba(150, 169, 191, 0.075) 54.1% 54.22%, transparent 54.32%),
+        linear-gradient(132deg, transparent 0 78%, rgba(32, 44, 59, 0.16) 78.1% 78.45%, transparent 78.55%),
+        repeating-linear-gradient(0deg, transparent 0 118px, rgba(150, 169, 191, 0.025) 119px 120px, transparent 121px 238px);
+      clip-path: polygon(8% 0, 100% 0, 100% 100%, 0 100%);
     }
 
     .hero-grid {
@@ -20871,6 +20876,28 @@ AABJRU5ErkJggg==
         radial-gradient(circle at 52% 45%, rgba(32, 44, 59, 0.62), transparent 56%),
         linear-gradient(135deg, #17202b, #080808 76%);
 
+    }
+
+    .hero-visual::before {
+      content: "";
+      position: absolute;
+      inset: -18%;
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse at 52% 46%, rgba(32, 44, 59, 0.34) 0%, transparent 54%),
+        repeating-radial-gradient(ellipse at 48% 50%, transparent 0 54px, rgba(161, 179, 201, 0.075) 55px 56px, transparent 57px 86px);
+      transform: rotate(-13deg) scale(1.08);
+      opacity: 0.72;
+    }
+
+    .hero-visual::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(116deg, transparent 0 48%, rgba(165, 182, 204, 0.10) 48.1% 48.25%, transparent 48.35%),
+        linear-gradient(116deg, transparent 0 72%, rgba(32, 44, 59, 0.42) 72.1% 72.5%, transparent 72.6%);
     }
 
     .symbol-container {
