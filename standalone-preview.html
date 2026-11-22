@@ -20854,6 +20854,12 @@ AABJRU5ErkJggg==
        HERO VISUAL
     ========================== */
 
+    .hero-art {
+      position: relative;
+      min-width: 0;
+      height: 600px;
+    }
+
     .hero-visual {
 
       height: 600px;
@@ -20899,20 +20905,18 @@ AABJRU5ErkJggg==
     }
 
     .symbol-container {
-      position: relative;
-      z-index: 1;
-
-  width: 340px;
-
-  height: 340px;
-
-  display: flex;
-
-  justify-content: center;
-
-  align-items: center;
-
-}
+      position: absolute;
+      z-index: 2;
+      width: 340px;
+      height: 420px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      top: 50%;
+      right: -42px;
+      transform: translateY(-50%);
+      pointer-events: none;
+    }
 
 .anomaly-symbol {
 
@@ -21590,8 +21594,21 @@ img {
         grid-template-columns: 1fr;
       }
 
+      .hero-art {
+        height: 420px;
+        margin-top: 12px;
+      }
+
       .hero-visual {
         height: 420px;
+      }
+
+      .symbol-container {
+        width: min(270px, 78vw);
+        height: 340px;
+        right: -8px;
+        top: -28px;
+        transform: none;
       }
 
       .products {
@@ -22727,11 +22744,18 @@ ioYY8zCjmV0L7N/wZzYEjz3EZMbl6rwP40AnPcWxcVohZpb6ycU5GaIJ5mZW
       </div>
 
 
-      <div class="hero-visual">
+      <div class="hero-art">
 
-        <!-- Temporary symbol placeholder -->
+        <div class="hero-visual">
+          <div class="hero-code">
+            ANM-001
+          </div>
+          <div class="hero-classification">
+            CLASSIFICATION: ANOMALY
+          </div>
+        </div>
 
-       <div class="symbol-container">
+        <div class="symbol-container">
   <img
     src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAYkAAAIiCAYAAAA97jQNAAAAAXNSR0IArs4c
 6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAP+lSURB
@@ -27876,8 +27900,10 @@ AABJRU5ErkJggg==
     fetchpriority="high"
   >
 </div>
-        <div class="hero-code">
-          ANM-001
+
+      </div>
+
+    </div>
         </div>
 
         <div class="hero-classification">
