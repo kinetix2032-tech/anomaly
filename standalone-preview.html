@@ -20609,19 +20609,21 @@ AABJRU5ErkJggg==
 
     body::before {
       background:
-        linear-gradient(132deg, transparent 0 46%, rgba(32, 44, 59, 0.30) 46.1% 64%, transparent 64.1%),
-        linear-gradient(132deg, transparent 0 58%, rgba(10, 15, 22, 0.92) 58.1% 74%, transparent 74.1%),
-        linear-gradient(42deg, transparent 0 70%, rgba(32, 44, 59, 0.22) 70.1% 88%, transparent 88.1%),
-        linear-gradient(90deg, #080808 0%, rgba(8, 8, 8, 0.96) 38%, rgba(8, 8, 8, 0.18) 100%);
-      opacity: 0.88;
+        linear-gradient(132deg, transparent 0 24%, rgba(32, 44, 59, 0.34) 24.1% 39%, transparent 39.1%),
+        linear-gradient(132deg, transparent 0 53%, rgba(32, 44, 59, 0.20) 53.1% 68%, transparent 68.1%),
+        linear-gradient(42deg, transparent 0 68%, rgba(10, 15, 22, 0.96) 68.1% 82%, transparent 82.1%),
+        linear-gradient(132deg, transparent 0 82%, rgba(42, 58, 77, 0.26) 82.1% 94%, transparent 94.1%),
+        linear-gradient(90deg, #080808 0%, rgba(8, 8, 8, 0.96) 42%, rgba(8, 8, 8, 0.30) 100%);
+      opacity: 0.96;
     }
 
     body::after {
       background:
-        linear-gradient(90deg, transparent 0 72%, rgba(145, 164, 187, 0.12) 72.05% 72.18%, transparent 72.25%),
-        linear-gradient(0deg, transparent 0 24%, rgba(145, 164, 187, 0.08) 24.05% 24.16%, transparent 24.23%),
-        linear-gradient(132deg, transparent 0 76%, rgba(32, 44, 59, 0.44) 76.1% 76.5%, transparent 76.6%);
-      opacity: 0.55;
+        linear-gradient(90deg, transparent 0 18%, rgba(145, 164, 187, 0.10) 18.05% 18.16%, transparent 18.23%),
+        linear-gradient(90deg, transparent 0 76%, rgba(145, 164, 187, 0.14) 76.05% 76.17%, transparent 76.24%),
+        linear-gradient(0deg, transparent 0 18%, rgba(145, 164, 187, 0.09) 18.05% 18.16%, transparent 18.23%),
+        linear-gradient(0deg, transparent 0 82%, rgba(145, 164, 187, 0.07) 82.05% 82.16%, transparent 82.23%);
+      opacity: 0.72;
     }
 
     a {
@@ -20721,6 +20723,7 @@ AABJRU5ErkJggg==
         linear-gradient(132deg, transparent 0 52%, rgba(20, 28, 39, 0.78) 52.1% 72%, transparent 72.1%),
         linear-gradient(42deg, transparent 0 72%, rgba(32, 44, 59, 0.24) 72.1% 90%, transparent 90.1%);
       clip-path: polygon(8% 0, 100% 0, 100% 100%, 0 100%);
+      display: none;
     }
 
     .hero-grid {
@@ -20870,32 +20873,15 @@ AABJRU5ErkJggg==
 
       overflow: hidden;
 
-      background:
-        linear-gradient(138deg, #202C3B 0%, #111923 35%, #080808 78%);
+      background: #08090B;
+      isolation: isolate;
     }
 
-    .hero-visual::before {
-      content: "";
-      position: absolute;
-      inset: -8% -18%;
-      pointer-events: none;
-      background:
-        linear-gradient(132deg, transparent 0 28%, rgba(6, 8, 12, 0.82) 28.1% 45%, transparent 45.1%),
-        linear-gradient(132deg, transparent 0 53%, rgba(73, 91, 113, 0.24) 53.1% 72%, transparent 72.1%),
-        linear-gradient(42deg, transparent 0 66%, rgba(8, 8, 8, 0.88) 66.1% 82%, transparent 82.1%);
-      transform: rotate(-4deg);
-      opacity: 0.9;
-    }
-
+    /* Keep the logo panel completely clear: no geometry, grid or texture. */
+    .hero-visual::before,
     .hero-visual::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      background:
-        linear-gradient(90deg, transparent 0 18%, rgba(175, 190, 208, 0.13) 18.1% 18.25%, transparent 18.35%),
-        linear-gradient(0deg, transparent 0 78%, rgba(175, 190, 208, 0.10) 78.1% 78.25%, transparent 78.35%);
-      z-index: 0;
+      content: none;
+      display: none;
     }
 
     .symbol-container {
