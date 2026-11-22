@@ -21675,6 +21675,19 @@ img {
 
     .cart-count[hidden] { display: none; }
 
+
+    /* CHARCOAL-BLUE HOVER — all interactive options outside the navigation and shop */
+    a:not(.nav-logo):not(.product):not(.nav-links a):not(.mobile-menu a):hover,
+    .footer-links a:hover,
+    .view-all:hover,
+    .button:hover,
+    .newsletter button:hover {
+      background-color: var(--charcoal-blue);
+      border-color: var(--charcoal-blue);
+      color: var(--white) !important;
+      transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+    }
+
 </style>
 
 </head>
