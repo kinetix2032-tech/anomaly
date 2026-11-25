@@ -1145,6 +1145,8 @@ img {
     .footer-links a:hover,
     .view-all:hover,
     .button:hover,
+    .button.primary:hover,
+    .button.secondary:hover,
     .newsletter button:hover {
       background-color: var(--charcoal-blue);
       border-color: var(--charcoal-blue);
@@ -1649,14 +1651,17 @@ img {
   /* MARKET-AWARE CART COUNT */
   function updateCartCount() {
     let cart = [];
-    const cartKey = localStorage.getItem('anomalyMarket') === 'zambia'
-      ? 'anomalyCartZambia'
-      : 'anomalyCart';
+    let market = 'international';
 
     try {
+      market = localStorage.getItem('anomalyMarket') === 'zambia'
+        ? 'zambia'
+        : 'international';
+      const cartKey = market === 'zambia' ? 'anomalyCartZambia' : 'anomalyCart';
       const saved = JSON.parse(localStorage.getItem(cartKey) || '[]');
       if (Array.isArray(saved)) cart = saved;
     } catch (error) {
+      // Storage can be unavailable in private or restricted browsing contexts.
       cart = [];
     }
 
@@ -1686,34 +1691,43 @@ img {
   const menuToggle = document.querySelector('.menu-toggle');
   const mobileMenu = document.querySelector('.mobile-menu');
 
-  const closeMenu = () => {
-    mobileMenu.classList.remove('active');
-    menuToggle.setAttribute('aria-expanded', 'false');
-    menuToggle.setAttribute('aria-label', 'Open navigation');
-    document.body.classList.remove('menu-open');
-  };
+  if (menuToggle && mobileMenu) {
+    const closeMenu = () => {
+      mobileMenu.classList.remove('active');
+      menuToggle.setAttribute('aria-expanded', 'false');
+      menuToggle.setAttribute('aria-label', 'Open navigation');
+      document.body.classList.remove('menu-open');
+    };
 
-  menuToggle.addEventListener('click', () => {
-    const isOpen = mobileMenu.classList.toggle('active');
-    menuToggle.setAttribute('aria-expanded', String(isOpen));
-    menuToggle.setAttribute('aria-label', isOpen ? 'Close navigation' : 'Open navigation');
-    document.body.classList.toggle('menu-open', isOpen);
-  });
+    menuToggle.addEventListener('click', () => {
+      const isOpen = mobileMenu.classList.toggle('active');
+      menuToggle.setAttribute('aria-expanded', String(isOpen));
+      menuToggle.setAttribute('aria-label', isOpen ? 'Close navigation' : 'Open navigation');
+      document.body.classList.toggle('menu-open', isOpen);
+    });
 
-  document.querySelectorAll('.mobile-menu a').forEach((link) => {
-    link.addEventListener('click', closeMenu);
-  });
+    document.querySelectorAll('.mobile-menu a').forEach((link) => {
+      link.addEventListener('click', closeMenu);
+    });
 
-  document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape' && mobileMenu.classList.contains('active')) {
-      closeMenu();
-      menuToggle.focus();
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && mobileMenu.classList.contains('active')) {
+        closeMenu();
+        menuToggle.focus();
+      }
+    });
+
+    const desktopQuery = window.matchMedia('(min-width: 701px)');
+    if (typeof desktopQuery.addEventListener === 'function') {
+      desktopQuery.addEventListener('change', (event) => {
+        if (event.matches) closeMenu();
+      });
+    } else if (typeof desktopQuery.addListener === 'function') {
+      desktopQuery.addListener((event) => {
+        if (event.matches) closeMenu();
+      });
     }
-  });
-
-  window.matchMedia('(min-width: 701px)').addEventListener('change', (event) => {
-    if (event.matches) closeMenu();
-  });
+  }
 </script>
 </body>
 
