@@ -45,6 +45,7 @@
       --light-grey: #9a9a9a;
       --white: #f5f5f5;
       --border: #292929;
+      --charcoal-blue: #202C3B;
     }
 
     html {
@@ -56,6 +57,37 @@
       color: var(--white);
       font-family: Arial, Helvetica, sans-serif;
       overflow-x: hidden;
+      position: relative;
+      isolation: isolate;
+    }
+
+    /* ANOMALY BACKGROUND — brutalist architectural planes */
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    body::before {
+      background:
+        linear-gradient(132deg, transparent 0 24%, rgba(32, 44, 59, 0.34) 24.1% 39%, transparent 39.1%),
+        linear-gradient(132deg, transparent 0 53%, rgba(32, 44, 59, 0.20) 53.1% 68%, transparent 68.1%),
+        linear-gradient(42deg, transparent 0 68%, rgba(10, 15, 22, 0.96) 68.1% 82%, transparent 82.1%),
+        linear-gradient(132deg, transparent 0 82%, rgba(42, 58, 77, 0.26) 82.1% 94%, transparent 94.1%),
+        linear-gradient(90deg, #080808 0%, rgba(8, 8, 8, 0.96) 42%, rgba(8, 8, 8, 0.30) 100%);
+      opacity: 0.96;
+    }
+
+    body::after {
+      background:
+        linear-gradient(90deg, transparent 0 18%, rgba(145, 164, 187, 0.10) 18.05% 18.16%, transparent 18.23%),
+        linear-gradient(90deg, transparent 0 76%, rgba(145, 164, 187, 0.14) 76.05% 76.17%, transparent 76.24%),
+        linear-gradient(0deg, transparent 0 18%, rgba(145, 164, 187, 0.09) 18.05% 18.16%, transparent 18.23%),
+        linear-gradient(0deg, transparent 0 82%, rgba(145, 164, 187, 0.07) 82.05% 82.16%, transparent 82.23%);
+      opacity: 0.72;
     }
 
     a {
@@ -139,7 +171,23 @@
 
       display: flex;
       align-items: center;
+      position: relative;
+      isolation: isolate;
 
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 70px 0 0 34%;
+      z-index: -1;
+      pointer-events: none;
+      background:
+        linear-gradient(132deg, transparent 0 24%, rgba(32, 44, 59, 0.28) 24.1% 48%, transparent 48.1%),
+        linear-gradient(132deg, transparent 0 52%, rgba(20, 28, 39, 0.78) 52.1% 72%, transparent 72.1%),
+        linear-gradient(42deg, transparent 0 72%, rgba(32, 44, 59, 0.24) 72.1% 90%, transparent 90.1%);
+      clip-path: polygon(8% 0, 100% 0, 100% 100%, 0 100%);
+      display: none;
     }
 
     .hero-grid {
@@ -289,17 +337,20 @@
 
       overflow: hidden;
 
-      background:
+      background: #08090B;
+      isolation: isolate;
+    }
 
-        linear-gradient(
-          135deg,
-          #111,
-          #080808
-        );
-
+    /* Keep the logo panel completely clear: no geometry, grid or texture. */
+    .hero-visual::before,
+    .hero-visual::after {
+      content: none;
+      display: none;
     }
 
     .symbol-container {
+      position: relative;
+      z-index: 1;
 
   width: 340px;
 
@@ -1089,8 +1140,19 @@ img {
     .cart-count[hidden] { display: none; }
 
 
-    
-    </style>
+    /* CHARCOAL-BLUE HOVER — all interactive options outside the navigation and shop */
+    a:not(.nav-logo):not(.product):not(.nav-links a):not(.mobile-menu a):hover,
+    .footer-links a:hover,
+    .view-all:hover,
+    .button:hover,
+    .newsletter button:hover {
+      background-color: var(--charcoal-blue);
+      border-color: var(--charcoal-blue);
+      color: var(--white) !important;
+      transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+    }
+
+</style>
 
 </head>
 
